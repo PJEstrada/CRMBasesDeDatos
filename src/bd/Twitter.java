@@ -28,7 +28,7 @@ import org.json.simple.JSONValue;
 
 /**
  *
- * @author pablo
+ * @author pabloASDASDASADSADS
  */
 public class Twitter {
     
