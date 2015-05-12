@@ -5,7 +5,6 @@
  */
 package bd;
 
-import crm.bases.de.datos.*;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -145,13 +144,32 @@ public class Twitter {
             }
     }
     
-    public static ArrayList<Tweet> obtener15TweetDelUsuario(String username){
+    public static ArrayList<Tweet> obtener15TweetDelUsuario(String username) throws IOException{
         ArrayList<Tweet> result= new ArrayList<Tweet>();
-        String url = "https://api.twitter.com/1.1/statuses/user_timeline.json?q=from%3A"+username;   
+        String Stringurl = "https://api.twitter.com/1.1/statuses/user_timeline.json?q=from%3A"+username;   
         HttpsURLConnection connection = null;
         
         try{
-        
+            URL url = new URL(Stringurl); 
+            connection = (HttpsURLConnection) url.openConnection();           
+            connection.setDoOutput(true);
+            connection.setDoInput(true); 
+            connection.setRequestMethod("GET"); 
+            connection.setRequestProperty("Host", "api.twitter.com");
+            connection.setRequestProperty("User-Agent", "Your Program Name");
+            connection.setRequestProperty("Authorization", "Bearer " + bearerToken);
+            connection.setUseCaches(false);
+
+
+            // Parse the JSON response into a JSON mapped object to fetch fields from.
+            JSONArray obj = (JSONArray)JSONValue.parse(readResponse(connection));
+
+            if (obj != null) {
+                    System.out.println(obj.toJSONString());
+                    
+                    return result;
+            }
+            return null;        
         }
         
         catch(MalformedURLException e){

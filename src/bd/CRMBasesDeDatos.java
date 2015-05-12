@@ -5,7 +5,8 @@
  */
 package bd;
 
-import crm.bases.de.datos.*;
+
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -20,7 +21,7 @@ public class CRMBasesDeDatos {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         
         /* Pasos para conectarse a Postgre*/
         //1.Import
@@ -32,6 +33,7 @@ public class CRMBasesDeDatos {
         //7.Close connection    
         
         Twitter twitter = new Twitter();
+        Twitter.obtener15TweetDelUsuario("neto_sol22");
         
         
         try{
