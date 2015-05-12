@@ -146,7 +146,7 @@ public class Twitter {
     
     public static ArrayList<Tweet> obtener15TweetDelUsuario(String username) throws IOException{
         ArrayList<Tweet> result= new ArrayList<Tweet>();
-        String Stringurl = "https://api.twitter.com/1.1/statuses/user_timeline.json?q=from%3A"+username;   
+        String Stringurl = "https://api.twitter.com/1.1/search/tweets.json?q=%40"+username;   
         HttpsURLConnection connection = null;
         
         try{
@@ -156,16 +156,21 @@ public class Twitter {
             connection.setDoInput(true); 
             connection.setRequestMethod("GET"); 
             connection.setRequestProperty("Host", "api.twitter.com");
-            connection.setRequestProperty("User-Agent", "Your Program Name");
+            connection.setRequestProperty("User-Agent", "CRMBD-CC3040");
             connection.setRequestProperty("Authorization", "Bearer " + bearerToken);
             connection.setUseCaches(false);
 
 
             // Parse the JSON response into a JSON mapped object to fetch fields from.
-            JSONArray obj = (JSONArray)JSONValue.parse(readResponse(connection));
+            JSONObject obj = (JSONObject)JSONValue.parse(readResponse(connection));
+            JSONArray ar = (JSONArray) obj.get("statuses");
 
             if (obj != null) {
-                    System.out.println(obj.toJSONString());
+                for(int i =0; i<obj.size();i++){
+                    String tweetText = ((JSONObject)obj.get(i)).get("text").toString();
+                    System.out.println(tweetText);
+                }
+                    
                     
                     return result;
             }
@@ -215,5 +220,6 @@ public class Twitter {
                     return str.toString();
             }
             catch (IOException e) { return new String(); }
-    }      
+    } 
+    
 }
