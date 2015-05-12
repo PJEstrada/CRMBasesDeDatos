@@ -149,7 +149,7 @@ public class Twitter {
         String url = "https://api.twitter.com/1.1/statuses/user_timeline.json?q=from%3A"+username;   
         HttpsURLConnection connection = null;
         
-        try{
+        /*try{
         
         }
         
@@ -161,9 +161,9 @@ public class Twitter {
                 connection.disconnect();
             
             }
-        }
+        }*/
 
-        
+        return null;
     
     
     }
