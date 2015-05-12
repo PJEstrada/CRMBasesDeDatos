@@ -5,7 +5,6 @@
  */
 package bd;
 
-import crm.bases.de.datos.*;
 import java.sql.Date;
 import java.util.ArrayList;
 
