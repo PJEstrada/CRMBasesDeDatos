@@ -1,0 +1,8 @@
+{
+username: 'holaMundo',
+idCliente: 52,
+text: 'Este es el tweet.',
+hashtags: ['hola', 'hola2', 'adios'],
+fecha: '10-2-2015'
+
+}

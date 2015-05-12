@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package crm.bases.de.datos;
+package bd;
 
+import crm.bases.de.datos.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -28,7 +29,11 @@ public class CRMBasesDeDatos {
         //4.Create a Stmt object
         //5.Excute query
         //6.Process result
-        //7.Close connection        
+        //7.Close connection    
+        
+        Twitter twitter = new Twitter();
+        
+        
         try{
             String query = "SELECT * FROM asignacion";
             Class.forName("org.postgresql.Driver");
