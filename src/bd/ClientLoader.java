@@ -21,5 +21,5 @@ public class ClientLoader {
         3 = Float
         4 = Date
     */
-    public boolean     
+    //public boolean     
 }
