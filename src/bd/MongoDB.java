@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package bd;
+
 import com.mongodb.MongoClient;
 import com.mongodb.MongoException;
 import com.mongodb.WriteConcern;

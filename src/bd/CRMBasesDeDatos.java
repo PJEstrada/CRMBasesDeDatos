@@ -5,6 +5,9 @@
  */
 package bd;
 
+
+import java.io.IOException;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -19,7 +22,7 @@ public class CRMBasesDeDatos {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         
         /* Pasos para conectarse a Postgre*/
         //1.Import
@@ -31,6 +34,7 @@ public class CRMBasesDeDatos {
         //7.Close connection    
         
         Twitter twitter = new Twitter();
+        Twitter.obtener15TweetDelUsuario("ErnestoRiley");
         
         
         try{
@@ -44,7 +48,7 @@ public class CRMBasesDeDatos {
             
             while(rs.next()){
                String sname = "-"+rs.getString(1)+"-"+rs.getString(2)+"-"+rs.getString(3)+"-"+rs.getString(4)+"-"+rs.getString(5);
-               System.out.println(sname);
+               //System.out.println(sname);
             
             }
             con.close();
