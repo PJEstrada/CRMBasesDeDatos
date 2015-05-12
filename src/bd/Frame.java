@@ -216,4 +216,5 @@ public class Frame extends javax.swing.JFrame {
     private java.awt.ScrollPane scrollPane2;
     private java.awt.ScrollPane scrollPane3;
     // End of variables declaration//GEN-END:variables
+    //este metodo llenara el scroll pane con los panelitos
 }
