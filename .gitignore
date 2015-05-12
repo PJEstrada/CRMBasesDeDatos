@@ -1,2 +1,7 @@
 /build/
+<<<<<<< HEAD
 /nbproject/private/
+=======
+/nbproject/private/
+/dist/
+>>>>>>> origin/AL
