@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package bd;
-import crm.bases.de.datos.*;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoException;
 import com.mongodb.WriteConcern;

@@ -5,7 +5,6 @@
  */
 package bd;
 
-import crm.bases.de.datos.*;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
