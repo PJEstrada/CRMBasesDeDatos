@@ -21,6 +21,8 @@ import java.util.ArrayList;
 public class CRMBasesDeDatos {
 
     /**
+     * COMENTARIO 152
+     * 
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException {
