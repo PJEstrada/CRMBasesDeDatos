@@ -14,6 +14,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,7 +24,10 @@ import org.apache.commons.codec.binary.Base64;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
-
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.Locale;
 
 
 /**
@@ -146,7 +151,7 @@ public class Twitter {
     
     public static ArrayList<Tweet> obtener15TweetDelUsuario(String username) throws IOException{
         ArrayList<Tweet> result= new ArrayList<Tweet>();
-        String Stringurl = "https://api.twitter.com/1.1/search/tweets.json?q=%40"+username;   
+        String Stringurl = "https://api.twitter.com/1.1/search/tweets.json?q=from%3A"+username;   
         HttpsURLConnection connection = null;
         
         try{
@@ -166,8 +171,55 @@ public class Twitter {
             JSONArray ar = (JSONArray) obj.get("statuses");
 
             if (obj != null) {
-                for(int i =0; i<obj.size();i++){
-                    String tweetText = ((JSONObject)obj.get(i)).get("text").toString();
+                for(int i =0; i<ar.size();i++){
+                    String tweetText = ((JSONObject)ar.get(i)).get("text").toString();
+                    String user = username;
+                    String dateString = ((JSONObject)ar.get(i)).get("created_at").toString();
+                    // Ej: "Tue May 12 19:58:26 +0000 2015"
+                    String TWITTER="EEE MMM dd HH:mm:ss ZZZZZ yyyy";
+                    SimpleDateFormat sf = new SimpleDateFormat(TWITTER,Locale.ENGLISH);
+                    Date d = sf.parse(dateString);
+                    LocalDate localDate = LocalDate.parse( new SimpleDateFormat("yyyy-MM-dd").format(d) );
+                    Tweet t = new Tweet();
+                    //Setienaod texto fecha y usuario
+                    t.texto = tweetText;
+                    t.fecha = localDate;
+                    t.userName=username;
+                    
+                    //Obteniendo hashtags
+                    JSONObject entities = (JSONObject) ((JSONObject)ar.get(i)).get("entities");
+                    JSONArray hashtags = (JSONArray) entities.get("hashtags");
+                    
+                    
+                    ArrayList<String> hs = new ArrayList<String>();
+                    for(Object j: hashtags){
+                        JSONObject jo = (JSONObject) j;
+                        String text = jo.get("text").toString();
+                        hs.add(text);
+                    }
+                    t.hashtags = new ArrayList<String>();
+                    t.hashtags.addAll(hs);
+                    //Obteniendo mentions
+                    JSONObject entities2 = (JSONObject) ((JSONObject)ar.get(i)).get("entities");
+                    JSONArray mentions = (JSONArray) entities.get("user_mentions");                    
+                     ArrayList<String> men = new ArrayList<String>();
+                    for(Object j: mentions){
+                        JSONObject jo = (JSONObject) j;
+                        String text = jo.get("name").toString();
+                        hs.add(text);
+                    }
+                    
+                    t.mentions = new ArrayList<String>();
+                    t.mentions.addAll(hs);
+                    result.add(t);
+                    
+                    
+                    
+                    
+
+                    
+                    
+                    
                     System.out.println(tweetText);
                 }
                     
@@ -177,8 +229,10 @@ public class Twitter {
             return null;        
         }
         
-        catch(MalformedURLException e){
+        catch(Exception e){
+            e.printStackTrace();
             throw new IOException("Invalid endpoint URL specified.", e);
+            
         }
         finally{
             if(connection!=null){

@@ -2,7 +2,7 @@
 
 CREATE TABLE industria
 (
-  id integer NOT NULL,
+  id SERIAL NOT NULL,
   nombre text,
   descripcion text,
   CONSTRAINT industria_pkey PRIMARY KEY (id)
@@ -13,7 +13,7 @@ WITH (
 
 CREATE TABLE empresa
 (
-  id integer NOT NULL,
+  id SERIAL NOT NULL,
   nombre text,
   cargo text,
   direccion text,
@@ -27,7 +27,7 @@ WITH (
 
 CREATE TABLE contacto
 (
-  id integer NOT NULL,
+  id SERIAL NOT NULL,
   telefono integer,
   direccion text,
   correo text,
@@ -41,7 +41,7 @@ WITH (
 
 CREATE TABLE socialdata
 (
-  id integer NOT NULL,
+  id SERIAL NOT NULL,
   facebook text,
   twitter text,
   "google+" text,
@@ -55,7 +55,7 @@ WITH (
 
 CREATE TABLE cliente
 (
-  id integer NOT NULL,
+  id SERIAL NOT NULL,
   nombre text,
   apellido text,
   rating double precision,
