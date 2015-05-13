@@ -149,7 +149,7 @@ public class Twitter {
             }
     }
     
-    public static ArrayList<Tweet> obtener15TweetDelUsuario(String username) throws IOException{
+    public static ArrayList<Tweet> obtener15TweetDelUsuario(String username,int idCliente, String nombreCliente) throws IOException{
         ArrayList<Tweet> result= new ArrayList<Tweet>();
         String Stringurl = "https://api.twitter.com/1.1/search/tweets.json?q=from%3A"+username;   
         HttpsURLConnection connection = null;
@@ -181,6 +181,9 @@ public class Twitter {
                     Date d = sf.parse(dateString);
                     LocalDate localDate = LocalDate.parse( new SimpleDateFormat("yyyy-MM-dd").format(d) );
                     Tweet t = new Tweet();
+                    t.idCliente = idCliente;
+                    t.nombreCliente = nombreCliente;
+                    
                     //Setienaod texto fecha y usuario
                     t.texto = tweetText;
                     t.fecha = localDate;

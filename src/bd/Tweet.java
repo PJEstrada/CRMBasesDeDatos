@@ -17,9 +17,11 @@ public class Tweet {
     
     String texto;
     int idCliente;
+    String nombreCliente;
     String userName;
     LocalDate fecha;
     ArrayList<String> hashtags;
+    int numHashtags;
     ArrayList<String> mentions;
     
     public Tweet(String t, int id, String user, ArrayList<String> hashtags, LocalDate fecha){
@@ -34,5 +36,41 @@ public class Tweet {
     public Tweet(){
         
     
+    }
+    
+    public ArrayList<String> toStringArrayList(){
+        ArrayList<String> result = new ArrayList<String>();
+        result.add(texto);
+        result.add(Integer.toString(idCliente));
+        result.add(nombreCliente);
+        result.add(userName);
+        result.add(fecha.toString());
+        int i =0;
+        String hs = "";
+        for(String s: this.hashtags){
+            if(i< this.hashtags.size()-1){
+               hs += s;          
+            }
+            else{
+                hs += s+", "; 
+            }
+
+             i++;
+        }
+        result.add(hs);
+        result.add(Integer.toString(this.numHashtags));
+        String men = "";
+        for(String s: this.mentions){
+            if(i< this.hashtags.size()-1){
+               men += s;          
+            }
+            else{
+                men += s+", "; 
+            }
+
+             i++;
+        }    
+        result.add(men);
+        return result;
     }
 }

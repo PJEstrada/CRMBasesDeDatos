@@ -5,6 +5,7 @@
  */
 package bd;
 
+import com.mongodb.BasicDBList;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoException;
 import com.mongodb.WriteConcern;
@@ -16,6 +17,7 @@ import com.mongodb.DBCursor;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Set;
@@ -54,19 +56,20 @@ public class MongoDB {
     
     public void addTweets(ArrayList<Tweet> tweets){
         for(Tweet tw: tweets){
-            BasicDBObject doc = new BasicDBObject("text",tw.texto).append("idCliente", tw.idCliente).append("userName", tw.userName).append("fecha", tw.fecha.toString());
-            ArrayList<BasicDBObject> hs = new ArrayList<BasicDBObject>();
+            BasicDBObject doc = new BasicDBObject("text",tw.texto).append("idCliente", tw.idCliente).append("nombreCliente", tw.nombreCliente).append("userName", tw.userName).append("fecha", tw.fecha.toString());
+              BasicDBList hs = new BasicDBList();
             
             for(String hasht: tw.hashtags){
-                hs.add(new BasicDBObject("text",hasht));
+                hs.add(hasht);
             
             }
             doc.append("hashtags", hs);
             
-             ArrayList<BasicDBObject> mentions = new ArrayList<BasicDBObject>();
+            doc.append("numHashtags", tw.hashtags.size());
+            BasicDBList mentions = new BasicDBList();
             
-            for(String men: tw.hashtags){
-                mentions.add(new BasicDBObject("text",men));
+            for(String men: tw.mentions){
+                mentions.add(men);
             
             }
             doc.append("mentions", mentions);       
@@ -78,9 +81,107 @@ public class MongoDB {
     
     }
     
-    public ArrayList<Tweet> buscarTweets(String nombreCliente, String texto, String userName, String hashtags){
-        return null;
-    
+    public ArrayList<Tweet> buscarTweets(String texto, ArrayList<String>  nombreClientes,  ArrayList<String> userNames, ArrayList<String> hashtags, ArrayList<String> mentions, int numHashtags){
+        BasicDBObject searchQuery = new BasicDBObject();
+        //Construyendo query texto del tweets
+        if(!texto.equals("")){
+            searchQuery.put("text",new BasicDBObject("search",texto));
+        }
+            
+        //Construyendo query or de nombres de cliente
+        if(!nombreClientes.isEmpty()){
+            ArrayList<BasicDBObject> clausulas = new ArrayList<BasicDBObject>();
+            for(String s: nombreClientes){
+                clausulas.add(new BasicDBObject("nombreCliente",s));
+
+            }
+            BasicDBList orclientes = new BasicDBList();
+            orclientes.addAll(clausulas);
+            searchQuery.put("$or",orclientes);       
+        
+        }
+        // Query paara usuarios
+        if(!userNames.isEmpty()){
+            ArrayList<BasicDBObject> clausulas = new ArrayList<BasicDBObject>();
+            for(String s: userNames){
+                clausulas.add(new BasicDBObject("userName",s));
+
+            }
+            BasicDBList orusers = new BasicDBList();
+            orusers.addAll(clausulas);
+            searchQuery.put("$or",orusers);            
+        
+        }
+        // Query paara de hashtags
+        if(!hashtags.isEmpty()){
+            ArrayList<BasicDBObject> clausulas = new ArrayList<BasicDBObject>();
+            for(String s: hashtags){
+                clausulas.add(new BasicDBObject("hashtags",s));
+
+            }
+            BasicDBList orusers = new BasicDBList();
+            orusers.addAll(clausulas);
+            searchQuery.put("$or",orusers);            
+        
+        }
+        // Query paara de mentions
+         if(!mentions.isEmpty()){
+            ArrayList<BasicDBObject> clausulas = new ArrayList<BasicDBObject>();
+            for(String s: mentions){
+                clausulas.add(new BasicDBObject("mentions",s));
+
+            }
+            BasicDBList ormentions = new BasicDBList();
+            ormentions.addAll(clausulas);
+            searchQuery.put("$or",ormentions);            
+        
+        }       
+         //Query para numero de hashtags
+        if(numHashtags!=-1){
+            searchQuery.put("numHashtags", numHashtags);
+            
+        
+        }
+        
+        
+        DBCursor cursor = this.collectionTweets.find(searchQuery);
+        
+        ArrayList<Tweet> result = new ArrayList<Tweet>();
+        while(cursor.hasNext()){
+            Tweet tweet = new Tweet();
+            DBObject current = cursor.next();
+            System.out.println("Tweet: "+current.get("text"));
+            tweet.texto = current.get("text").toString();
+            System.out.println("idCliente: "+current.get("idCliente"));
+            tweet.idCliente = Integer.parseInt(current.get("idCliente").toString());
+            System.out.println("NombreCliente: "+current.get("nombreCliente"));
+            tweet.nombreCliente = current.get("nombreCliente").toString();
+            System.out.println("User: "+current.get("userName"));
+            tweet.userName = current.get("userName").toString();
+            System.out.println("Fecha: "+current.get("fecha"));
+            tweet.fecha = LocalDate.parse(current.get("fecha").toString());
+            System.out.println("Hashtags: "+current.get("hashtags"));
+            BasicDBList asd = (BasicDBList)current.get("hashtags");
+            tweet.hashtags = new ArrayList<String>();
+            for(Object a: asd){
+                String s = (String)a;
+                tweet.hashtags.add(s);
+            }
+            System.out.println("Num Hashtags: "+current.get("numHashtags"));
+            tweet.numHashtags = Integer.parseInt(current.get("numHashtags").toString());
+            
+            System.out.println("Mentions: "+current.get("mentions"));
+            BasicDBList asd2 = (BasicDBList)current.get("mentions");
+            tweet.mentions = new ArrayList<String>();
+            for(Object a: asd2){
+                String s = (String)a;
+                tweet.mentions.add(s);
+            } 
+            result.add(tweet);
+        
+        }
+        return result;
+        
     
     }
 

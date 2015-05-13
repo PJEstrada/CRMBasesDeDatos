@@ -5,6 +5,12 @@
  */
 package bd;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import javax.swing.JTable;
+import javax.swing.table.TableColumnModel;
+
 /**
  *
  * @author Al
@@ -29,11 +35,6 @@ public class Frame extends javax.swing.JFrame {
 
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
-        PanelBusquedaHome = new javax.swing.JScrollPane();
-        PanelTablaHome = new javax.swing.JScrollPane();
-        TablaHome = new javax.swing.JTable();
-        BtnBuscarHome = new javax.swing.JButton();
-        BtnLimpiarHome = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jComboBox1 = new javax.swing.JComboBox();
@@ -43,57 +44,40 @@ public class Frame extends javax.swing.JFrame {
         jComboBox3 = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
         scrollPane3 = new java.awt.ScrollPane();
-        BtnEliminarCliente = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
+        panelSocial = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        fieldTexto = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        resultsTable = new javax.swing.JTable();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        fieldUsernames = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        fieldHashtags = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        fieldMentions = new javax.swing.JTextField();
+        fieldNumHashtags = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        buscar = new javax.swing.JButton();
+        icon = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jTabbedPane2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTabbedPane2MouseClicked(evt);
-            }
-        });
-
-        TablaHome.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        PanelTablaHome.setViewportView(TablaHome);
-
-        BtnBuscarHome.setText("Buscar");
-
-        BtnLimpiarHome.setText("Limpiar Campos");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PanelBusquedaHome)
-            .addComponent(PanelTablaHome)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(523, Short.MAX_VALUE)
-                .addComponent(BtnBuscarHome)
-                .addGap(364, 364, 364)
-                .addComponent(BtnLimpiarHome)
-                .addGap(36, 36, 36))
+            .addGap(0, 1046, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(PanelBusquedaHome, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
-                .addGap(28, 28, 28)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BtnLimpiarHome)
-                    .addComponent(BtnBuscarHome))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(PanelTablaHome, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGap(0, 853, Short.MAX_VALUE)
         );
 
         jTabbedPane2.addTab("Home", jPanel3);
@@ -102,11 +86,11 @@ public class Frame extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1095, Short.MAX_VALUE)
+            .addGap(0, 1046, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 849, Short.MAX_VALUE)
+            .addGap(0, 853, Short.MAX_VALUE)
         );
 
         jTabbedPane2.addTab("Agregar Cliente", jPanel4);
@@ -125,7 +109,7 @@ public class Frame extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 902, Short.MAX_VALUE)
+                .addComponent(scrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 840, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -138,7 +122,7 @@ public class Frame extends javax.swing.JFrame {
                 .addContainerGap(752, Short.MAX_VALUE))
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 829, Short.MAX_VALUE)
+                .addComponent(scrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 833, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -148,30 +132,17 @@ public class Frame extends javax.swing.JFrame {
 
         jLabel2.setText("Elegir el cliente a eliminar:");
 
-        BtnEliminarCliente.setText("Eliminar");
-        BtnEliminarCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnEliminarClienteActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(BtnEliminarCliente)
-                        .addGap(56, 56, 56)))
-                .addComponent(scrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 902, Short.MAX_VALUE)
+                    .addComponent(jLabel2)
+                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 849, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -181,26 +152,219 @@ public class Frame extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(BtnEliminarCliente)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(752, Short.MAX_VALUE))
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 829, Short.MAX_VALUE)
+                .addComponent(scrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 833, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         jTabbedPane2.addTab("Eliminar Cliente", jPanel6);
 
+        jLabel3.setText("Tweets Conteniendo:");
+
+        jLabel4.setText("De Los Clientes: ");
+
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jLabel5.setText("Separar por comas para varios clientes");
+
+        resultsTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Tweet", "Cliente", "ID del Cliente", "User Name", "Hashtags", "Mentions"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        resultsTable.setRowHeight(100);
+        jScrollPane1.setViewportView(resultsTable);
+
+        jLabel6.setText("Con Usernames:");
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jLabel7.setText("Separar por comas para varios usernames");
+
+        fieldUsernames.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldUsernamesActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setText("Con Hashtags:");
+
+        fieldHashtags.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldHashtagsActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setText("Con Mentions:");
+
+        fieldMentions.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldMentionsActionPerformed(evt);
+            }
+        });
+
+        fieldNumHashtags.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldNumHashtagsActionPerformed(evt);
+            }
+        });
+
+        jLabel10.setText("# de Hastags por Tweet:");
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jLabel11.setText("Separar por comas para varios hashtags");
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jLabel12.setText("Separar por comas para varios mentions");
+
+        buscar.setText("Buscar!");
+        buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarActionPerformed(evt);
+            }
+        });
+
+        icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bd/twitter.png"))); // NOI18N
+
+        javax.swing.GroupLayout panelSocialLayout = new javax.swing.GroupLayout(panelSocial);
+        panelSocial.setLayout(panelSocialLayout);
+        panelSocialLayout.setHorizontalGroup(
+            panelSocialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1)
+            .addGroup(panelSocialLayout.createSequentialGroup()
+                .addGroup(panelSocialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelSocialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelSocialLayout.createSequentialGroup()
+                        .addGroup(panelSocialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelSocialLayout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addComponent(fieldHashtags))
+                            .addComponent(fieldTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(panelSocialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelSocialLayout.createSequentialGroup()
+                                .addGap(32, 32, 32)
+                                .addComponent(jLabel4))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSocialLayout.createSequentialGroup()
+                                .addGap(33, 33, 33)
+                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(panelSocialLayout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(jLabel11)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelSocialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelSocialLayout.createSequentialGroup()
+                        .addGroup(panelSocialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(panelSocialLayout.createSequentialGroup()
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel6))
+                            .addComponent(jLabel5)
+                            .addGroup(panelSocialLayout.createSequentialGroup()
+                                .addComponent(fieldMentions, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel10)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelSocialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelSocialLayout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addContainerGap(60, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSocialLayout.createSequentialGroup()
+                                .addGroup(panelSocialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(fieldNumHashtags, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(fieldUsernames))
+                                .addGap(13, 13, 13))))
+                    .addGroup(panelSocialLayout.createSequentialGroup()
+                        .addGroup(panelSocialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel12)
+                            .addGroup(panelSocialLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSocialLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(icon, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        panelSocialLayout.setVerticalGroup(
+            panelSocialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSocialLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(panelSocialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(fieldTexto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fieldUsernames, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelSocialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelSocialLayout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(1, 1, 1))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSocialLayout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(panelSocialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(fieldHashtags, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9)
+                    .addComponent(fieldMentions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fieldNumHashtags, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelSocialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel12))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(icon, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1095, Short.MAX_VALUE)
+            .addComponent(panelSocial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 849, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelSocial, javax.swing.GroupLayout.PREFERRED_SIZE, 827, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jTabbedPane2.addTab("Social", jPanel7);
@@ -233,6 +397,82 @@ public class Frame extends javax.swing.JFrame {
     private void jTabbedPane2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane2MouseClicked
         
     }//GEN-LAST:event_jTabbedPane2MouseClicked
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void fieldUsernamesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldUsernamesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fieldUsernamesActionPerformed
+
+    private void fieldHashtagsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldHashtagsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fieldHashtagsActionPerformed
+
+    private void fieldMentionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldMentionsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fieldMentionsActionPerformed
+
+    private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
+        String texto = this.fieldTexto.getText();
+        List<String> clientes = Arrays.asList( this.fieldTexto.getText().split("\\s*,\\s*")); 
+        ArrayList<String> clientes2 = new ArrayList<String>();
+        if(!this.fieldTexto.getText().equals("")){
+            clientes2.addAll(clientes);
+        }
+        
+        
+        List<String> users = Arrays.asList( this.fieldUsernames.getText().split("\\s*,\\s*")); 
+        ArrayList<String> users2 = new ArrayList<String>();
+        if(!this.fieldUsernames.getText().equals("")){
+            users2.addAll(users); 
+        }
+           
+        
+        List<String> hashtags = Arrays.asList( this.fieldHashtags.getText().split("\\s*,\\s*")); 
+        ArrayList<String> hashtags2 = new ArrayList<String>();
+        if(!this.fieldHashtags.getText().equals("")){
+            hashtags2.addAll(hashtags); 
+        }        
+         
+        
+        List<String> mentions = Arrays.asList( this.fieldMentions.getText().split("\\s*,\\s*")); 
+        ArrayList<String> mentions2 = new ArrayList<String>();
+        if(!this.fieldMentions.getText().equals("")){
+            mentions2.addAll(mentions); 
+        }            
+        int numHashtags = -1;
+        if(this.fieldNumHashtags.getText().equals("")){
+            numHashtags = -1;
+        }
+        else{
+            numHashtags = Integer.parseInt(this.fieldNumHashtags.getText());
+        }
+        
+        MongoDB mongo = new MongoDB();
+        ArrayList<Tweet> tweets = mongo.buscarTweets(texto, clientes2, users2, hashtags2, mentions2, numHashtags);
+        String[] cols =     new String [] {
+                "Tweet", "Cliente", "ID del Cliente", "User Name", "Hashtags", "Mentions"
+            };          
+        
+        String[][] filasT = new String[tweets.size()][cols.length];
+        for(int i =0 ;i< tweets.size(); i++){
+            String[] filaI = new String[tweets.get(i).toStringArrayList().size()];
+            filaI = tweets.get(i).toStringArrayList().toArray(filaI);
+            filasT[i] = filaI;        
+        }
+        this.resultsTable.setModel(new javax.swing.table.DefaultTableModel(filasT,cols));
+        TableColumnModel cm = this.resultsTable.getColumnModel();
+        TextAreaRenderer textAreaRenderer = new TextAreaRenderer(); 
+        cm.getColumn(0).setCellRenderer(textAreaRenderer);
+
+      
+    }//GEN-LAST:event_buscarActionPerformed
+
+    private void fieldNumHashtagsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldNumHashtagsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fieldNumHashtagsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -270,22 +510,37 @@ public class Frame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BtnBuscarHome;
-    private javax.swing.JButton BtnEliminarCliente;
-    private javax.swing.JButton BtnLimpiarHome;
-    private javax.swing.JScrollPane PanelBusquedaHome;
-    private javax.swing.JScrollPane PanelTablaHome;
-    private javax.swing.JTable TablaHome;
+    private javax.swing.JButton buscar;
+    private javax.swing.JTextField fieldHashtags;
+    private javax.swing.JTextField fieldMentions;
+    private javax.swing.JTextField fieldNumHashtags;
+    private javax.swing.JTextField fieldTexto;
+    private javax.swing.JTextField fieldUsernames;
+    private javax.swing.JLabel icon;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPanel panelSocial;
+    private javax.swing.JTable resultsTable;
     private java.awt.ScrollPane scrollPane2;
     private java.awt.ScrollPane scrollPane3;
     // End of variables declaration//GEN-END:variables
