@@ -5,12 +5,12 @@
  */
 package bd;
 
-
 import java.io.IOException;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -47,9 +47,11 @@ public class CRMBasesDeDatos {
 
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(query);
-
+            ResultSetMetaData m = rs.getMetaData();
+            m.getColumnCount();
             
             while(rs.next()){
+                
                String sname = "-"+rs.getString(1)+"-"+rs.getString(2)+"-"+rs.getString(3)+"-"+rs.getString(4)+"-"+rs.getString(5);
                
                //System.out.println(sname);
