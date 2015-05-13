@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -34,8 +35,10 @@ public class CRMBasesDeDatos {
         //7.Close connection    
         
         Twitter twitter = new Twitter();
-        Twitter.obtener15TweetDelUsuario("ErnestoRiley");
+        ArrayList<Tweet> tweets = Twitter.obtener15TweetDelUsuario("NintendoAmerica");
         
+        MongoDB mongo = new MongoDB();
+        mongo.addTweets(tweets);
         
         try{
             String query = "SELECT * FROM asignacion";
@@ -48,6 +51,7 @@ public class CRMBasesDeDatos {
             
             while(rs.next()){
                String sname = "-"+rs.getString(1)+"-"+rs.getString(2)+"-"+rs.getString(3)+"-"+rs.getString(4)+"-"+rs.getString(5);
+               
                //System.out.println(sname);
             
             }

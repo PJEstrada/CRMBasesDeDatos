@@ -5,7 +5,7 @@
  */
 package bd;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -18,10 +18,11 @@ public class Tweet {
     String texto;
     int idCliente;
     String userName;
+    LocalDate fecha;
     ArrayList<String> hashtags;
-    Date fecha;
+    ArrayList<String> mentions;
     
-    public Tweet(String t, int id, String user, ArrayList<String> hashtags, Date fecha){
+    public Tweet(String t, int id, String user, ArrayList<String> hashtags, LocalDate fecha){
         this.texto = t;
         this.idCliente = id;
         this.userName = user;
@@ -30,5 +31,8 @@ public class Tweet {
     
     
     }
+    public Tweet(){
+        
     
+    }
 }
