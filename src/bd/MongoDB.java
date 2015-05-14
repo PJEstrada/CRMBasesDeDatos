@@ -82,6 +82,56 @@ public class MongoDB {
     
     }
     
+    public ArrayList<Tweet> obtenerTweetsCliente(int idCliente){
+        BasicDBObject searchQuery = new BasicDBObject("idCliente",idCliente);
+        DBCursor cursor = this.collectionTweets.find(searchQuery);
+        ArrayList<Tweet> result = new ArrayList<Tweet>();
+        while(cursor.hasNext()){
+            Tweet tweet = new Tweet();
+            DBObject current = cursor.next();
+            System.out.println("Tweet: "+current.get("text"));
+            tweet.texto = current.get("text").toString();
+            System.out.println("idCliente: "+current.get("idCliente"));
+            tweet.idCliente = Integer.parseInt(current.get("idCliente").toString());
+            System.out.println("NombreCliente: "+current.get("nombreCliente"));
+            tweet.nombreCliente = current.get("nombreCliente").toString();
+            System.out.println("User: "+current.get("userName"));
+            tweet.userName = current.get("userName").toString();
+            System.out.println("Fecha: "+current.get("fecha"));
+            tweet.fecha = LocalDate.parse(current.get("fecha").toString());
+            System.out.println("Hashtags: "+current.get("hashtags"));
+            BasicDBList asd = (BasicDBList)current.get("hashtags");
+            tweet.hashtags = new ArrayList<String>();
+            for(Object a: asd){
+                String s = (String)a;
+                tweet.hashtags.add(s);
+            }
+            System.out.println("Num Hashtags: "+current.get("numHashtags"));
+            tweet.numHashtags = Integer.parseInt(current.get("numHashtags").toString());
+            
+            System.out.println("Mentions: "+current.get("mentions"));
+            BasicDBList asd2 = (BasicDBList)current.get("mentions");
+            tweet.mentions = new ArrayList<String>();
+            for(Object a: asd2){
+                String s = (String)a;
+                tweet.mentions.add(s);
+            } 
+            result.add(tweet);
+        
+        }
+        return result;
+                
+        
+    }
+    
+    public void eliminarTweetsClientes(int idCliente){
+        BasicDBObject query = new BasicDBObject("idCliente",idCliente);
+        this.collectionTweets.remove(query);
+        
+        
+
+    }
+    
     public ArrayList<Tweet> buscarTweets(String texto, ArrayList<String>  nombreClientes,  ArrayList<String> userNames, ArrayList<String> hashtags, ArrayList<String> mentions, int numHashtags){
         BasicDBObject searchQuery = new BasicDBObject();
         //Construyendo query texto del tweets
