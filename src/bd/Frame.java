@@ -5,11 +5,20 @@
  */
 package bd;
 
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.table.TableColumnModel;
 
 /**
@@ -17,12 +26,27 @@ import javax.swing.table.TableColumnModel;
  * @author Al
  */
 public class Frame extends javax.swing.JFrame {
-    Postgre miPostgre = new Postgre();
     /**
      * Creates new form Frame
      */
+    ArrayList<Integer> idsSelectedInUpdate = new ArrayList();
     public Frame() {
+        try{
+            Postgre miPostgre = new Postgre();
+        }catch(Exception e){}
         initComponents();
+        jTabbedPane2.addChangeListener(new ChangeListener(){
+
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                System.out.println("Tab: "+jTabbedPane2.getSelectedIndex());
+                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                if(jTabbedPane2.getSelectedIndex() == 2){
+                    jComboBox1.setModel(new DefaultComboBoxModel(getNameFromPostgre()));
+                }
+            }
+            
+        });
     }
 
     /**
@@ -97,6 +121,11 @@ public class Frame extends javax.swing.JFrame {
         jTabbedPane2.addTab("Agregar Cliente", jPanel4);
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Elegir el cliente a actualizar:");
 
@@ -485,6 +514,33 @@ public class Frame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_fieldNumHashtagsActionPerformed
 
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+    
+    private String[] getNameFromPostgre(){
+        ArrayList<String> namePersona = new ArrayList();
+        String query = "SELECT nombre FROM cliente";
+        Statement st;
+        try {
+            st = Postgre.bdConnection.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            ResultSetMetaData m = rs.getMetaData();
+            
+            while(rs.next()){
+                String nombreAdd = rs.getString(2);
+                namePersona.add(nombreAdd);
+                int numeroId = Integer.parseInt(rs.getString(1));
+                idsSelectedInUpdate.add(numeroId);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String[] nombresToReturn = new String[namePersona.size()];
+        namePersona.toArray(nombresToReturn);
+        return nombresToReturn;
+    }
     /**
      * @param args the command line arguments
      */
