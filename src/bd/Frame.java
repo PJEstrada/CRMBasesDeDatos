@@ -5,6 +5,8 @@
  */
 package bd;
 
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -14,8 +16,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -29,7 +33,9 @@ public class Frame extends javax.swing.JFrame {
     /**
      * Creates new form Frame
      */
+    JPanel jPanel4 = new JPanel();
     ArrayList<Integer> idsSelectedInUpdate = new ArrayList();
+    ClientLoader loader = new ClientLoader();
     public Frame() {
         try{
             Postgre miPostgre = new Postgre();
@@ -44,8 +50,11 @@ public class Frame extends javax.swing.JFrame {
                 if(jTabbedPane2.getSelectedIndex() == 2){
                     jComboBox1.setModel(new DefaultComboBoxModel(getNameFromPostgre()));
                 }
-            }
-            
+                else if(jTabbedPane2.getSelectedIndex() == 1){
+                    createAreasForNewUser();
+                    
+                }
+            }  
         });
     }
 
@@ -60,6 +69,7 @@ public class Frame extends javax.swing.JFrame {
 
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
+        panelNewUser = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -145,18 +155,18 @@ public class Frame extends javax.swing.JFrame {
 
         jTabbedPane2.addTab("Home", jPanel3);
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout panelNewUserLayout = new javax.swing.GroupLayout(panelNewUser);
+        panelNewUser.setLayout(panelNewUserLayout);
+        panelNewUserLayout.setHorizontalGroup(
+            panelNewUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 1052, Short.MAX_VALUE)
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        panelNewUserLayout.setVerticalGroup(
+            panelNewUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 853, Short.MAX_VALUE)
         );
 
-        jTabbedPane2.addTab("Agregar Cliente", jPanel4);
+        jTabbedPane2.addTab("Agregar Cliente", panelNewUser);
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -559,7 +569,7 @@ public class Frame extends javax.swing.JFrame {
     
     private String[] getNameFromPostgre(){
         ArrayList<String> namePersona = new ArrayList();
-        String query = "SELECT nombre FROM cliente";
+        String query = "SELECT id, nombre FROM cliente";
         Statement st;
         try {
             st = Postgre.bdConnection.createStatement();
@@ -579,10 +589,43 @@ public class Frame extends javax.swing.JFrame {
         namePersona.toArray(nombresToReturn);
         return nombresToReturn;
     }
+    //metodo para llenar el elementos al add user
+    private void createAreasForNewUser(){
+        ArrayList<PairTypeField> nombresLabels = new ArrayList();
+        String query = "SELECT * FROM (((cliente JOIN contacto ON (cliente.contacto_idcontacto = contacto.id))\n" +
+                        "JOIN empresa ON (cliente.empresa_idempresa = empresa.id))\n" +
+                        "JOIN industria ON (cliente.industria_idindustria = industria.id)\n" +
+                        "JOIN socialdata ON (cliente.socialdata_idsocialdata = socialdata.id)) WHERE id = -1";
+        Statement st;
+        try {
+            st = Postgre.bdConnection.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            ResultSetMetaData m = rs.getMetaData();
+            for(int i = 1; i< m.getColumnCount();i++){
+                String tipoColumna = m.getColumnTypeName(i);
+                String nombreColumna = m.getColumnName(i);
+                PairTypeField par = new PairTypeField(tipoColumna,nombreColumna);
+                nombresLabels.add(par);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ArrayList<JPanel> paneles = loader.componentesNuevoCliente(nombresLabels);
+        panelNewUser.setLayout(new FlowLayout());
+        for(JPanel pa : paneles){
+            panelNewUser.add(pa);
+            panelNewUser.revalidate();
+            panelNewUser.repaint();
+            setVisible(true);
+        }
+    }
     
     private String[] getNombresColumnas(){
         ArrayList<String> nombresColumna = new ArrayList();
-        String query = "SELECT * FROM cliente WHERE id = -1";
+        String query = "SELECT * FROM (((cliente JOIN contacto ON (cliente.contacto_idcontacto = contacto.id))\n" +
+                        "JOIN empresa ON (cliente.empresa_idempresa = empresa.id))\n" +
+                        "JOIN industria ON (cliente.industria_idindustria = industria.id)\n" +
+                        "JOIN socialdata ON (cliente.socialdata_idsocialdata = socialdata.id)) WHERE id = -1";
         Statement st;
         try{
             st = Postgre.bdConnection.createStatement();
@@ -603,7 +646,10 @@ public class Frame extends javax.swing.JFrame {
     
     private String[] getTipoColumnas(){
         ArrayList<String> tipoColumna = new ArrayList();
-        String query = "SELECT * FROM cliente WHERE id = -1";
+        String query = "SELECT * FROM (((cliente JOIN contacto ON (cliente.contacto_idcontacto = contacto.id))\n" +
+                        "JOIN empresa ON (cliente.empresa_idempresa = empresa.id))\n" +
+                        "JOIN industria ON (cliente.industria_idindustria = industria.id)\n" +
+                        "JOIN socialdata ON (cliente.socialdata_idsocialdata = socialdata.id)) WHERE id = -1";
         Statement st;
         try{
             st = Postgre.bdConnection.createStatement();
@@ -695,7 +741,6 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
@@ -703,6 +748,7 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane2;
+    private javax.swing.JPanel panelNewUser;
     private javax.swing.JTable jTable1;
     private javax.swing.JPanel panelSocial;
     private javax.swing.JTable resultsTable;
