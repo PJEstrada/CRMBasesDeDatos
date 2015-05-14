@@ -3,7 +3,7 @@
  * @(#)TextAreaRenderer.java 
  * de : http://manivelcode.blogspot.com/2008/08/how-to-wrap-text-inside-cells-of-jtable.html
  */ 
- 
+ package bd;
 import javax.swing.JTable; 
 import javax.swing.JTextArea; 
 import javax.swing.table.DefaultTableCellRenderer; 
