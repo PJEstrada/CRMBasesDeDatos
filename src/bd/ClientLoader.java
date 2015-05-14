@@ -19,6 +19,8 @@ import javax.swing.JTextField;
  */
 public class ClientLoader {
     
+    
+    public ClientLoader(){}
     //Metodo que ira validando cada campo al hacerse clic en el boton de listo
     //Devolvera un arraylist con el numero de los campos que tienen error y los vaciara probablemente ????? not sure actually
     public ArrayList<Integer> checkCampos(ArrayList<PairTypeField> columnas, ArrayList<String> dataIngresada){
@@ -46,7 +48,7 @@ public class ClientLoader {
         }
         return camposArreglar;
     }
-    //Metodo para crear paneles con los componentes debidos
+    //Metodo para crear paneles con los componentes debidos para cuando se debe editar
     public ArrayList<JPanel> componentes(ArrayList<PairNameData> columnas){
         ArrayList<JPanel> filasLlenar = new ArrayList();
         for(PairNameData par: columnas){
@@ -55,6 +57,21 @@ public class ClientLoader {
             JPanel panel = new JPanel();
             JLabel label = new JLabel(nombreColumna);
             JTextField textField = new JTextField(datosEn);
+            panel.add(label);
+            panel.add(textField);
+            filasLlenar.add(panel);
+        }
+        return filasLlenar;
+    }
+    //Metodo para crear paneles para cuando es un nuevo usuario 
+    public ArrayList<JPanel> componentesNuevoCliente(ArrayList<PairTypeField> columnas){
+        ArrayList<JPanel> filasLlenar = new ArrayList();
+        for(PairTypeField par: columnas){
+            String nombreColumna = par.namefield;
+            String tipoColumna = par.typeField;
+            JPanel panel = new JPanel();
+            JLabel label = new JLabel(nombreColumna);
+            JTextField textField = new JTextField();
             panel.add(label);
             panel.add(textField);
             filasLlenar.add(panel);
