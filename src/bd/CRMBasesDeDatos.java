@@ -37,14 +37,14 @@ public class CRMBasesDeDatos {
         //7.Close connection    
         
         Twitter twitter = new Twitter();
-        //ArrayList<Tweet> tweets = Twitter.obtener15TweetDelUsuario("NintendoAmerica",0,"miCliente");
+        ArrayList<Tweet> tweets = Twitter.obtener15TweetDelUsuario("ign",0,"miCliente2");
         
         MongoDB mongo = new MongoDB();
-        //mongo.addTweets(tweets);
+        mongo.addTweets(tweets);
         ArrayList<String> h = new ArrayList<String>();
         h.add("GetInked");
         h.add("AttackonTitan3DS");
-        ArrayList<Tweet> tweets = mongo.buscarTweets("", new ArrayList<String>(), new ArrayList<String>(), h, new ArrayList<String>(), -1);
+        //ArrayList<Tweet> tweets = mongo.buscarTweets("", new ArrayList<String>(), new ArrayList<String>(), h, new ArrayList<String>(), -1);
         
         try{
             String query = "SELECT * FROM asignacion";

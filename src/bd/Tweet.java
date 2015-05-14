@@ -41,6 +41,7 @@ public class Tweet {
     public ArrayList<String> toStringArrayList(){
         ArrayList<String> result = new ArrayList<String>();
         result.add(texto);
+        
         result.add(Integer.toString(idCliente));
         result.add(nombreCliente);
         result.add(userName);
@@ -48,7 +49,7 @@ public class Tweet {
         int i =0;
         String hs = "";
         for(String s: this.hashtags){
-            if(i< this.hashtags.size()-1){
+            if(i==this.hashtags.size()-1){
                hs += s;          
             }
             else{

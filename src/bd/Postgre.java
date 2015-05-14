@@ -21,8 +21,9 @@ public class Postgre {
     public static Connection bdConnection;
     
     
-    public Postgre(){
+    public Postgre() throws ClassNotFoundException{
         try {
+            Class.forName("org.postgresql.Driver");
             bdConnection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/CRM","postgres","root");
             
         } catch (SQLException ex) {
