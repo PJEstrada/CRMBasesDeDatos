@@ -8,6 +8,7 @@ package bd;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.TableColumnModel;
 
@@ -49,7 +50,7 @@ public class Frame extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         fieldTexto = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        fieldClientes = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         resultsTable = new javax.swing.JTable();
@@ -165,9 +166,9 @@ public class Frame extends javax.swing.JFrame {
 
         jLabel4.setText("De Los Clientes: ");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        fieldClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                fieldClientesActionPerformed(evt);
             }
         });
 
@@ -176,20 +177,20 @@ public class Frame extends javax.swing.JFrame {
 
         resultsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Tweet", "Cliente", "ID del Cliente", "User Name", "Hashtags", "Mentions"
+                "Tweet", "Cliente", "ID del Cliente", "User Name", "Fecha", "Hashtags", "Mentions"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -262,7 +263,6 @@ public class Frame extends javax.swing.JFrame {
                 .addGroup(panelSocialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelSocialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelSocialLayout.createSequentialGroup()
                         .addGroup(panelSocialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -285,7 +285,7 @@ public class Frame extends javax.swing.JFrame {
                     .addGroup(panelSocialLayout.createSequentialGroup()
                         .addGroup(panelSocialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(panelSocialLayout.createSequentialGroup()
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(fieldClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel6))
                             .addComponent(jLabel5)
@@ -319,13 +319,14 @@ public class Frame extends javax.swing.JFrame {
             panelSocialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelSocialLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(panelSocialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(fieldTexto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(fieldUsernames, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
+                .addGroup(panelSocialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(fieldUsernames, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelSocialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel3)
+                        .addComponent(fieldTexto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel4)
+                        .addComponent(fieldClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel6)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelSocialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelSocialLayout.createSequentialGroup()
@@ -347,9 +348,9 @@ public class Frame extends javax.swing.JFrame {
                     .addComponent(jLabel12))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE))
         );
 
@@ -398,9 +399,9 @@ public class Frame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jTabbedPane2MouseClicked
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void fieldClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldClientesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_fieldClientesActionPerformed
 
     private void fieldUsernamesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldUsernamesActionPerformed
         // TODO add your handling code here:
@@ -416,9 +417,9 @@ public class Frame extends javax.swing.JFrame {
 
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
         String texto = this.fieldTexto.getText();
-        List<String> clientes = Arrays.asList( this.fieldTexto.getText().split("\\s*,\\s*")); 
+        List<String> clientes = Arrays.asList( this.fieldClientes.getText().split("\\s*,\\s*")); 
         ArrayList<String> clientes2 = new ArrayList<String>();
-        if(!this.fieldTexto.getText().equals("")){
+        if(!this.fieldClientes.getText().equals("")){
             clientes2.addAll(clientes);
         }
         
@@ -447,13 +448,21 @@ public class Frame extends javax.swing.JFrame {
             numHashtags = -1;
         }
         else{
-            numHashtags = Integer.parseInt(this.fieldNumHashtags.getText());
+            try{
+                numHashtags = Integer.parseInt(this.fieldNumHashtags.getText());
+            }
+            catch(Exception e){
+                JOptionPane.showMessageDialog(this, "El campo # de hastags solo acepta numeros enteros");
+                return;
+            }
+            
         }
         
         MongoDB mongo = new MongoDB();
         ArrayList<Tweet> tweets = mongo.buscarTweets(texto, clientes2, users2, hashtags2, mentions2, numHashtags);
         String[] cols =     new String [] {
-                "Tweet", "Cliente", "ID del Cliente", "User Name", "Hashtags", "Mentions"
+                "Tweet", "ID del Cliente","Cliente" , "Username","Fecha", "Hashtags","Numero Hashtags", "Mentions"
+                
             };          
         
         String[][] filasT = new String[tweets.size()][cols.length];
@@ -466,6 +475,8 @@ public class Frame extends javax.swing.JFrame {
         TableColumnModel cm = this.resultsTable.getColumnModel();
         TextAreaRenderer textAreaRenderer = new TextAreaRenderer(); 
         cm.getColumn(0).setCellRenderer(textAreaRenderer);
+        cm.getColumn(5).setCellRenderer(textAreaRenderer);
+        cm.getColumn(7).setCellRenderer(textAreaRenderer);
 
       
     }//GEN-LAST:event_buscarActionPerformed
@@ -511,6 +522,7 @@ public class Frame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buscar;
+    private javax.swing.JTextField fieldClientes;
     private javax.swing.JTextField fieldHashtags;
     private javax.swing.JTextField fieldMentions;
     private javax.swing.JTextField fieldNumHashtags;
@@ -538,7 +550,6 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JPanel panelSocial;
     private javax.swing.JTable resultsTable;
     private java.awt.ScrollPane scrollPane2;

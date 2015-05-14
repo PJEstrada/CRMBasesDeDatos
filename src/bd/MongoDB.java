@@ -21,6 +21,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Set;
+import java.util.regex.Pattern;
 import org.bson.Document;
 
 
@@ -85,14 +86,15 @@ public class MongoDB {
         BasicDBObject searchQuery = new BasicDBObject();
         //Construyendo query texto del tweets
         if(!texto.equals("")){
-            searchQuery.put("text",new BasicDBObject("search",texto));
+            Pattern regex = Pattern.compile(texto,Pattern.CASE_INSENSITIVE);
+            searchQuery.put("text",regex);
         }
             
         //Construyendo query or de nombres de cliente
         if(!nombreClientes.isEmpty()){
             ArrayList<BasicDBObject> clausulas = new ArrayList<BasicDBObject>();
             for(String s: nombreClientes){
-                clausulas.add(new BasicDBObject("nombreCliente",s));
+                clausulas.add(new BasicDBObject("nombreCliente",Pattern.compile(s , Pattern.CASE_INSENSITIVE)));
 
             }
             BasicDBList orclientes = new BasicDBList();
@@ -104,7 +106,7 @@ public class MongoDB {
         if(!userNames.isEmpty()){
             ArrayList<BasicDBObject> clausulas = new ArrayList<BasicDBObject>();
             for(String s: userNames){
-                clausulas.add(new BasicDBObject("userName",s));
+                clausulas.add(new BasicDBObject("userName", Pattern.compile(s , Pattern.CASE_INSENSITIVE)));
 
             }
             BasicDBList orusers = new BasicDBList();
@@ -116,7 +118,7 @@ public class MongoDB {
         if(!hashtags.isEmpty()){
             ArrayList<BasicDBObject> clausulas = new ArrayList<BasicDBObject>();
             for(String s: hashtags){
-                clausulas.add(new BasicDBObject("hashtags",s));
+                clausulas.add(new BasicDBObject("hashtags",Pattern.compile(s , Pattern.CASE_INSENSITIVE)));
 
             }
             BasicDBList orusers = new BasicDBList();
@@ -128,7 +130,7 @@ public class MongoDB {
          if(!mentions.isEmpty()){
             ArrayList<BasicDBObject> clausulas = new ArrayList<BasicDBObject>();
             for(String s: mentions){
-                clausulas.add(new BasicDBObject("mentions",s));
+                clausulas.add(new BasicDBObject("mentions", Pattern.compile(s , Pattern.CASE_INSENSITIVE)));
 
             }
             BasicDBList ormentions = new BasicDBList();
