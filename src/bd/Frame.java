@@ -579,6 +579,61 @@ public class Frame extends javax.swing.JFrame {
             setVisible(true);
         }
     }
+    
+    private String[] getNombresColumnas(){
+        ArrayList<String> nombresColumna = new ArrayList();
+        String query = "SELECT * FROM cliente WHERE id = -1";
+        Statement st;
+        try{
+            st = Postgre.bdConnection.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            ResultSetMetaData m = rs.getMetaData();
+            for(int i = 0; i<m.getColumnCount();i++){
+                nombresColumna.add(m.getColumnName(i));
+            }
+            
+            
+        }catch (SQLException ex){
+            Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String[] nombresToReturn = new String[nombresColumna.size()];
+        nombresColumna.toArray(nombresToReturn);
+        return nombresToReturn;
+    }
+    
+    private String[] getTipoColumnas(){
+        ArrayList<String> tipoColumna = new ArrayList();
+        String query = "SELECT * FROM cliente WHERE id = -1";
+        Statement st;
+        try{
+            st = Postgre.bdConnection.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            ResultSetMetaData m = rs.getMetaData();
+            for(int i = 0; i<m.getColumnCount();i++){
+                tipoColumna.add(m.getColumnName(i));
+            }
+        }catch(SQLException ex){
+            Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String[] tipoToReturn = new String[tipoColumna.size()];
+        tipoColumna.toArray(tipoToReturn);
+        return tipoToReturn;
+    }
+    
+    private ResultSetMetaData metaDataBusqueda(String query){
+        Statement st;
+        ResultSet rs;
+        ResultSetMetaData m =  null;
+        try{
+            st = Postgre.bdConnection.createStatement();
+            rs = st.executeQuery(query);
+            m = rs.getMetaData();
+        }catch(SQLException ex){
+            Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return m;
+    }
+    
     /**
      * @param args the command line arguments
      */
