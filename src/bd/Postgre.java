@@ -29,10 +29,6 @@ public class Postgre {
         } catch (SQLException ex) {
             Logger.getLogger(Postgre.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
-        
-    
     }
     
 }
