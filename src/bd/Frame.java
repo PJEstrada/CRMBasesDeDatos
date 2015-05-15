@@ -53,7 +53,7 @@ public class Frame extends javax.swing.JFrame {
                 }
                 else if(jTabbedPane2.getSelectedIndex() == 1){
                     createAreasForNewUser();
-                    
+                    System.out.println("Esta shit");
                 }
             }  
         });
@@ -190,6 +190,9 @@ public class Frame extends javax.swing.JFrame {
             }
         });
 
+        subPanelNewUser_A.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        subPanelNewUser_A.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
         javax.swing.GroupLayout subPanelNewUserLayout = new javax.swing.GroupLayout(subPanelNewUser);
         subPanelNewUser.setLayout(subPanelNewUserLayout);
         subPanelNewUserLayout.setHorizontalGroup(
@@ -225,7 +228,7 @@ public class Frame extends javax.swing.JFrame {
             .addGroup(panelNewUserLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelNewUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(subPanelNewUser_A)
+                    .addComponent(subPanelNewUser_A, javax.swing.GroupLayout.DEFAULT_SIZE, 831, Short.MAX_VALUE)
                     .addGroup(panelNewUserLayout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -665,14 +668,7 @@ public class Frame extends javax.swing.JFrame {
     private void createAreasForNewUser(){
         ArrayList<PairTypeField> nombresLabels = new ArrayList();
         String query = "SELECT \n" +
-                    "	cliente.nombre, cliente.apellido, cliente.dpi, cliente.rating, cliente.genero,\n" +
-                    "	cliente.fecha_nacimiento, cliente.foto,\n" +
-                    "	contacto.telefono as telefono_personal, contacto.direccion, contacto.correo, contacto.celular, \n" +
-                    "	contacto.departamento, \n" +
-                    "	socialdata.facebook, socialdata.twitter, socialdata.\"google+\", socialdata.youtube,\n" +
-                    "	socialdata.tumblr,\n" +
-                    "	empresa.nombre, empresa.cargo, empresa.direccion, empresa.telefono as telefono_empresa,\n" +
-                    "	industria.nombre as nombre_empresa, industria.descripcion\n" +
+                    "	* " +
                     "		\n" +
                         "FROM (((cliente JOIN contacto ON (cliente.contacto_idcontacto = contacto.id))\n" +
                         "JOIN empresa ON (cliente.empresa_idempresa = empresa.id))\n" +
@@ -693,13 +689,18 @@ public class Frame extends javax.swing.JFrame {
             Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
         }
         ArrayList<JPanel> paneles = loader.componentesNuevoCliente(nombresLabels);
+        //subPanelNewUser_A.remove(subPanelNewUser);
         subPanelNewUser.setLayout(new GridLayout(0, 1));
         for(JPanel pa : paneles){
-            subPanelNewUser_A.add(pa);
-            subPanelNewUser_A.revalidate();
-            subPanelNewUser_A.repaint();
-            setVisible(true);
+            subPanelNewUser.add(pa);
+            subPanelNewUser.revalidate();
+            subPanelNewUser.repaint();
         }
+        
+        //subPanelNewUser_A.add(subPanelNewUser);
+        //subPanelNewUser_A.revalidate();
+        //subPanelNewUser_A.repaint();
+        setVisible(true);
     }
     
     private ArrayList<PairTypeField> getNombresColumnas(){
