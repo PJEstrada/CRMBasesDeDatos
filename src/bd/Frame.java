@@ -7,6 +7,7 @@ package bd;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -552,10 +553,20 @@ public class Frame extends javax.swing.JFrame {
     //metodo para llenar el elementos al add user
     private void createAreasForNewUser(){
         ArrayList<PairTypeField> nombresLabels = new ArrayList();
-        String query = "SELECT * FROM (((cliente JOIN contacto ON (cliente.contacto_idcontacto = contacto.id))\n" +
+        String query = "SELECT \n" +
+                    "	cliente.nombre, cliente.apellido, cliente.dpi, cliente.rating, cliente.genero,\n" +
+                    "	cliente.fecha_nacimiento, cliente.foto,\n" +
+                    "	contacto.telefono as telefono_personal, contacto.direccion, contacto.correo, contacto.celular, \n" +
+                    "	contacto.departamento, \n" +
+                    "	socialdata.facebook, socialdata.twitter, socialdata.\"google+\", socialdata.youtube,\n" +
+                    "	socialdata.tumblr,\n" +
+                    "	empresa.nombre, empresa.cargo, empresa.direccion, empresa.telefono as telefono_empresa,\n" +
+                    "	industria.nombre as nombre_empresa, industria.descripcion\n" +
+                    "		\n" +
+                        "FROM (((cliente JOIN contacto ON (cliente.contacto_idcontacto = contacto.id))\n" +
                         "JOIN empresa ON (cliente.empresa_idempresa = empresa.id))\n" +
                         "JOIN industria ON (cliente.industria_idindustria = industria.id)\n" +
-                        "JOIN socialdata ON (cliente.socialdata_idsocialdata = socialdata.id)) WHERE id = -1";
+                        "JOIN socialdata ON (cliente.socialdata_idsocialdata = socialdata.id)) WHERE cliente.id = -1";
         Statement st;
         try {
             st = Postgre.bdConnection.createStatement();
@@ -571,7 +582,7 @@ public class Frame extends javax.swing.JFrame {
             Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
         }
         ArrayList<JPanel> paneles = loader.componentesNuevoCliente(nombresLabels);
-        panelNewUser.setLayout(new FlowLayout());
+        panelNewUser.setLayout(new GridLayout(0, 1));
         for(JPanel pa : paneles){
             panelNewUser.add(pa);
             panelNewUser.revalidate();
