@@ -708,10 +708,11 @@ public class Frame extends javax.swing.JFrame {
     
     private void createFiltros(){
         ArrayList<PairTypeField> nombresColumna = new ArrayList();
-        String query = "SELECT * FROM (((cliente JOIN contacto ON (cliente.contacto_idcontacto = contacto.id))\n" +
+        String query = "SELECT *" +
+                        "FROM (((cliente JOIN contacto ON (cliente.contacto_idcontacto = contacto.id))\n" +
                         "JOIN empresa ON (cliente.empresa_idempresa = empresa.id))\n" +
                         "JOIN industria ON (cliente.industria_idindustria = industria.id)\n" +
-                        "JOIN socialdata ON (cliente.socialdata_idsocialdata = socialdata.id)) WHERE id = -1";
+                        "JOIN socialdata ON (cliente.socialdata_idsocialdata = socialdata.id)) WHERE cliente.id = -1";
         Statement st;
         try{
             st = Postgre.bdConnection.createStatement();
