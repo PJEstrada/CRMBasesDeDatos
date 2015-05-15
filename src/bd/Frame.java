@@ -34,6 +34,7 @@ public class Frame extends javax.swing.JFrame {
     /**
      * Creates new form Frame
      */
+    JPanel jPanel4 = new JPanel();
     ArrayList<Integer> idsSelectedInUpdate = new ArrayList();
     ClientLoader loader = new ClientLoader();
     public Frame() {
@@ -69,6 +70,11 @@ public class Frame extends javax.swing.JFrame {
 
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        btn_buscarHome = new javax.swing.JButton();
+        btn_limpiarHome = new javax.swing.JButton();
         panelNewUser = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jComboBox1 = new javax.swing.JComboBox();
@@ -103,15 +109,54 @@ public class Frame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jTabbedPane2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabbedPane2MouseClicked(evt);
+            }
+        });
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(jTable1);
+
+        btn_buscarHome.setText("Buscar");
+
+        btn_limpiarHome.setText("Limpiar Campos");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1052, Short.MAX_VALUE)
+            .addComponent(jScrollPane2)
+            .addComponent(jScrollPane3)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(466, Short.MAX_VALUE)
+                .addComponent(btn_buscarHome)
+                .addGap(384, 384, 384)
+                .addComponent(btn_limpiarHome)
+                .addGap(30, 30, 30))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 853, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_buscarHome)
+                    .addComponent(btn_limpiarHome))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jTabbedPane2.addTab("Home", jPanel3);
@@ -434,7 +479,7 @@ public class Frame extends javax.swing.JFrame {
     
     //recargar elementos al 
     private void jTabbedPane2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane2MouseClicked
-        
+        //el codigo va aqui
     }//GEN-LAST:event_jTabbedPane2MouseClicked
 
     private void fieldClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldClientesActionPerformed
@@ -591,44 +636,27 @@ public class Frame extends javax.swing.JFrame {
         }
     }
     
-    private String[] getNombresColumnas(){
-        ArrayList<String> nombresColumna = new ArrayList();
-        String query = "SELECT * FROM cliente WHERE id = -1";
+    private ArrayList<PairTypeField> getNombresColumnas(){
+        ArrayList<PairTypeField> nombresColumna = new ArrayList();
+        String query = "SELECT * FROM (((cliente JOIN contacto ON (cliente.contacto_idcontacto = contacto.id))\n" +
+                        "JOIN empresa ON (cliente.empresa_idempresa = empresa.id))\n" +
+                        "JOIN industria ON (cliente.industria_idindustria = industria.id)\n" +
+                        "JOIN socialdata ON (cliente.socialdata_idsocialdata = socialdata.id)) WHERE id = -1";
         Statement st;
         try{
             st = Postgre.bdConnection.createStatement();
             ResultSet rs = st.executeQuery(query);
             ResultSetMetaData m = rs.getMetaData();
             for(int i = 0; i<m.getColumnCount();i++){
-                nombresColumna.add(m.getColumnName(i));
+                PairTypeField tempPair = new PairTypeField(m.getColumnTypeName(i),m.getColumnName(i));
+                nombresColumna.add(tempPair);
             }
             
             
         }catch (SQLException ex){
             Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        String[] nombresToReturn = new String[nombresColumna.size()];
-        nombresColumna.toArray(nombresToReturn);
-        return nombresToReturn;
-    }
-    
-    private String[] getTipoColumnas(){
-        ArrayList<String> tipoColumna = new ArrayList();
-        String query = "SELECT * FROM cliente WHERE id = -1";
-        Statement st;
-        try{
-            st = Postgre.bdConnection.createStatement();
-            ResultSet rs = st.executeQuery(query);
-            ResultSetMetaData m = rs.getMetaData();
-            for(int i = 0; i<m.getColumnCount();i++){
-                tipoColumna.add(m.getColumnName(i));
-            }
-        }catch(SQLException ex){
-            Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        String[] tipoToReturn = new String[tipoColumna.size()];
-        tipoColumna.toArray(tipoToReturn);
-        return tipoToReturn;
+        return nombresColumna;
     }
     
     private ResultSetMetaData metaDataBusqueda(String query){
@@ -681,6 +709,8 @@ public class Frame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_buscarHome;
+    private javax.swing.JButton btn_limpiarHome;
     private javax.swing.JButton buscar;
     private javax.swing.JTextField fieldClientes;
     private javax.swing.JTextField fieldHashtags;
@@ -708,7 +738,10 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane2;
+    private javax.swing.JTable jTable1;
     private javax.swing.JPanel panelNewUser;
     private javax.swing.JPanel panelSocial;
     private javax.swing.JTable resultsTable;
