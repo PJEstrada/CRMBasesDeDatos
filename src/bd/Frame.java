@@ -36,15 +36,19 @@ public class Frame extends javax.swing.JFrame {
      */
     JPanel jPanel4 = new JPanel();
     ArrayList<Integer> idsSelectedInUpdate = new ArrayList();
-    ClientLoader loader = new ClientLoader();
-    FiltrosLoader loader2 = new FiltrosLoader();
+    ClientLoader loader;
+    FiltrosLoader loader2;
+    ArrayList<PairTypeField> camposBuscar = new ArrayList();
+    ArrayList<String> tablasCamposBuscar = new ArrayList();
+    ArrayList<String> nombresTextBoxBusqueda = new ArrayList();
     public Frame() {
         try{
             Postgre miPostgre = new Postgre();
         }catch(Exception e){}
         initComponents();
+        createFiltros();
         jTabbedPane2.addChangeListener(new ChangeListener(){
-
+        
             @Override
             public void stateChanged(ChangeEvent e) {
                 System.out.println("Tab: "+jTabbedPane2.getSelectedIndex());
@@ -153,6 +157,11 @@ public class Frame extends javax.swing.JFrame {
         jScrollPane3.setViewportView(jTable1);
 
         btn_buscarHome.setText("Buscar");
+        btn_buscarHome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_buscarHomeActionPerformed(evt);
+            }
+        });
 
         btn_limpiarHome.setText("Limpiar Campos");
 
@@ -163,7 +172,7 @@ public class Frame extends javax.swing.JFrame {
             .addComponent(jScrollPane2)
             .addComponent(jScrollPane3)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(466, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btn_buscarHome)
                 .addGap(384, 384, 384)
                 .addComponent(btn_limpiarHome)
@@ -660,6 +669,10 @@ public class Frame extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btn_buscarHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarHomeActionPerformed
+        
+    }//GEN-LAST:event_btn_buscarHomeActionPerformed
     
     private String[] getNameFromPostgre(){
         ArrayList<String> namePersona = new ArrayList();
@@ -693,12 +706,19 @@ public class Frame extends javax.swing.JFrame {
                         "JOIN empresa ON (cliente.empresa_idempresa = empresa.id))\n" +
                         "JOIN industria ON (cliente.industria_idindustria = industria.id)\n" +
                         "JOIN socialdata ON (cliente.socialdata_idsocialdata = socialdata.id)) WHERE cliente.id = -1";
+       String countClient = "SELECT * FROM cliente WHERE id = -1";
         Statement st;
+        Statement st2;
+        int numeroFinalCliente = 0;
         try {
             st = Postgre.bdConnection.createStatement();
+            st2 = Postgre.bdConnection.createStatement();
             ResultSet rs = st.executeQuery(query);
+            ResultSet rs2 = st2.executeQuery(countClient);
             ResultSetMetaData m = rs.getMetaData();
-            for(int i = 1; i< m.getColumnCount();i++){
+            ResultSetMetaData m2 = rs2.getMetaData();
+            numeroFinalCliente = m2.getColumnCount()-6;
+            for(int i = 1; i< m.getColumnCount()+1;i++){
                 String tipoColumna = m.getColumnTypeName(i);
                 String nombreColumna = m.getColumnName(i);
                 PairTypeField par = new PairTypeField(tipoColumna,nombreColumna);
@@ -707,6 +727,7 @@ public class Frame extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
         }
+        loader  = new ClientLoader(numeroFinalCliente);
         ArrayList<JPanel> paneles = loader.componentesNuevoCliente(nombresLabels);
         //subPanelNewUser_A.remove(subPanelNewUser);
         subPanelNewUser.setLayout(new GridLayout(0, 1));
@@ -723,34 +744,48 @@ public class Frame extends javax.swing.JFrame {
     }
     
     private void createFiltros(){
-        ArrayList<PairTypeField> nombresColumna = new ArrayList();
+        //ArrayList<PairTypeField> nombresColumna = new ArrayList();
         String query = "SELECT *" +
                         "FROM (((cliente JOIN contacto ON (cliente.contacto_idcontacto = contacto.id))\n" +
                         "JOIN empresa ON (cliente.empresa_idempresa = empresa.id))\n" +
                         "JOIN industria ON (cliente.industria_idindustria = industria.id)\n" +
                         "JOIN socialdata ON (cliente.socialdata_idsocialdata = socialdata.id)) WHERE cliente.id = -1";
+        String countClient = "SELECT * FROM cliente WHERE id = -1";
         Statement st;
+        Statement st2;
+        int numeroFinalFiltro = 0;
         try{
             st = Postgre.bdConnection.createStatement();
+            st2 = Postgre.bdConnection.createStatement();
             ResultSet rs = st.executeQuery(query);
+            ResultSet rs2 = st2.executeQuery(countClient);
             ResultSetMetaData m = rs.getMetaData();
-            for(int i = 1; i<m.getColumnCount();i++){
+            ResultSetMetaData m2 = rs2.getMetaData();
+            numeroFinalFiltro = m2.getColumnCount()-6;
+            camposBuscar = new ArrayList();
+            tablasCamposBuscar = new ArrayList();
+            for(int i = 1; i<m.getColumnCount()+1;i++){
                 PairTypeField tempPair = new PairTypeField(m.getColumnTypeName(i),m.getColumnName(i));
-                nombresColumna.add(tempPair);
+                camposBuscar.add(tempPair);
+                tablasCamposBuscar.add(m.getTableName(i));
             }
             
             
         }catch (SQLException ex){
             Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        ArrayList<JPanel> paneles = loader2.componentesFiltro(nombresColumna);
+        loader2 = new FiltrosLoader(numeroFinalFiltro);
+        ArrayList<JPanel> paneles = loader2.componentesFiltro(camposBuscar);
+        nombresTextBoxBusqueda = new ArrayList();
+        nombresTextBoxBusqueda.addAll(loader2.nombreTextBox);
         panel_filtroHome.setLayout(new GridLayout(0, 1));
         for(JPanel pa : paneles){
             panel_filtroHome.add(pa);
             panel_filtroHome.revalidate();
             panel_filtroHome.repaint();
-            setVisible(true);
         }
+        
+        setVisible(true);
     }
     
     private ResultSetMetaData metaDataBusqueda(String query){
