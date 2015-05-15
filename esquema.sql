@@ -1,5 +1,7 @@
 
-
+/*
+industria.nombre as nombre_empresa, industria.descripcion
+*/
 CREATE TABLE industria
 (
   id SERIAL NOT NULL,
@@ -10,7 +12,9 @@ CREATE TABLE industria
 WITH (
   OIDS=FALSE
 );
-
+/*
+empresa.nombre, empresa.cargo, empresa.direccion, empresa.telefono as telefono_empresa
+*/
 CREATE TABLE empresa
 (
   id SERIAL NOT NULL,
@@ -24,7 +28,9 @@ WITH (
   OIDS=FALSE
 );
 
-
+/*
+contacto.telefono, contacto.direccion, contacto.correo, contacto.celular, contacto.departamento
+*/
 CREATE TABLE contacto
 (
   id SERIAL NOT NULL,
@@ -38,7 +44,10 @@ CREATE TABLE contacto
 WITH (
   OIDS=FALSE
 );
-
+/*
+socialdata.facebook, socialdata.twitter, socialdata.google+ , socialdata.youtube,
+socialdata.tumblr
+*/
 CREATE TABLE socialdata
 (
   id SERIAL NOT NULL,
@@ -52,7 +61,10 @@ CREATE TABLE socialdata
 WITH (
   OIDS=FALSE
 );
-
+/*
+cliente.nombre, cliente.apellido, cliente.dpi, cliente.rating, cliente.genero,
+cliente.fecha_nacimiento as 'fecha nacimiento', cliente.foto, 
+*/
 CREATE TABLE cliente
 (
   id SERIAL NOT NULL,
