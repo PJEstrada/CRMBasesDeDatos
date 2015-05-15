@@ -1,9 +1,8 @@
 
-
 CREATE TABLE industria
 (
   id SERIAL NOT NULL,
-  nombre text,
+  nombre_industria text,
   descripcion text,
   CONSTRAINT industria_pkey PRIMARY KEY (id)
 )
@@ -14,10 +13,10 @@ WITH (
 CREATE TABLE empresa
 (
   id SERIAL NOT NULL,
-  nombre text,
+  nombre_empresa text,
   cargo text,
-  direccion text,
-  telefono integer,
+  direccion_empresa text,
+  telefono_empresa integer,
   CONSTRAINT empresa_pkey PRIMARY KEY (id)
 )
 WITH (
@@ -28,8 +27,8 @@ WITH (
 CREATE TABLE contacto
 (
   id SERIAL NOT NULL,
-  telefono integer,
-  direccion text,
+  telefono_cliente integer,
+  direccion_cliente text,
   correo text,
   celular integer,
   departamento text,
