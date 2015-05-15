@@ -7,7 +7,11 @@ package bd;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -19,12 +23,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.table.TableColumnModel;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+
 
 /**
  *
@@ -34,14 +45,21 @@ public class Frame extends javax.swing.JFrame {
     /**
      * Creates new form Frame
      */
+    ArrayList<JPanel> panelesNewUser = new ArrayList();
+    ArrayList<String> nombresColumnasNewUser = new ArrayList();
     JPanel jPanel4 = new JPanel();
     ArrayList<Integer> idsSelectedInUpdate = new ArrayList();
     ClientLoader loader;
+    File targetFile;
+    BufferedImage targetImg;
+    private static final int baseSize = 300;
+    private static final String basePath ="Pictures";
     public Frame() {
         try{
             Postgre miPostgre = new Postgre();
         }catch(Exception e){}
         initComponents();
+        
         jTabbedPane2.addChangeListener(new ChangeListener(){
 
             @Override
@@ -50,6 +68,7 @@ public class Frame extends javax.swing.JFrame {
                 //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
                 if(jTabbedPane2.getSelectedIndex() == 2){
                     jComboBox1.setModel(new DefaultComboBoxModel(getNameFromPostgre()));
+                    resetAreasForNewUser();
                 }
                 else if(jTabbedPane2.getSelectedIndex() == 1){
                     createAreasForNewUser();
@@ -76,11 +95,14 @@ public class Frame extends javax.swing.JFrame {
         btn_buscarHome = new javax.swing.JButton();
         btn_limpiarHome = new javax.swing.JButton();
         panelNewUser = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel14 = new javax.swing.JLabel();
+        panelFoto = new javax.swing.JPanel();
+        labelImage = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         subPanelNewUser_A = new javax.swing.JScrollPane();
         subPanelNewUser = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
         jPanel5 = new javax.swing.JPanel();
         jComboBox1 = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
@@ -166,21 +188,23 @@ public class Frame extends javax.swing.JFrame {
 
         jTabbedPane2.addTab("Home", jPanel3);
 
-        jLabel14.setText("jLabel14");
+        labelImage.setText("                                                Fotografia del Cliente");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+        javax.swing.GroupLayout panelFotoLayout = new javax.swing.GroupLayout(panelFoto);
+        panelFoto.setLayout(panelFotoLayout);
+        panelFotoLayout.setHorizontalGroup(
+            panelFotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelFotoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelImage, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
+                .addContainerGap())
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 314, Short.MAX_VALUE))
+        panelFotoLayout.setVerticalGroup(
+            panelFotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelFotoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelImage, javax.swing.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jButton1.setText("Buscar Foto");
@@ -190,7 +214,6 @@ public class Frame extends javax.swing.JFrame {
             }
         });
 
-        subPanelNewUser_A.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         subPanelNewUser_A.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
         javax.swing.GroupLayout subPanelNewUserLayout = new javax.swing.GroupLayout(subPanelNewUser);
@@ -206,6 +229,19 @@ public class Frame extends javax.swing.JFrame {
 
         subPanelNewUser_A.setViewportView(subPanelNewUser);
 
+        jButton2.setText("Agregar Nuevo Usuario");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jTextArea1.setText("Instrucciones:\n\t1. Llenar los campos con la informacion\n\t   que se pide en cada uno de estos.\n\t   Por lo menos deben ser llenados\n\t   aquellos que son obligatorios (*)\n\t2. Agregar una fotografia del cliente\n\t   haciendo uso del boton \"Buscar Foto\".\n\t   Este es un campo obligatorio.\n\t3. Presionar \"Agregar Nuevo Usuario\"\n\nNota:\n\tSi desea agregar un nuevo campo,\n\tpor favor dirijase a la pestaña de\n\t\"Agregar Nuevo Campo\".");
+        jTextArea1.setEnabled(false);
+        jScrollPane4.setViewportView(jTextArea1);
+
         javax.swing.GroupLayout panelNewUserLayout = new javax.swing.GroupLayout(panelNewUser);
         panelNewUser.setLayout(panelNewUserLayout);
         panelNewUserLayout.setHorizontalGroup(
@@ -215,25 +251,34 @@ public class Frame extends javax.swing.JFrame {
                 .addComponent(subPanelNewUser_A, javax.swing.GroupLayout.PREFERRED_SIZE, 608, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(panelNewUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelNewUserLayout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(panelNewUserLayout.createSequentialGroup()
                         .addGap(179, 179, 179)
                         .addComponent(jButton1)
-                        .addContainerGap(166, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(panelNewUserLayout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addGroup(panelNewUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane4)
+                            .addComponent(panelFoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelNewUserLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton2)
+                        .addGap(138, 138, 138))))
         );
         panelNewUserLayout.setVerticalGroup(
             panelNewUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelNewUserLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelNewUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(subPanelNewUser_A, javax.swing.GroupLayout.DEFAULT_SIZE, 831, Short.MAX_VALUE)
+                    .addComponent(subPanelNewUser_A)
                     .addGroup(panelNewUserLayout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(panelFoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButton1)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(40, 40, 40)
+                        .addComponent(jScrollPane4)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2)))
                 .addContainerGap())
         );
 
@@ -639,9 +684,209 @@ public class Frame extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        //Funcion
+        browseButtonActionPerformed(evt);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        //Se arma la query
+        String valuesCliente = "";
+        String valuesContacto = "";
+        String valuesEmpresa = "";
+        String valuesIndustria = "";
+        String valuesSocialData = "";
+        // Primero se comeienza a tomar cada uno de los valores
+        ArrayList<ArrayList<String>> nuevosValores = getValueForNewUser();
+        System.out.println("El size del coso es "+nuevosValores.size());
+        int indexIntoArrayOfArray = 0;
+        
+        for(ArrayList<String> i : nuevosValores){
+            
+            for(int k = 0; k<i.size(); k++){
+                String j = i.get(k);
+                System.out.println(j);
+                if(indexIntoArrayOfArray == 0){
+                    valuesCliente+=j+", ";
+                }
+                else if(indexIntoArrayOfArray == 1){
+                    
+                    if(k == i.size()-1){
+                        valuesContacto += j;
+                    }
+                    else{
+                        valuesContacto+=j+", ";
+                    }
+                }
+                else if(indexIntoArrayOfArray == 2){
+                    
+                    if(k == i.size()-1){
+                        valuesEmpresa+=j;
+                    }
+                    else{
+                        valuesEmpresa+=j+", ";
+                    }
+                }
+                else if(indexIntoArrayOfArray == 3){
+                    
+                    if(k == i.size()-1){
+                        valuesIndustria+=j;
+                    }
+                    else{
+                        valuesIndustria+=j+", ";
+                    }
+                }
+                else if(indexIntoArrayOfArray == 4){
+                    
+                    if(k == i.size()-1){
+                        valuesSocialData+=j;
+                    }
+                    else{
+                        valuesSocialData+=j+", ";
+                    }
+                }
+            }
+            if(indexIntoArrayOfArray == 0){
+                System.out.println(targetFile.getAbsolutePath());
+                valuesCliente+=targetFile.getAbsolutePath();
+            }
+            else{
+                
+            }
+            indexIntoArrayOfArray++;
+            System.out.println("----------------------");
+        }
+        
+        String queryInstert = "INSERT INTO cliente "+"ALGO QUE DARA QUE HACER D;"+ "VALUES ("+valuesCliente+", ";
+        String queryInsertContacto="INSERT INTO contacto "+"(telefono_cliente,direccion_cliente, correo, celular, departamento)"+ " VALUES ("+valuesContacto+") RETURNING id;";
+        String queryInsertEmpresa="INSERT INTO empresa "+"(nombre_empresa, cargo, direccion_empresa, telefono_empresa)"+" VALUES ("+valuesEmpresa+"); RETURNING id";
+        String queryInsertIndustria="INSERT INTO industria "+"(nombre_industria, descripcion)"+" VALUES ("+valuesIndustria+"); RETURNING id";
+        String queryInsertSocialData="INSERT INTO socialData "+"(facebook, twitter, \"google+\",youtube, tumblr)"+" VALUES ("+valuesSocialData+"); RETURNING id";
+        
+        //executing the queries
+        Statement st;
+        Statement st2;
+        Statement st3;
+        Statement st4;
+        Statement stFinal;
+        
+        String idContacto;
+        String idEmpresa;
+        String idIndustria;
+        String idSocialData;
+        try {
+            //contacto
+            st = Postgre.bdConnection.createStatement();
+            ResultSet rs = st.executeQuery(queryInsertContacto);
+            ResultSetMetaData m = rs.getMetaData();
+            idContacto = rs.getString(1);
+            //empresa
+            st2 = Postgre.bdConnection.createStatement();
+            ResultSet rs2 = st2.executeQuery(queryInsertEmpresa);
+            ResultSetMetaData m2 = rs2.getMetaData();
+            idEmpresa = rs2.getString(1);
+            //industria
+            st3 = Postgre.bdConnection.createStatement();
+            ResultSet rs3 = st3.executeQuery(queryInsertIndustria);
+            ResultSetMetaData m3 = rs3.getMetaData();
+            idIndustria = rs3.getString(1);
+            //socialData
+            st4 = Postgre.bdConnection.createStatement();
+            ResultSet rs4 = st4.executeQuery(queryInsertSocialData);
+            ResultSetMetaData m4 = rs4.getMetaData();
+            idSocialData = rs4.getString(1);
+            queryInstert+=idContacto+", "+idEmpresa+", "+idIndustria+", "+idSocialData+");";
+            
+            //Ahora si se ejecuta la del inser final
+           stFinal = Postgre.bdConnection.createStatement();
+           ResultSet rsF = stFinal.executeQuery(queryInstert);
+           ResultSetMetaData mF = rsF.getMetaData();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        System.out.println(queryInstert);
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
     
+    private void browseButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        JFileChooser fc = new JFileChooser(basePath);
+        fc.setFileFilter(new JPEGImageFileFilter());
+        int res = fc.showOpenDialog(null);
+        try {
+            if (res == JFileChooser.APPROVE_OPTION) {
+                File file = fc.getSelectedFile();
+                //System.out.println(file.getAbsolutePath());
+                setTarget(file);
+            } 
+            else {
+                JOptionPane.showMessageDialog(null,
+                        "Debe elegir una imagen para un cliente nuevo.", "Cancelando...",
+                        JOptionPane.WARNING_MESSAGE);
+            }
+        } catch (Exception iOException) {
+        }
+
+    }
+    
+    public void setTarget(File reference)
+    {
+        try {
+            targetFile = reference;
+            targetImg = rescale(ImageIO.read(reference));
+        } catch (IOException ex) {
+            Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        //panelFoto.setLayout(new BorderLayout(0, 0));
+        labelImage.setText("");
+        labelImage.setIcon(new ImageIcon(targetImg));
+        labelImage.setHorizontalAlignment(SwingConstants.CENTER);
+        setVisible(true);
+    }
+    
+    public BufferedImage rescale(BufferedImage originalImage)
+    {
+        BufferedImage resizedImage = new BufferedImage(baseSize, baseSize, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g = resizedImage.createGraphics();
+        g.drawImage(originalImage, 0, 0, baseSize, baseSize, null);
+        g.dispose();
+        return resizedImage;
+    }
+    
+    private ArrayList<ArrayList<String>> getValueForNewUser(){
+        ArrayList<ArrayList<String>> valores = new ArrayList();
+        ArrayList<String> valTemp = new ArrayList();
+        for(int k = 1; k < panelesNewUser.size(); k++){
+            JPanel panel = panelesNewUser.get(k);
+            for(int i = 0; i < panel.getComponentCount(); i++) {
+                if(panel.getComponent(i) instanceof JTextField) {
+                   JTextField campo = (JTextField)panel.getComponent(i);
+                   String valoresT = campo.getText();
+                   valTemp.add(valoresT);
+                }
+                if(panel.getComponentCount() == 1){
+                    valores.add(valTemp);
+                    valTemp = new ArrayList();
+                }
+             }  
+        }
+        //se agrega el ultimo
+        valores.add(valTemp);
+        return valores;
+    }
+    private void resetAreasForNewUser(){
+        for(int k = 1; k < panelesNewUser.size(); k++){
+            JPanel panel = panelesNewUser.get(k);
+            for(int i = 0; i < panel.getComponentCount(); i++) {
+                if(panel.getComponent(i) instanceof JTextField) {
+                   JTextField campo = (JTextField)panel.getComponent(i);
+                   campo.setText("");
+                }
+             }  
+        }
+    }
     private String[] getNameFromPostgre(){
         ArrayList<String> namePersona = new ArrayList();
         String query = "SELECT id, nombre FROM cliente";
@@ -677,6 +922,7 @@ public class Frame extends javax.swing.JFrame {
        String countClient = "SELECT * FROM cliente WHERE id = -1";
         Statement st;
         Statement st2;
+        nombresColumnasNewUser = new ArrayList();
         int numeroFinalCliente = 0;
         try {
             st = Postgre.bdConnection.createStatement();
@@ -689,6 +935,7 @@ public class Frame extends javax.swing.JFrame {
             for(int i = 1; i< m.getColumnCount()+1;i++){
                 String tipoColumna = m.getColumnTypeName(i);
                 String nombreColumna = m.getColumnName(i);
+                nombresColumnasNewUser.add(nombreColumna);
                 PairTypeField par = new PairTypeField(tipoColumna,nombreColumna);
                 nombresLabels.add(par);
             }
@@ -696,19 +943,24 @@ public class Frame extends javax.swing.JFrame {
             Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
         }
         loader  = new ClientLoader(numeroFinalCliente);
-        ArrayList<JPanel> paneles = loader.componentesNuevoCliente(nombresLabels);
-        //subPanelNewUser_A.remove(subPanelNewUser);
-        subPanelNewUser.setLayout(new GridLayout(0, 1));
-        for(JPanel pa : paneles){
-            subPanelNewUser.add(pa);
-            subPanelNewUser.revalidate();
-            subPanelNewUser.repaint();
+        ArrayList<JPanel> previo= loader.componentesNuevoCliente(nombresLabels);
+        if(panelesNewUser.size() != previo.size()){
+            panelesNewUser = new ArrayList(); //se resetea
+            panelesNewUser.addAll(previo); //se carga la nueva data
+            //subPanelNewUser_A.remove(subPanelNewUser);
+            subPanelNewUser.setLayout(new GridLayout(0, 1));
+            for(JPanel pa : panelesNewUser){
+                subPanelNewUser.add(pa);
+                subPanelNewUser.revalidate();
+                subPanelNewUser.repaint();
+            }
+            System.out.println(panelesNewUser.size());
+            //subPanelNewUser_A.add(subPanelNewUser);
+            //subPanelNewUser_A.revalidate();
+            //subPanelNewUser_A.repaint();
+            setVisible(true);
         }
         
-        //subPanelNewUser_A.add(subPanelNewUser);
-        //subPanelNewUser_A.revalidate();
-        //subPanelNewUser_A.repaint();
-        setVisible(true);
     }
     
     private ArrayList<PairTypeField> getNombresColumnas(){
@@ -794,6 +1046,7 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JTextField fieldTexto;
     private javax.swing.JTextField fieldUsernames;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox3;
     private javax.swing.JLabel jLabel1;
@@ -801,7 +1054,6 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -810,7 +1062,6 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
@@ -818,8 +1069,12 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JLabel labelImage;
+    private javax.swing.JPanel panelFoto;
     private javax.swing.JPanel panelNewUser;
     private javax.swing.JPanel panelSocial;
     private javax.swing.JTable resultsTable;
