@@ -53,7 +53,7 @@ public class FiltrosLoader {
         return filasLlenar;
     }
     //Metodo para crear paneles para cuando es un nuevo usuario 
-    public ArrayList<JPanel> componentesNuevoCliente(ArrayList<PairTypeField> columnas){
+    public ArrayList<JPanel> componentesFiltro(ArrayList<PairTypeField> columnas){
         ArrayList<JPanel> filasLlenar = new ArrayList();
         for(PairTypeField par: columnas){
             String nombreColumna = par.namefield;
