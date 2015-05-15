@@ -36,6 +36,7 @@ public class Frame extends javax.swing.JFrame {
     JPanel jPanel4 = new JPanel();
     ArrayList<Integer> idsSelectedInUpdate = new ArrayList();
     ClientLoader loader = new ClientLoader();
+    FiltrosLoader loader2 = new FiltrosLoader();
     public Frame() {
         try{
             Postgre miPostgre = new Postgre();
@@ -52,6 +53,9 @@ public class Frame extends javax.swing.JFrame {
                 }
                 else if(jTabbedPane2.getSelectedIndex() == 1){
                     createAreasForNewUser();
+                    
+                }
+                else if(jTabbedPane2.getSelectedIndex()==0){
                     
                 }
             }  
@@ -625,7 +629,7 @@ public class Frame extends javax.swing.JFrame {
         }
     }
     
-    private ArrayList<PairTypeField> getNombresColumnas(){
+    private void createFiltros(){
         ArrayList<PairTypeField> nombresColumna = new ArrayList();
         String query = "SELECT * FROM (((cliente JOIN contacto ON (cliente.contacto_idcontacto = contacto.id))\n" +
                         "JOIN empresa ON (cliente.empresa_idempresa = empresa.id))\n" +
@@ -645,7 +649,14 @@ public class Frame extends javax.swing.JFrame {
         }catch (SQLException ex){
             Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return nombresColumna;
+        ArrayList<JPanel> paneles = loader2.componentesFiltro(nombresColumna);
+        jScrollPane2.setLayout(new FlowLayout());
+        for(JPanel pa : paneles){
+            jScrollPane2.add(pa);
+            jScrollPane2.revalidate();
+            jScrollPane2.repaint();
+            setVisible(true);
+        }
     }
     
     private ResultSetMetaData metaDataBusqueda(String query){
