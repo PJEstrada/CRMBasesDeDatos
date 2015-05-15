@@ -54,10 +54,11 @@ public class Frame extends javax.swing.JFrame {
                 }
                 else if(jTabbedPane2.getSelectedIndex() == 1){
                     createAreasForNewUser();
+                    System.out.println("Esta shit");
                     
                 }
                 else if(jTabbedPane2.getSelectedIndex()==0){
-                    
+                    createFiltros();
                 }
             }  
         });
@@ -75,6 +76,7 @@ public class Frame extends javax.swing.JFrame {
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
+        panel_filtroHome = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         btn_buscarHome = new javax.swing.JButton();
@@ -123,6 +125,19 @@ public class Frame extends javax.swing.JFrame {
                 jTabbedPane2MouseClicked(evt);
             }
         });
+
+        javax.swing.GroupLayout panel_filtroHomeLayout = new javax.swing.GroupLayout(panel_filtroHome);
+        panel_filtroHome.setLayout(panel_filtroHomeLayout);
+        panel_filtroHomeLayout.setHorizontalGroup(
+            panel_filtroHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1050, Short.MAX_VALUE)
+        );
+        panel_filtroHomeLayout.setVerticalGroup(
+            panel_filtroHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 284, Short.MAX_VALUE)
+        );
+
+        jScrollPane2.setViewportView(panel_filtroHome);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -194,6 +209,9 @@ public class Frame extends javax.swing.JFrame {
             }
         });
 
+        subPanelNewUser_A.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        subPanelNewUser_A.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
         javax.swing.GroupLayout subPanelNewUserLayout = new javax.swing.GroupLayout(subPanelNewUser);
         subPanelNewUser.setLayout(subPanelNewUserLayout);
         subPanelNewUserLayout.setHorizontalGroup(
@@ -229,7 +247,7 @@ public class Frame extends javax.swing.JFrame {
             .addGroup(panelNewUserLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelNewUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(subPanelNewUser_A)
+                    .addComponent(subPanelNewUser_A, javax.swing.GroupLayout.DEFAULT_SIZE, 831, Short.MAX_VALUE)
                     .addGroup(panelNewUserLayout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -669,14 +687,7 @@ public class Frame extends javax.swing.JFrame {
     private void createAreasForNewUser(){
         ArrayList<PairTypeField> nombresLabels = new ArrayList();
         String query = "SELECT \n" +
-                    "	cliente.nombre, cliente.apellido, cliente.dpi, cliente.rating, cliente.genero,\n" +
-                    "	cliente.fecha_nacimiento, cliente.foto,\n" +
-                    "	contacto.telefono as telefono_personal, contacto.direccion, contacto.correo, contacto.celular, \n" +
-                    "	contacto.departamento, \n" +
-                    "	socialdata.facebook, socialdata.twitter, socialdata.\"google+\", socialdata.youtube,\n" +
-                    "	socialdata.tumblr,\n" +
-                    "	empresa.nombre, empresa.cargo, empresa.direccion, empresa.telefono as telefono_empresa,\n" +
-                    "	industria.nombre as nombre_empresa, industria.descripcion\n" +
+                    "	* " +
                     "		\n" +
                         "FROM (((cliente JOIN contacto ON (cliente.contacto_idcontacto = contacto.id))\n" +
                         "JOIN empresa ON (cliente.empresa_idempresa = empresa.id))\n" +
@@ -697,13 +708,18 @@ public class Frame extends javax.swing.JFrame {
             Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
         }
         ArrayList<JPanel> paneles = loader.componentesNuevoCliente(nombresLabels);
+        //subPanelNewUser_A.remove(subPanelNewUser);
         subPanelNewUser.setLayout(new GridLayout(0, 1));
         for(JPanel pa : paneles){
-            subPanelNewUser_A.add(pa);
-            subPanelNewUser_A.revalidate();
-            subPanelNewUser_A.repaint();
-            setVisible(true);
+            subPanelNewUser.add(pa);
+            subPanelNewUser.revalidate();
+            subPanelNewUser.repaint();
         }
+        
+        //subPanelNewUser_A.add(subPanelNewUser);
+        //subPanelNewUser_A.revalidate();
+        //subPanelNewUser_A.repaint();
+        setVisible(true);
     }
     
     private void createFiltros(){
@@ -718,7 +734,7 @@ public class Frame extends javax.swing.JFrame {
             st = Postgre.bdConnection.createStatement();
             ResultSet rs = st.executeQuery(query);
             ResultSetMetaData m = rs.getMetaData();
-            for(int i = 0; i<m.getColumnCount();i++){
+            for(int i = 1; i<m.getColumnCount();i++){
                 PairTypeField tempPair = new PairTypeField(m.getColumnTypeName(i),m.getColumnName(i));
                 nombresColumna.add(tempPair);
             }
@@ -728,11 +744,11 @@ public class Frame extends javax.swing.JFrame {
             Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
         }
         ArrayList<JPanel> paneles = loader2.componentesFiltro(nombresColumna);
-        jScrollPane2.setLayout(new FlowLayout());
+        panel_filtroHome.setLayout(new GridLayout(0, 1));
         for(JPanel pa : paneles){
-            jScrollPane2.add(pa);
-            jScrollPane2.revalidate();
-            jScrollPane2.repaint();
+            panel_filtroHome.add(pa);
+            panel_filtroHome.revalidate();
+            panel_filtroHome.repaint();
             setVisible(true);
         }
     }
@@ -825,6 +841,7 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JPanel panelNewUser;
     private javax.swing.JPanel panelSocial;
+    private javax.swing.JPanel panel_filtroHome;
     private javax.swing.JTable resultsTable;
     private java.awt.ScrollPane scrollPane2;
     private java.awt.ScrollPane scrollPane3;

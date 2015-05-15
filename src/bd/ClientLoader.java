@@ -53,6 +53,9 @@ public class ClientLoader {
         ArrayList<JPanel> filasLlenar = new ArrayList();
         for(PairNameData par: columnas){
             String nombreColumna = par.nombreColumna;
+            if(nombreColumna.contains("id")){
+                continue;
+            }
             String datosEn = par.datosFilaEnColumna;
             JPanel panel = new JPanel();
             JLabel label = new JLabel(nombreColumna);
@@ -68,6 +71,9 @@ public class ClientLoader {
         ArrayList<JPanel> filasLlenar = new ArrayList();
         for(PairTypeField par: columnas){
             String nombreColumna = par.namefield;
+            if(nombreColumna.contains("id")){
+                continue;
+            }
             String tipoColumna = par.typeField;
             JPanel panel = new JPanel();
             JLabel label = new JLabel(nombreColumna);
