@@ -36,7 +36,7 @@ public class Frame extends javax.swing.JFrame {
      */
     JPanel jPanel4 = new JPanel();
     ArrayList<Integer> idsSelectedInUpdate = new ArrayList();
-    ClientLoader loader = new ClientLoader();
+    ClientLoader loader;
     public Frame() {
         try{
             Postgre miPostgre = new Postgre();
@@ -674,12 +674,19 @@ public class Frame extends javax.swing.JFrame {
                         "JOIN empresa ON (cliente.empresa_idempresa = empresa.id))\n" +
                         "JOIN industria ON (cliente.industria_idindustria = industria.id)\n" +
                         "JOIN socialdata ON (cliente.socialdata_idsocialdata = socialdata.id)) WHERE cliente.id = -1";
+       String countClient = "SELECT * FROM cliente WHERE id = -1";
         Statement st;
+        Statement st2;
+        int numeroFinalCliente = 0;
         try {
             st = Postgre.bdConnection.createStatement();
+            st2 = Postgre.bdConnection.createStatement();
             ResultSet rs = st.executeQuery(query);
+            ResultSet rs2 = st2.executeQuery(countClient);
             ResultSetMetaData m = rs.getMetaData();
-            for(int i = 1; i< m.getColumnCount();i++){
+            ResultSetMetaData m2 = rs2.getMetaData();
+            numeroFinalCliente = m2.getColumnCount()-6;
+            for(int i = 1; i< m.getColumnCount()+1;i++){
                 String tipoColumna = m.getColumnTypeName(i);
                 String nombreColumna = m.getColumnName(i);
                 PairTypeField par = new PairTypeField(tipoColumna,nombreColumna);
@@ -688,6 +695,7 @@ public class Frame extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
         }
+        loader  = new ClientLoader(numeroFinalCliente);
         ArrayList<JPanel> paneles = loader.componentesNuevoCliente(nombresLabels);
         //subPanelNewUser_A.remove(subPanelNewUser);
         subPanelNewUser.setLayout(new GridLayout(0, 1));

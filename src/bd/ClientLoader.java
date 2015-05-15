@@ -5,6 +5,8 @@
  */
 package bd;
 
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.JLabel;
@@ -18,9 +20,15 @@ import javax.swing.JTextField;
  * @author Al
  */
 public class ClientLoader {
-    
-    
-    public ClientLoader(){}
+
+    ArrayList<Integer> numerosTotal = new ArrayList();
+    public ClientLoader(int numberCamps){
+        numerosTotal.add(numberCamps);
+        numerosTotal.add(5);
+        numerosTotal.add(4);
+        numerosTotal.add(2);
+        numerosTotal.add(5);
+    }
     //Metodo que ira validando cada campo al hacerse clic en el boton de listo
     //Devolvera un arraylist con el numero de los campos que tienen error y los vaciara probablemente ????? not sure actually
     public ArrayList<Integer> checkCampos(ArrayList<PairTypeField> columnas, ArrayList<String> dataIngresada){
@@ -68,18 +76,73 @@ public class ClientLoader {
     }
     //Metodo para crear paneles para cuando es un nuevo usuario 
     public ArrayList<JPanel> componentesNuevoCliente(ArrayList<PairTypeField> columnas){
+        /*
+        Cliente: 6
+        Contacto: 5
+        Empresa: 4
+        Industria: 2
+        SocialData: 5
+        */
+        
+        int i =0;
+        int index =0;
+        int indexActual = numerosTotal.get(index);
         ArrayList<JPanel> filasLlenar = new ArrayList();
+        JPanel panelito = new JPanel();
+        JLabel titulo1 = new JLabel("Datos Cliente");
+        panelito.add(titulo1);
+        filasLlenar.add(panelito);
+        //dummy
+        ArrayList<JPanel> titulosPanel = new ArrayList();
+        titulosPanel.add(panelito);
+        
+        JPanel panelito2 = new JPanel();
+        JLabel titulo2 = new JLabel("Datos Contacto: ");
+        panelito2.add(titulo2);
+        titulosPanel.add(panelito2);
+        
+        JPanel panelito3 = new JPanel();
+        JLabel titulo3 = new JLabel("Datos Empresa: ");
+        panelito3.add(titulo3);
+        titulosPanel.add(panelito3);
+        
+        JPanel panelito4 = new JPanel();
+        JLabel titulo4 = new JLabel("Datos Industria: ");
+        panelito4.add(titulo4);
+        titulosPanel.add(panelito4);
+        
+        JPanel panelito5 = new JPanel();
+        JLabel titulo5 = new JLabel("Datos de Social Data: ");
+        panelito5.add(titulo5);
+        titulosPanel.add(panelito5);
+       
         for(PairTypeField par: columnas){
             String nombreColumna = par.namefield;
-            if(nombreColumna.contains("id")){
+            if(nombreColumna.contains("id") && !nombreColumna.equals("apellido")){
                 continue;
             }
-            String tipoColumna = par.typeField;
+            else if(nombreColumna.contains("foto")){
+                continue;
+            }
+            //String tipoColumna = par.typeField;
             JPanel panel = new JPanel();
+            panel.setLayout(new GridLayout(1, 2));
             JLabel label = new JLabel(nombreColumna);
             JTextField textField = new JTextField();
+            textField.setPreferredSize(new Dimension(200,24));
             panel.add(label);
             panel.add(textField);
+            i++;
+            if(i==indexActual){
+                index++;
+                if(index<numerosTotal.size()){
+                    filasLlenar.add(panel);
+                    filasLlenar.add(titulosPanel.get(index));
+                     i = 0;
+                     indexActual = numerosTotal.get(index);
+                     continue;
+                }
+            }
             filasLlenar.add(panel);
         }
         return filasLlenar;
