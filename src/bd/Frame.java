@@ -69,13 +69,12 @@ public class Frame extends javax.swing.JFrame {
 
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
-        panelNewUser = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         btn_buscarHome = new javax.swing.JButton();
         btn_limpiarHome = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
+        panelNewUser = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jComboBox1 = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
@@ -108,6 +107,12 @@ public class Frame extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jTabbedPane2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabbedPane2MouseClicked(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -473,7 +478,7 @@ public class Frame extends javax.swing.JFrame {
     
     //recargar elementos al 
     private void jTabbedPane2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane2MouseClicked
-        
+        //el codigo va aqui
     }//GEN-LAST:event_jTabbedPane2MouseClicked
 
     private void fieldClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldClientesActionPerformed
@@ -620,8 +625,8 @@ public class Frame extends javax.swing.JFrame {
         }
     }
     
-    private String[] getNombresColumnas(){
-        ArrayList<String> nombresColumna = new ArrayList();
+    private ArrayList<PairTypeField> getNombresColumnas(){
+        ArrayList<PairTypeField> nombresColumna = new ArrayList();
         String query = "SELECT * FROM (((cliente JOIN contacto ON (cliente.contacto_idcontacto = contacto.id))\n" +
                         "JOIN empresa ON (cliente.empresa_idempresa = empresa.id))\n" +
                         "JOIN industria ON (cliente.industria_idindustria = industria.id)\n" +
@@ -632,38 +637,15 @@ public class Frame extends javax.swing.JFrame {
             ResultSet rs = st.executeQuery(query);
             ResultSetMetaData m = rs.getMetaData();
             for(int i = 0; i<m.getColumnCount();i++){
-                nombresColumna.add(m.getColumnName(i));
+                PairTypeField tempPair = new PairTypeField(m.getColumnTypeName(i),m.getColumnName(i));
+                nombresColumna.add(tempPair);
             }
             
             
         }catch (SQLException ex){
             Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        String[] nombresToReturn = new String[nombresColumna.size()];
-        nombresColumna.toArray(nombresToReturn);
-        return nombresToReturn;
-    }
-    
-    private String[] getTipoColumnas(){
-        ArrayList<String> tipoColumna = new ArrayList();
-        String query = "SELECT * FROM (((cliente JOIN contacto ON (cliente.contacto_idcontacto = contacto.id))\n" +
-                        "JOIN empresa ON (cliente.empresa_idempresa = empresa.id))\n" +
-                        "JOIN industria ON (cliente.industria_idindustria = industria.id)\n" +
-                        "JOIN socialdata ON (cliente.socialdata_idsocialdata = socialdata.id)) WHERE id = -1";
-        Statement st;
-        try{
-            st = Postgre.bdConnection.createStatement();
-            ResultSet rs = st.executeQuery(query);
-            ResultSetMetaData m = rs.getMetaData();
-            for(int i = 0; i<m.getColumnCount();i++){
-                tipoColumna.add(m.getColumnName(i));
-            }
-        }catch(SQLException ex){
-            Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        String[] tipoToReturn = new String[tipoColumna.size()];
-        tipoColumna.toArray(tipoToReturn);
-        return tipoToReturn;
+        return nombresColumna;
     }
     
     private ResultSetMetaData metaDataBusqueda(String query){
@@ -748,8 +730,8 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane2;
-    private javax.swing.JPanel panelNewUser;
     private javax.swing.JTable jTable1;
+    private javax.swing.JPanel panelNewUser;
     private javax.swing.JPanel panelSocial;
     private javax.swing.JTable resultsTable;
     private java.awt.ScrollPane scrollPane2;
