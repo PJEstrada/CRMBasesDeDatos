@@ -22,9 +22,14 @@ import javax.swing.JTextField;
 public class ClientLoader {
 
     ArrayList<Integer> numerosTotal = new ArrayList();
-    ArrayList<PairTypeNumber> tiposNuevoCliente = new ArrayList();
-    ArrayList<String> nombresColumnas = new ArrayList();
-    ArrayList<String> nombresColumnasNativas = new ArrayList();
+    ArrayList<PairTypeNumber> tiposNuevoCliente = new ArrayList(); //estos son para poder realizar el checkeo que las datos esten acorde
+    ArrayList<String> nombresColumnas = new ArrayList(); //estos son para poder lanzar bien los errores
+    ArrayList<String> nombresColumnasNativas = new ArrayList(); //esta es para las que pertenecen al area de cliente como tal
+    
+    //esto es solo para no hacerme bolas
+    ArrayList<PairTypeNumber> tiposActualizarCliente = new ArrayList(); //estos son para poder realizar el checkeo que las datos esten acorde
+    ArrayList<String> nombresColumnasActualizar = new ArrayList(); //estos son para poder lanzar bien los errores
+    ArrayList<String> nombresColumnasNativasActualizar = new ArrayList(); //esta es para las que pertenecen al area de cliente como tal
     public ClientLoader(int numberCamps){
         numerosTotal.add(numberCamps);
         numerosTotal.add(5);
@@ -32,6 +37,112 @@ public class ClientLoader {
         numerosTotal.add(2);
         numerosTotal.add(5);
     }
+    
+    /*----------------------------------TODOS estos metodos son para actualizar o eliminar un cliente----------------------------------*/
+    public ArrayList<JPanel> componentesEditarCliente(ArrayList<classForUsers> columnas, boolean canEdit){
+        /*
+        Cliente: 6
+        Contacto: 5
+        Empresa: 4
+        Industria: 2
+        SocialData: 5
+        */
+        tiposActualizarCliente = new ArrayList();
+        nombresColumnasActualizar = new ArrayList();
+        nombresColumnasNativasActualizar = new ArrayList();
+        int i =0;
+        int index =0;
+        int indexActual = numerosTotal.get(index);
+        ArrayList<JPanel> filasLlenar = new ArrayList();
+        JPanel panelito = new JPanel();
+        JLabel titulo1 = new JLabel("Datos Cliente");
+        panelito.add(titulo1);
+        filasLlenar.add(panelito);
+        //dummy
+        ArrayList<JPanel> titulosPanel = new ArrayList();
+        titulosPanel.add(panelito);
+        
+        JPanel panelito2 = new JPanel();
+        JLabel titulo2 = new JLabel("Datos Contacto: ");
+        panelito2.add(titulo2);
+        titulosPanel.add(panelito2);
+        
+        JPanel panelito3 = new JPanel();
+        JLabel titulo3 = new JLabel("Datos Empresa: ");
+        panelito3.add(titulo3);
+        titulosPanel.add(panelito3);
+        
+        JPanel panelito4 = new JPanel();
+        JLabel titulo4 = new JLabel("Datos Industria: ");
+        panelito4.add(titulo4);
+        titulosPanel.add(panelito4);
+        
+        JPanel panelito5 = new JPanel();
+        JLabel titulo5 = new JLabel("Datos de Social Data: ");
+        panelito5.add(titulo5);
+        titulosPanel.add(panelito5);
+       
+        for(classForUsers par: columnas){
+            String nombreColumna = par.nombreColumna;
+            if(nombreColumna.contains("id") && !nombreColumna.equals("apellido")){
+                continue;
+            }
+            else if(nombreColumna.contains("foto")){
+                continue;
+            }
+            if(index == 0){
+                nombresColumnasNativasActualizar.add(nombreColumna);
+            }
+            
+            nombreColumna = nombreColumna.replace("_", " ");
+            nombreColumna = nombreColumna.substring(0, 1).toUpperCase() + nombreColumna.substring(1);
+            nombresColumnasActualizar.add(nombreColumna);
+            String tipoColumna = par.tipoColumna;
+            tipoColumna = tipoColumna.toUpperCase();
+            int numberTipo =0;
+            if(tipoColumna.contains("TEXT") || tipoColumna.contains("VARCHAR")){
+                numberTipo = 1;
+            }
+            else if(tipoColumna.contains("INT")){
+                numberTipo = 2;
+            }
+            else if(tipoColumna.contains("FLOAT")){
+                numberTipo = 3;
+            }
+            else if(tipoColumna.contains("DATE")){
+                numberTipo = 4;
+            }
+            PairTypeNumber nuevoHere = new PairTypeNumber(numberTipo,tipoColumna,nombreColumna);
+            
+            
+            tiposActualizarCliente.add(nuevoHere);
+            JPanel panel = new JPanel();
+            panel.setLayout(new GridLayout(1, 2));
+            JLabel label = new JLabel(nombreColumna);
+            JTextField textField = new JTextField();
+            textField.setText(par.datosEnColumna);
+            textField.setEditable(canEdit);
+            
+            textField.setPreferredSize(new Dimension(200,24));
+            panel.add(label);
+            panel.add(textField);
+            i++;
+            if(i==indexActual){
+                index++;
+                if(index<numerosTotal.size()){
+                    filasLlenar.add(panel);
+                    filasLlenar.add(titulosPanel.get(index));
+                     i = 0;
+                     indexActual = numerosTotal.get(index);
+                     continue;
+                }
+            }
+            filasLlenar.add(panel);
+        }
+        return filasLlenar;
+    }
+    
+    /*----------------------------------TODOS estos metodos son para agregar un nuevo cliente-----------------------------------------*/
     //Metodo que ira validando cada campo al hacerse clic en el boton de listo
     //Devolvera un arraylist con el numero de los campos que tienen error y los vaciara probablemente ????? not sure actually
     public ArrayList<Integer> checkCampos(ArrayList<PairTypeField> columnas, ArrayList<String> dataIngresada){
@@ -107,6 +218,8 @@ public class ClientLoader {
         SocialData: 5
         */
         tiposNuevoCliente = new ArrayList();
+        nombresColumnas = new ArrayList();
+        nombresColumnasNativas = new ArrayList();
         int i =0;
         int index =0;
         int indexActual = numerosTotal.get(index);

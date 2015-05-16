@@ -70,9 +70,11 @@ public class Frame extends javax.swing.JFrame {
     ArrayList<JPanel> panelesUpdateUser = new ArrayList();
     
     ArrayList<classForUsers> totalPanelesActualizar = new ArrayList();
+    ArrayList<ArrayList<classForUsers>> totalSubpaneles = new ArrayList();
     
     ArrayList<Integer> indicesActualizar = new ArrayList();
-    ArrayList<Integer> indicesDelete = new ArrayList();
+    ArrayList<Integer> indicesDelete = new ArrayList();  //<-------------------
+    
     HashMap componentesFiltroMap;
     File targetFile;
     BufferedImage targetImg;
@@ -1017,6 +1019,11 @@ public class Frame extends javax.swing.JFrame {
         totalPaneles.addAll(paraEmpresa);
         totalPaneles.addAll(paraIndustria);
         totalPaneles.addAll(paraSocial);
+        totalSubpaneles.add(paraCliente);
+        totalSubpaneles.add(paraContacto);
+        totalSubpaneles.add(paraEmpresa);
+        totalSubpaneles.add(paraIndustria);
+        totalSubpaneles.add(paraSocial);
         totalPanelesActualizar.addAll(totalPaneles);
         createAreasForUpdateUser(totalPaneles,numeroEnCliente,true);
         //y se pone la fotita
@@ -1711,7 +1718,7 @@ public class Frame extends javax.swing.JFrame {
         //bueeeeeeeeeeeeeeeno. Primero tomemos todos los id
         //Si llego a necesitar los id estan en indicesActualizar
         //Para ver la data esta en totalPanelesActualzar
-        
+        //para ver la data separada por parte totalSubpaneles
     }//GEN-LAST:event_jButton3ActionPerformed
     
     private void browseButtonActionPerformed(java.awt.event.ActionEvent evt) {
