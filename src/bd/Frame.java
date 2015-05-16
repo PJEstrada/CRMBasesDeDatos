@@ -49,6 +49,7 @@ public class Frame extends javax.swing.JFrame {
     ArrayList<String> nombresColumnasNewUser = new ArrayList();
     JPanel jPanel4 = new JPanel();
     ArrayList<Integer> idsSelectedInUpdate = new ArrayList();
+    ArrayList<PairTypeNumber> tiposNuevoCliente = new ArrayList();
     ClientLoader loader;
     File targetFile;
     BufferedImage targetImg;
@@ -699,55 +700,123 @@ public class Frame extends javax.swing.JFrame {
         ArrayList<ArrayList<String>> nuevosValores = getValueForNewUser();
         System.out.println("El size del coso es "+nuevosValores.size());
         int indexIntoArrayOfArray = 0;
-        
+        int numeroTipo = 0;
+        boolean necesitaComillas = false;
         for(ArrayList<String> i : nuevosValores){
             
             for(int k = 0; k<i.size(); k++){
+                String tipo = tiposNuevoCliente.get(numeroTipo).nameType;
+                if(tipo.contains("VARCHAR") || tipo.contains("TEXT") || tipo.contains("DATE")){
+                    necesitaComillas = true;
+                }
                 String j = i.get(k);
                 System.out.println(j);
                 if(indexIntoArrayOfArray == 0){
-                    valuesCliente+=j+", ";
-                }
-                else if(indexIntoArrayOfArray == 1){
-                    
-                    if(k == i.size()-1){
-                        valuesContacto += j;
+                    if(necesitaComillas){
+                        valuesCliente+="\'"+j+"\', ";
+                        numeroTipo++;
                     }
                     else{
-                        valuesContacto+=j+", ";
+                        valuesCliente+=j+", ";
+                        numeroTipo++;
+                    }
+                    
+                }
+                else if(indexIntoArrayOfArray == 1){
+                    if(necesitaComillas){
+                        if(k == i.size()-1){
+                            valuesContacto += "\'"+j+"\'";
+                            numeroTipo++;
+                        }
+                        else{
+                            valuesContacto+="\'"+j+"\', ";
+                            numeroTipo++;
+                        }
+                    }
+                    else{
+                        if(k == i.size()-1){
+                            valuesContacto += j;
+                            numeroTipo++;
+                        }
+                        else{
+                            valuesContacto+=j+", ";
+                            numeroTipo++;
+                        }
                     }
                 }
                 else if(indexIntoArrayOfArray == 2){
-                    
-                    if(k == i.size()-1){
-                        valuesEmpresa+=j;
+                    if(necesitaComillas){
+                        if(k == i.size()-1){
+                            valuesEmpresa+="\'"+j+"\'";
+                            numeroTipo++;
+                        }
+                        else{
+                            valuesEmpresa+="\'"+j+"\', ";
+                            numeroTipo++;
+                        }
                     }
                     else{
-                        valuesEmpresa+=j+", ";
+                        if(k == i.size()-1){
+                            valuesEmpresa+=j;
+                            numeroTipo++;
+                        }
+                        else{
+                            valuesEmpresa+=j+", ";
+                            numeroTipo++;
+                        }
                     }
+                    
                 }
                 else if(indexIntoArrayOfArray == 3){
-                    
-                    if(k == i.size()-1){
-                        valuesIndustria+=j;
+                    if(necesitaComillas){
+                        if(k == i.size()-1){
+                            valuesIndustria+="\'"+j+"\'";
+                            numeroTipo++;
+                        }
+                        else{
+                            valuesIndustria+="\'"+j+"\', ";
+                            numeroTipo++;
+                        }
                     }
                     else{
-                        valuesIndustria+=j+", ";
+                        if(k == i.size()-1){
+                            valuesIndustria+=j;
+                            numeroTipo++;
+                        }
+                        else{
+                            valuesIndustria+=j+", ";
+                            numeroTipo++;
+                        }
                     }
+                    
                 }
                 else if(indexIntoArrayOfArray == 4){
-                    
-                    if(k == i.size()-1){
-                        valuesSocialData+=j;
+                    if(necesitaComillas){
+                        if(k == i.size()-1){
+                            valuesSocialData+="\'"+j+"\'";
+                            numeroTipo++;
+                        }
+                        else{
+                            valuesSocialData+="\'"+j+"\', ";
+                            numeroTipo++;
+                        }
                     }
                     else{
-                        valuesSocialData+=j+", ";
+                        if(k == i.size()-1){
+                            valuesSocialData+=j;
+                            numeroTipo++;
+                        }
+                        else{
+                            valuesSocialData+=j+", ";
+                            numeroTipo++;
+                        }
                     }
+                    
                 }
             }
             if(indexIntoArrayOfArray == 0){
                 System.out.println(targetFile.getAbsolutePath());
-                valuesCliente+=targetFile.getAbsolutePath();
+                valuesCliente+="\'"+targetFile.getAbsolutePath()+"\'";
             }
             else{
                 
@@ -944,6 +1013,7 @@ public class Frame extends javax.swing.JFrame {
         }
         loader  = new ClientLoader(numeroFinalCliente);
         ArrayList<JPanel> previo= loader.componentesNuevoCliente(nombresLabels);
+        tiposNuevoCliente = loader.tiposNuevoCliente;
         if(panelesNewUser.size() != previo.size()){
             panelesNewUser = new ArrayList(); //se resetea
             panelesNewUser.addAll(previo); //se carga la nueva data

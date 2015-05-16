@@ -22,6 +22,7 @@ import javax.swing.JTextField;
 public class ClientLoader {
 
     ArrayList<Integer> numerosTotal = new ArrayList();
+    ArrayList<PairTypeNumber> tiposNuevoCliente = new ArrayList();
     public ClientLoader(int numberCamps){
         numerosTotal.add(numberCamps);
         numerosTotal.add(5);
@@ -56,6 +57,26 @@ public class ClientLoader {
         }
         return camposArreglar;
     }
+    
+    //Metodo que se va a encargar de verificar campos a travez de un numero y un string
+    //Hmmmmm creo que voy a usar mi clase PairTypeNumber donde Type sera el mensaje y number el numero logicamente hahahaha
+    //Si me hago bolas no ps que le voy a hacer xD
+    public ArrayList<PairTypeNumber> checkCamposNuevo(ArrayList<PairTypeNumber> campos, ArrayList<String> dataIngresada){
+        ArrayList<PairTypeNumber> camposArreglar = new ArrayList();
+        for(int i = 0; i< dataIngresada.size(); i++){
+            String probar = dataIngresada.get(i);
+            int numberToTest = campos.get(i).numberType;
+            boolean isCorrect = validateField(probar, numberToTest);
+            if(!isCorrect){
+                String mensaje = "El campo "+campos.get(i).nameColumn +" tiene ingresado un dato no valido";
+                int number = i;
+                PairTypeNumber error = new PairTypeNumber(number,mensaje);
+                camposArreglar.add(error);
+            }
+        }
+        return camposArreglar;
+    }
+    
     //Metodo para crear paneles con los componentes debidos para cuando se debe editar
     public ArrayList<JPanel> componentes(ArrayList<PairNameData> columnas){
         ArrayList<JPanel> filasLlenar = new ArrayList();
@@ -83,7 +104,7 @@ public class ClientLoader {
         Industria: 2
         SocialData: 5
         */
-        
+        tiposNuevoCliente = new ArrayList();
         int i =0;
         int index =0;
         int indexActual = numerosTotal.get(index);
@@ -118,13 +139,33 @@ public class ClientLoader {
        
         for(PairTypeField par: columnas){
             String nombreColumna = par.namefield;
+            nombreColumna = nombreColumna.replace("_", " ");
+            nombreColumna = nombreColumna.substring(0, 1).toUpperCase() + nombreColumna.substring(1);
             if(nombreColumna.contains("id") && !nombreColumna.equals("apellido")){
                 continue;
             }
             else if(nombreColumna.contains("foto")){
                 continue;
             }
-            //String tipoColumna = par.typeField;
+            String tipoColumna = par.typeField;
+            tipoColumna = tipoColumna.toUpperCase();
+            int numberTipo =0;
+            if(tipoColumna.contains("TEXT") || tipoColumna.contains("VARCHAR")){
+                numberTipo = 1;
+            }
+            else if(tipoColumna.contains("INTEGER")){
+                numberTipo = 2;
+            }
+            else if(tipoColumna.contains("FLOAT")){
+                numberTipo = 3;
+            }
+            else if(tipoColumna.contains("DATE")){
+                numberTipo = 4;
+            }
+            PairTypeNumber nuevoHere = new PairTypeNumber(numberTipo,tipoColumna,nombreColumna);
+            
+            
+            tiposNuevoCliente.add(nuevoHere);
             JPanel panel = new JPanel();
             panel.setLayout(new GridLayout(1, 2));
             JLabel label = new JLabel(nombreColumna);
