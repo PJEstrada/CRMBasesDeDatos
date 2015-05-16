@@ -62,6 +62,7 @@ public class Frame extends javax.swing.JFrame {
     ArrayList<String> nombresTextBoxBusqueda = new ArrayList();
     ArrayList<String> nombresCheckBoxBusqueda = new ArrayList();
     ArrayList<String> columnasAmostrar = new ArrayList();
+    ArrayList<String> nombresColumnasNativas = new ArrayList();
     HashMap componentesFiltroMap;
     File targetFile;
     BufferedImage targetImg;
@@ -79,7 +80,8 @@ public class Frame extends javax.swing.JFrame {
             titulos[i] = camposBuscar.get(i).namefield;
         }
         iniciarTablaBusquedaHome(titulos, contenido);
-        
+        txtAreaAgregarColumna.setText("   Escriba el nombre y el tipo de la nueva columna y presione el botón \"Agregar Columna\". \n   Se agregará null en los clientes existentes por lo que se le recuerda que debe editarlos.");
+        txtAreaAgregarColumna.setEnabled(false);
         jTabbedPane2.addChangeListener(new ChangeListener(){
         
             @Override
@@ -158,6 +160,14 @@ public class Frame extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         buscar = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        lblColumna1 = new javax.swing.JLabel();
+        txtColumnaNueva1 = new javax.swing.JTextField();
+        lblColumna2 = new javax.swing.JLabel();
+        jComboBox2 = new javax.swing.JComboBox();
+        btnAgregarColumna = new javax.swing.JButton();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        txtAreaAgregarColumna = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -230,7 +240,7 @@ public class Frame extends javax.swing.JFrame {
                     .addComponent(btn_buscarHome)
                     .addComponent(btn_limpiarHome))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -272,7 +282,7 @@ public class Frame extends javax.swing.JFrame {
         );
         subPanelNewUserLayout.setVerticalGroup(
             subPanelNewUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 829, Short.MAX_VALUE)
+            .addGap(0, 867, Short.MAX_VALUE)
         );
 
         subPanelNewUser_A.setViewportView(subPanelNewUser);
@@ -360,10 +370,10 @@ public class Frame extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(752, Short.MAX_VALUE))
+                .addContainerGap(811, Short.MAX_VALUE))
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 833, Short.MAX_VALUE)
+                .addComponent(scrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 888, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -393,10 +403,10 @@ public class Frame extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(752, Short.MAX_VALUE))
+                .addContainerGap(811, Short.MAX_VALUE))
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 833, Short.MAX_VALUE)
+                .addComponent(scrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 888, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -591,7 +601,7 @@ public class Frame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
-                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE))
+                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -609,6 +619,65 @@ public class Frame extends javax.swing.JFrame {
         );
 
         jTabbedPane2.addTab("Social", jPanel7);
+
+        lblColumna1.setText("Nombre de la nueva columna:");
+
+        lblColumna2.setText("Tipo de la nueva columna:");
+
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "String", "Int", "Float", "Date" }));
+
+        btnAgregarColumna.setText("Agregar Columna");
+
+        txtAreaAgregarColumna.setEditable(false);
+        txtAreaAgregarColumna.setColumns(20);
+        txtAreaAgregarColumna.setRows(5);
+        jScrollPane5.setViewportView(txtAreaAgregarColumna);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(92, 92, 92)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 873, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblColumna1)
+                                    .addComponent(txtColumnaNueva1, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblColumna2)
+                                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(365, 365, 365)
+                                .addComponent(btnAgregarColumna)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 282, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(205, 205, 205))))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(245, 245, 245)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblColumna1)
+                    .addComponent(lblColumna2))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtColumnaNueva1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(57, 57, 57)
+                .addComponent(btnAgregarColumna)
+                .addGap(58, 58, 58)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(377, Short.MAX_VALUE))
+        );
+
+        jTabbedPane2.addTab("Agregar Columna", jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -816,9 +885,66 @@ public class Frame extends javax.swing.JFrame {
                     String j = i.get(k);
                     System.out.println(j);
                     if(j.equals("NULL")){
-                        valuesCliente+=j+", ";
-                        numeroTipo++;
-                        necesitaComillas = false;
+                        if(indexIntoArrayOfArray == 0){
+                            if(k == i.size()-1){
+                                valuesCliente += "NULL";
+                                numeroTipo++;
+                                necesitaComillas = false;
+                            }
+                            else{
+                                valuesCliente+="NULL, ";
+                                numeroTipo++;
+                                necesitaComillas = false;
+                            }
+                        }
+                        else if(indexIntoArrayOfArray == 1){
+                            if(k == i.size()-1){
+                                valuesContacto += "NULL";
+                                numeroTipo++;
+                                necesitaComillas = false;
+                            }
+                            else{
+                                valuesContacto+="NULL, ";
+                                numeroTipo++;
+                                necesitaComillas = false;
+                            }
+                        }
+                        else if(indexIntoArrayOfArray == 2){
+                            if(k == i.size()-1){
+                                valuesEmpresa += "NULL";
+                                numeroTipo++;
+                                necesitaComillas = false;
+                            }
+                            else{
+                                valuesEmpresa+="NULL, ";
+                                numeroTipo++;
+                                necesitaComillas = false;
+                            }
+                        }
+                        else if(indexIntoArrayOfArray == 3){
+                            if(k == i.size()-1){
+                                valuesIndustria += "NULL";
+                                numeroTipo++;
+                                necesitaComillas = false;
+                            }
+                            else{
+                                valuesIndustria+="NULL, ";
+                                numeroTipo++;
+                                necesitaComillas = false;
+                            }
+                        }
+                        else if(indexIntoArrayOfArray == 4){
+                            if(k == i.size()-1){
+                                valuesSocialData += "NULL";
+                                numeroTipo++;
+                                necesitaComillas = false;
+                            }
+                            else{
+                                valuesSocialData+="NULL, ";
+                                numeroTipo++;
+                                necesitaComillas = false;
+                            }
+                        }
                         continue;
                         
                     }
@@ -952,12 +1078,21 @@ public class Frame extends javax.swing.JFrame {
                 indexIntoArrayOfArray++;
                 System.out.println("----------------------");
             }
-
-            String queryInstert = "INSERT INTO cliente "+"ALGO QUE DARA QUE HACER D;"+ "VALUES ("+valuesCliente+", ";
-            String queryInsertContacto="INSERT INTO contacto "+"(telefono_cliente,direccion_cliente, correo, celular, departamento)"+ " VALUES ("+valuesContacto+") RETURNING id;";
-            String queryInsertEmpresa="INSERT INTO empresa "+"(nombre_empresa, cargo, direccion_empresa, telefono_empresa)"+" VALUES ("+valuesEmpresa+"); RETURNING id";
-            String queryInsertIndustria="INSERT INTO industria "+"(nombre_industria, descripcion)"+" VALUES ("+valuesIndustria+"); RETURNING id";
-            String queryInsertSocialData="INSERT INTO socialData "+"(facebook, twitter, \"google+\",youtube, tumblr)"+" VALUES ("+valuesSocialData+"); RETURNING id";
+            String camposCliente = "";
+            for(int kk = 0; kk< nombresColumnasNativas.size(); kk++){
+                String camposDelTotal = nombresColumnasNativas.get(kk);
+                if(kk == nombresColumnasNativas.size()-1){
+                    camposCliente+= camposDelTotal;
+                    continue;
+                }
+                camposCliente += camposDelTotal+", ";
+            }
+            camposCliente+=",foto, contacto_idcontacto, empresa_idempresa, industria_idindustria, socialdata_idsocialdata";
+            String queryInstert = "INSERT INTO cliente ("+camposCliente+ ") VALUES ("+valuesCliente+", ";
+            String queryInsertContacto="INSERT INTO contacto "+"(telefono_cliente,direccion_cliente, correo, celular, departamento)"+ " VALUES ("+valuesContacto+");";
+            String queryInsertEmpresa="INSERT INTO empresa "+"(nombre_empresa, cargo, direccion_empresa, telefono_empresa)"+" VALUES ("+valuesEmpresa+");";
+            String queryInsertIndustria="INSERT INTO industria "+"(nombre_industria, descripcion)"+" VALUES ("+valuesIndustria+");";
+            String queryInsertSocialData="INSERT INTO socialData "+"(facebook, twitter, \"google+\",youtube, tumblr)"+" VALUES ("+valuesSocialData+");";
 
             //executing the queries
             Statement st;
@@ -966,37 +1101,50 @@ public class Frame extends javax.swing.JFrame {
             Statement st4;
             Statement stFinal;
 
-            String idContacto;
-            String idEmpresa;
-            String idIndustria;
-            String idSocialData;
+            String idContacto="";
+            String idEmpresa="";
+            String idIndustria="";
+            String idSocialData="";
             try {
                 //contacto
                 st = Postgre.bdConnection.createStatement();
-                ResultSet rs = st.executeQuery(queryInsertContacto);
-                ResultSetMetaData m = rs.getMetaData();
-                idContacto = rs.getString(1);
+                st.execute(queryInsertContacto,Statement.RETURN_GENERATED_KEYS);
+                //ResultSetMetaData m = rs.getMetaData();
+                ResultSet keyset = st.getGeneratedKeys();
+                if(keyset.next()){
+                    idContacto = keyset.getInt(1)+"";
+                }
                 //empresa
                 st2 = Postgre.bdConnection.createStatement();
-                ResultSet rs2 = st2.executeQuery(queryInsertEmpresa);
-                ResultSetMetaData m2 = rs2.getMetaData();
-                idEmpresa = rs2.getString(1);
+                st2.execute(queryInsertEmpresa,Statement.RETURN_GENERATED_KEYS);
+                ResultSet keyset2 = st2.getGeneratedKeys();
+                if(keyset2.next()){
+                    idEmpresa = keyset2.getInt(1)+"";;
+                }
                 //industria
                 st3 = Postgre.bdConnection.createStatement();
-                ResultSet rs3 = st3.executeQuery(queryInsertIndustria);
-                ResultSetMetaData m3 = rs3.getMetaData();
-                idIndustria = rs3.getString(1);
+                st3.execute(queryInsertIndustria,Statement.RETURN_GENERATED_KEYS);
+                ResultSet keyset3 = st3.getGeneratedKeys();
+                if(keyset3.next()){
+                    idIndustria = keyset3.getInt(1)+"";
+                }
                 //socialData
                 st4 = Postgre.bdConnection.createStatement();
-                ResultSet rs4 = st4.executeQuery(queryInsertSocialData);
-                ResultSetMetaData m4 = rs4.getMetaData();
-                idSocialData = rs4.getString(1);
+                st4.execute(queryInsertSocialData,Statement.RETURN_GENERATED_KEYS);
+                ResultSet keyset4 = st4.getGeneratedKeys();
+                if(keyset4.next()){
+                    idSocialData = keyset4.getInt(1)+"";
+                }
+                
                 queryInstert+=idContacto+", "+idEmpresa+", "+idIndustria+", "+idSocialData+");";
 
                 //Ahora si se ejecuta la del inser final
                stFinal = Postgre.bdConnection.createStatement();
-               ResultSet rsF = stFinal.executeQuery(queryInstert);
-               ResultSetMetaData mF = rsF.getMetaData();
+               stFinal.execute(queryInstert,Statement.RETURN_GENERATED_KEYS);
+               ResultSet keysetFinal = stFinal.getGeneratedKeys();
+               if(keysetFinal.next()){
+                   System.out.println(keysetFinal.getInt(1));
+               }
 
             } catch (SQLException ex) {
                 Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
@@ -1324,6 +1472,7 @@ public class Frame extends javax.swing.JFrame {
         ArrayList<JPanel> previo= loader.componentesNuevoCliente(nombresLabels);
         tiposNuevoCliente = loader.tiposNuevoCliente;
         nombresColumnas = loader.nombresColumnas;
+        nombresColumnasNativas = loader.nombresColumnasNativas;
         if(panelesNewUser.size() != previo.size()){
             panelesNewUser = new ArrayList(); //se resetea
             panelesNewUser.addAll(previo); //se carga la nueva data
@@ -1499,6 +1648,7 @@ public class Frame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregarColumna;
     private javax.swing.JButton btn_buscarHome;
     private javax.swing.JButton btn_limpiarHome;
     private javax.swing.JButton buscar;
@@ -1511,6 +1661,7 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox jComboBox2;
     private javax.swing.JComboBox jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1525,6 +1676,7 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
@@ -1533,10 +1685,13 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel labelImage;
+    private javax.swing.JLabel lblColumna1;
+    private javax.swing.JLabel lblColumna2;
     private javax.swing.JPanel panelFoto;
     private javax.swing.JPanel panelNewUser;
     private javax.swing.JPanel panelSocial;
@@ -1546,5 +1701,7 @@ public class Frame extends javax.swing.JFrame {
     private java.awt.ScrollPane scrollPane3;
     private javax.swing.JPanel subPanelNewUser;
     private javax.swing.JScrollPane subPanelNewUser_A;
+    private javax.swing.JTextArea txtAreaAgregarColumna;
+    private javax.swing.JTextField txtColumnaNueva1;
     // End of variables declaration//GEN-END:variables
 }
