@@ -1730,8 +1730,16 @@ public class Frame extends javax.swing.JFrame {
             valoresAntiguos.add(valo);
         }
         //va ahora que ya tengo los antiguos y los nuevos, tengo que comenzar a recorrer ambos para compararlos
-        
-        
+        /*
+            0 = cliente
+            1 = contacto
+            2 = empresa
+            3 = industria
+            4 = social
+        */
+        for(int i = 0; i< valoresRevisar.size(); i++){
+            
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
     
     private void browseButtonActionPerformed(java.awt.event.ActionEvent evt) {
