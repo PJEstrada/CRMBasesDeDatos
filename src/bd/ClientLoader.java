@@ -24,6 +24,7 @@ public class ClientLoader {
     ArrayList<Integer> numerosTotal = new ArrayList();
     ArrayList<PairTypeNumber> tiposNuevoCliente = new ArrayList();
     ArrayList<String> nombresColumnas = new ArrayList();
+    ArrayList<String> nombresColumnasNativas = new ArrayList();
     public ClientLoader(int numberCamps){
         numerosTotal.add(numberCamps);
         numerosTotal.add(5);
@@ -146,6 +147,10 @@ public class ClientLoader {
             else if(nombreColumna.contains("foto")){
                 continue;
             }
+            if(index == 0){
+                nombresColumnasNativas.add(nombreColumna);
+            }
+            
             nombreColumna = nombreColumna.replace("_", " ");
             nombreColumna = nombreColumna.substring(0, 1).toUpperCase() + nombreColumna.substring(1);
             nombresColumnas.add(nombreColumna);

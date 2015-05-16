@@ -62,6 +62,7 @@ public class Frame extends javax.swing.JFrame {
     ArrayList<String> nombresTextBoxBusqueda = new ArrayList();
     ArrayList<String> nombresCheckBoxBusqueda = new ArrayList();
     ArrayList<String> columnasAmostrar = new ArrayList();
+    ArrayList<String> nombresColumnasNativas = new ArrayList();
     HashMap componentesFiltroMap;
     File targetFile;
     BufferedImage targetImg;
@@ -812,9 +813,66 @@ public class Frame extends javax.swing.JFrame {
                     String j = i.get(k);
                     System.out.println(j);
                     if(j.equals("NULL")){
-                        valuesCliente+=j+", ";
-                        numeroTipo++;
-                        necesitaComillas = false;
+                        if(indexIntoArrayOfArray == 0){
+                            if(k == i.size()-1){
+                                valuesCliente += "NULL";
+                                numeroTipo++;
+                                necesitaComillas = false;
+                            }
+                            else{
+                                valuesCliente+="NULL, ";
+                                numeroTipo++;
+                                necesitaComillas = false;
+                            }
+                        }
+                        else if(indexIntoArrayOfArray == 1){
+                            if(k == i.size()-1){
+                                valuesContacto += "NULL";
+                                numeroTipo++;
+                                necesitaComillas = false;
+                            }
+                            else{
+                                valuesContacto+="NULL, ";
+                                numeroTipo++;
+                                necesitaComillas = false;
+                            }
+                        }
+                        else if(indexIntoArrayOfArray == 2){
+                            if(k == i.size()-1){
+                                valuesEmpresa += "NULL";
+                                numeroTipo++;
+                                necesitaComillas = false;
+                            }
+                            else{
+                                valuesEmpresa+="NULL, ";
+                                numeroTipo++;
+                                necesitaComillas = false;
+                            }
+                        }
+                        else if(indexIntoArrayOfArray == 3){
+                            if(k == i.size()-1){
+                                valuesIndustria += "NULL";
+                                numeroTipo++;
+                                necesitaComillas = false;
+                            }
+                            else{
+                                valuesIndustria+="NULL, ";
+                                numeroTipo++;
+                                necesitaComillas = false;
+                            }
+                        }
+                        else if(indexIntoArrayOfArray == 4){
+                            if(k == i.size()-1){
+                                valuesSocialData += "NULL";
+                                numeroTipo++;
+                                necesitaComillas = false;
+                            }
+                            else{
+                                valuesSocialData+="NULL, ";
+                                numeroTipo++;
+                                necesitaComillas = false;
+                            }
+                        }
                         continue;
                         
                     }
@@ -948,12 +1006,21 @@ public class Frame extends javax.swing.JFrame {
                 indexIntoArrayOfArray++;
                 System.out.println("----------------------");
             }
-
-            String queryInstert = "INSERT INTO cliente "+"ALGO QUE DARA QUE HACER D;"+ "VALUES ("+valuesCliente+", ";
-            String queryInsertContacto="INSERT INTO contacto "+"(telefono_cliente,direccion_cliente, correo, celular, departamento)"+ " VALUES ("+valuesContacto+") RETURNING id;";
-            String queryInsertEmpresa="INSERT INTO empresa "+"(nombre_empresa, cargo, direccion_empresa, telefono_empresa)"+" VALUES ("+valuesEmpresa+"); RETURNING id";
-            String queryInsertIndustria="INSERT INTO industria "+"(nombre_industria, descripcion)"+" VALUES ("+valuesIndustria+"); RETURNING id";
-            String queryInsertSocialData="INSERT INTO socialData "+"(facebook, twitter, \"google+\",youtube, tumblr)"+" VALUES ("+valuesSocialData+"); RETURNING id";
+            String camposCliente = "";
+            for(int kk = 0; kk< nombresColumnasNativas.size(); kk++){
+                String camposDelTotal = nombresColumnasNativas.get(kk);
+                if(kk == nombresColumnasNativas.size()-1){
+                    camposCliente+= camposDelTotal;
+                    continue;
+                }
+                camposCliente += camposDelTotal+", ";
+            }
+            camposCliente+=",foto, contacto_idcontacto, empresa_idempresa, industria_idindustria, socialdata_idsocialdata";
+            String queryInstert = "INSERT INTO cliente ("+camposCliente+ ") VALUES ("+valuesCliente+", ";
+            String queryInsertContacto="INSERT INTO contacto "+"(telefono_cliente,direccion_cliente, correo, celular, departamento)"+ " VALUES ("+valuesContacto+");";
+            String queryInsertEmpresa="INSERT INTO empresa "+"(nombre_empresa, cargo, direccion_empresa, telefono_empresa)"+" VALUES ("+valuesEmpresa+");";
+            String queryInsertIndustria="INSERT INTO industria "+"(nombre_industria, descripcion)"+" VALUES ("+valuesIndustria+");";
+            String queryInsertSocialData="INSERT INTO socialData "+"(facebook, twitter, \"google+\",youtube, tumblr)"+" VALUES ("+valuesSocialData+");";
 
             //executing the queries
             Statement st;
@@ -962,37 +1029,50 @@ public class Frame extends javax.swing.JFrame {
             Statement st4;
             Statement stFinal;
 
-            String idContacto;
-            String idEmpresa;
-            String idIndustria;
-            String idSocialData;
+            String idContacto="";
+            String idEmpresa="";
+            String idIndustria="";
+            String idSocialData="";
             try {
                 //contacto
                 st = Postgre.bdConnection.createStatement();
-                ResultSet rs = st.executeQuery(queryInsertContacto);
-                ResultSetMetaData m = rs.getMetaData();
-                idContacto = rs.getString(1);
+                st.execute(queryInsertContacto,Statement.RETURN_GENERATED_KEYS);
+                //ResultSetMetaData m = rs.getMetaData();
+                ResultSet keyset = st.getGeneratedKeys();
+                if(keyset.next()){
+                    idContacto = keyset.getInt(1)+"";
+                }
                 //empresa
                 st2 = Postgre.bdConnection.createStatement();
-                ResultSet rs2 = st2.executeQuery(queryInsertEmpresa);
-                ResultSetMetaData m2 = rs2.getMetaData();
-                idEmpresa = rs2.getString(1);
+                st2.execute(queryInsertEmpresa,Statement.RETURN_GENERATED_KEYS);
+                ResultSet keyset2 = st2.getGeneratedKeys();
+                if(keyset2.next()){
+                    idEmpresa = keyset2.getInt(1)+"";;
+                }
                 //industria
                 st3 = Postgre.bdConnection.createStatement();
-                ResultSet rs3 = st3.executeQuery(queryInsertIndustria);
-                ResultSetMetaData m3 = rs3.getMetaData();
-                idIndustria = rs3.getString(1);
+                st3.execute(queryInsertIndustria,Statement.RETURN_GENERATED_KEYS);
+                ResultSet keyset3 = st3.getGeneratedKeys();
+                if(keyset3.next()){
+                    idIndustria = keyset3.getInt(1)+"";
+                }
                 //socialData
                 st4 = Postgre.bdConnection.createStatement();
-                ResultSet rs4 = st4.executeQuery(queryInsertSocialData);
-                ResultSetMetaData m4 = rs4.getMetaData();
-                idSocialData = rs4.getString(1);
+                st4.execute(queryInsertSocialData,Statement.RETURN_GENERATED_KEYS);
+                ResultSet keyset4 = st4.getGeneratedKeys();
+                if(keyset4.next()){
+                    idSocialData = keyset4.getInt(1)+"";
+                }
+                
                 queryInstert+=idContacto+", "+idEmpresa+", "+idIndustria+", "+idSocialData+");";
 
                 //Ahora si se ejecuta la del inser final
                stFinal = Postgre.bdConnection.createStatement();
-               ResultSet rsF = stFinal.executeQuery(queryInstert);
-               ResultSetMetaData mF = rsF.getMetaData();
+               stFinal.execute(queryInstert,Statement.RETURN_GENERATED_KEYS);
+               ResultSet keysetFinal = stFinal.getGeneratedKeys();
+               if(keysetFinal.next()){
+                   System.out.println(keysetFinal.getInt(1));
+               }
 
             } catch (SQLException ex) {
                 Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
@@ -1310,6 +1390,7 @@ public class Frame extends javax.swing.JFrame {
         ArrayList<JPanel> previo= loader.componentesNuevoCliente(nombresLabels);
         tiposNuevoCliente = loader.tiposNuevoCliente;
         nombresColumnas = loader.nombresColumnas;
+        nombresColumnasNativas = loader.nombresColumnasNativas;
         if(panelesNewUser.size() != previo.size()){
             panelesNewUser = new ArrayList(); //se resetea
             panelesNewUser.addAll(previo); //se carga la nueva data
