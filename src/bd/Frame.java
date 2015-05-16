@@ -201,6 +201,11 @@ public class Frame extends javax.swing.JFrame {
         });
 
         btn_limpiarHome.setText("Limpiar Campos");
+        btn_limpiarHome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_limpiarHomeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -210,7 +215,6 @@ public class Frame extends javax.swing.JFrame {
             .addComponent(jScrollPane3)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap(473, Short.MAX_VALUE)
                 .addComponent(btn_buscarHome)
                 .addGap(384, 384, 384)
                 .addComponent(btn_limpiarHome)
@@ -1170,6 +1174,16 @@ public class Frame extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_btn_buscarHomeActionPerformed
+
+    private void btn_limpiarHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_limpiarHomeActionPerformed
+        for(int i = 0; i<nombresTextBoxBusqueda.size();i++){
+            ((JTextField)getFiltroComponentByName(nombresTextBoxBusqueda.get(i))).setText("");
+        }
+        
+        for(int i = 0; i<nombresCheckBoxBusqueda.size();i++){
+            ((JCheckBox)getFiltroComponentByName(nombresCheckBoxBusqueda.get(i))).setSelected(false);
+        }
+    }//GEN-LAST:event_btn_limpiarHomeActionPerformed
     
     private void browseButtonActionPerformed(java.awt.event.ActionEvent evt) {
         JFileChooser fc = new JFileChooser(basePath);
