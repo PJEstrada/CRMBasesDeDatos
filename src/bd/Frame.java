@@ -6,6 +6,8 @@
 package bd;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
@@ -18,11 +20,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -52,6 +56,13 @@ public class Frame extends javax.swing.JFrame {
     ArrayList<PairTypeNumber> tiposNuevoCliente = new ArrayList();
     ArrayList<String> nombresColumnas = new ArrayList();
     ClientLoader loader;
+    FiltrosLoader loader2;
+    ArrayList<PairTypeField> camposBuscar = new ArrayList();
+    ArrayList<String> tablasCamposBuscar = new ArrayList();
+    ArrayList<String> nombresTextBoxBusqueda = new ArrayList();
+    ArrayList<String> nombresCheckBoxBusqueda = new ArrayList();
+    ArrayList<String> columnasAmostrar = new ArrayList();
+    HashMap componentesFiltroMap;
     File targetFile;
     BufferedImage targetImg;
     private static final int baseSize = 300;
@@ -61,9 +72,16 @@ public class Frame extends javax.swing.JFrame {
             Postgre miPostgre = new Postgre();
         }catch(Exception e){}
         initComponents();
+        createFiltros();
+        String[] titulos = new String[camposBuscar.size()];
+        String [][] contenido = new String[0][camposBuscar.size()];
+        for(int i = 0; i<camposBuscar.size();i++){
+            titulos[i] = camposBuscar.get(i).namefield;
+        }
+        iniciarTablaBusquedaHome(titulos, contenido);
         
         jTabbedPane2.addChangeListener(new ChangeListener(){
-
+        
             @Override
             public void stateChanged(ChangeEvent e) {
                 System.out.println("Tab: "+jTabbedPane2.getSelectedIndex());
@@ -75,6 +93,10 @@ public class Frame extends javax.swing.JFrame {
                 else if(jTabbedPane2.getSelectedIndex() == 1){
                     createAreasForNewUser();
                     System.out.println("Esta shit");
+                    
+                }
+                else if(jTabbedPane2.getSelectedIndex()==0){
+                    createFiltros();
                 }
             }  
         });
@@ -92,6 +114,7 @@ public class Frame extends javax.swing.JFrame {
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
+        panel_filtroHome = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         btn_buscarHome = new javax.swing.JButton();
@@ -144,6 +167,19 @@ public class Frame extends javax.swing.JFrame {
             }
         });
 
+        javax.swing.GroupLayout panel_filtroHomeLayout = new javax.swing.GroupLayout(panel_filtroHome);
+        panel_filtroHome.setLayout(panel_filtroHomeLayout);
+        panel_filtroHomeLayout.setHorizontalGroup(
+            panel_filtroHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1050, Short.MAX_VALUE)
+        );
+        panel_filtroHomeLayout.setVerticalGroup(
+            panel_filtroHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 284, Short.MAX_VALUE)
+        );
+
+        jScrollPane2.setViewportView(panel_filtroHome);
+
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -158,6 +194,11 @@ public class Frame extends javax.swing.JFrame {
         jScrollPane3.setViewportView(jTable1);
 
         btn_buscarHome.setText("Buscar");
+        btn_buscarHome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_buscarHomeActionPerformed(evt);
+            }
+        });
 
         btn_limpiarHome.setText("Limpiar Campos");
 
@@ -168,6 +209,7 @@ public class Frame extends javax.swing.JFrame {
             .addComponent(jScrollPane2)
             .addComponent(jScrollPane3)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap(473, Short.MAX_VALUE)
                 .addComponent(btn_buscarHome)
                 .addGap(384, 384, 384)
@@ -967,6 +1009,167 @@ public class Frame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton2ActionPerformed
     
+    private void createComponentesFiltroMap() {
+        componentesFiltroMap = new HashMap<String,Component>();
+        
+        Component[] components = panel_filtroHome.getComponents();
+        for (int i=0; i < components.length; i++) {
+            if(!(components[i].getName()==null)){
+                Component[] components2 = ((Container)components[i]).getComponents();
+                for(int j = 0; j<components2.length;j++){
+                    if(!(components2[j].getName()==null)){
+                        componentesFiltroMap.put(components2[j].getName(), components2[j]);
+                    }
+                }
+            }
+        }
+        
+    }
+    
+    public Component getFiltroComponentByName(String name) {
+        if (componentesFiltroMap.containsKey(name)) {
+                return (Component) componentesFiltroMap.get(name);
+        }
+        else return null;
+    }
+    
+    private void btn_buscarHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarHomeActionPerformed
+        Boolean huboerror = false;
+        Boolean primero = true;
+        Boolean primeroSelect = true;
+        String query3 = "";
+        String query2 = "FROM (((cliente JOIN contacto ON (cliente.contacto_idcontacto = contacto.id))\n" +
+                        "JOIN empresa ON (cliente.empresa_idempresa = empresa.id))\n" +
+                        "JOIN industria ON (cliente.industria_idindustria = industria.id)\n" +
+                        "JOIN socialdata ON (cliente.socialdata_idsocialdata = socialdata.id))";
+        String query1 = "";
+                        
+        createComponentesFiltroMap() ;
+//        for(int i = 0; i<camposBuscar.size();i++){
+//            System.out.println(camposBuscar.get(i).typeField);
+//        }
+        for(int i = 0; i<nombresTextBoxBusqueda.size();i++){
+            if(!(((JTextField)getFiltroComponentByName(nombresTextBoxBusqueda.get(i))).getText().equals(""))){
+                if(primero){
+                    query3 += "WHERE (";
+                    primero = false;
+                }
+                else{
+                    query3 += " AND (";
+                }
+                List<String> ingresos = Arrays.asList( ((JTextField)getFiltroComponentByName(nombresTextBoxBusqueda.get(i))).getText().split("\\s*,\\s*")); 
+                for(int j = 0;j<ingresos.size();j++){
+                    
+                    String type_campo = camposBuscar.get(i).typeField;
+                    String nombre_campo = camposBuscar.get(i).namefield;
+                    String tabla_campo = tablasCamposBuscar.get(i);
+                    if(type_campo.equals("text")){
+                        boolean correcto = loader2.validateField(ingresos.get(j), 1);
+                        if(correcto){
+                            if(j==ingresos.size()-1){
+                                query3 += tabla_campo+"."+nombre_campo+" LIKE \'"+ingresos.get(j)+"\' )";
+                            }
+                            else{
+                                query3 += tabla_campo+"."+nombre_campo+" LIKE \'"+ingresos.get(j)+"\' OR ";
+                            }
+                            
+                        }
+                        else{
+                            huboerror = true;
+                            ((JTextField)getFiltroComponentByName(nombresTextBoxBusqueda.get(i))).setText("");
+                            JOptionPane.showMessageDialog(this, "El campo "+nombre_campo+" no se especifico un string valido.");
+                            j = ingresos.size();
+                            i = nombresTextBoxBusqueda.size();
+                        }
+                    }
+                    else if(type_campo.contains("int")){
+                        boolean correcto = loader2.validateField(ingresos.get(j), 2);
+                        if(correcto){
+                            if(j==ingresos.size()-1){
+                                query3 += tabla_campo+"."+nombre_campo+" = "+ingresos.get(j)+" )";
+                            }
+                            else{
+                                query3 += tabla_campo+"."+nombre_campo+" = "+ingresos.get(j)+" OR ";
+                            }
+                            
+                        }
+                        else{
+                            huboerror = true;
+                            ((JTextField)getFiltroComponentByName(nombresTextBoxBusqueda.get(i))).setText("");
+                            JOptionPane.showMessageDialog(this, "El campo "+nombre_campo+" no se especifico un entero valido.");
+                            j = ingresos.size();
+                            i = nombresTextBoxBusqueda.size();
+                        }
+                    }
+                    else if(type_campo.contains("float")){
+                        boolean correcto = loader2.validateField(ingresos.get(j), 3);
+                        if(correcto){
+                            if(j==ingresos.size()-1){
+                                query3 += tabla_campo+"."+nombre_campo+" = "+ingresos.get(j)+" )";
+                            }
+                            else{
+                                query3 += tabla_campo+"."+nombre_campo+" = "+ingresos.get(j)+" OR ";
+                            }
+                            
+                        }
+                        else{
+                            huboerror = true;
+                            ((JTextField)getFiltroComponentByName(nombresTextBoxBusqueda.get(i))).setText("");
+                            JOptionPane.showMessageDialog(this, "El campo "+nombre_campo+" no se especifico un decimal valido.");
+                            j = ingresos.size();
+                            i = nombresTextBoxBusqueda.size();
+                        }
+                    }
+                    else if(type_campo.equals("date")){
+                        boolean correcto = loader2.validateField(ingresos.get(j), 4);
+                        if(correcto){
+                            if(j==ingresos.size()-1){
+                                query3 += tabla_campo+"."+nombre_campo+" = \'"+ingresos.get(j)+"\' )";
+                            }
+                            else{
+                                query3 += tabla_campo+"."+nombre_campo+" = \'"+ingresos.get(j)+"\' OR ";
+                            }
+                            
+                        }
+                        else{
+                            huboerror = true;
+                            ((JTextField)getFiltroComponentByName(nombresTextBoxBusqueda.get(i))).setText("");
+                            JOptionPane.showMessageDialog(this, "El campo "+nombre_campo+" no se especifico una fecha valida.");
+                            j = ingresos.size();
+                            i = nombresTextBoxBusqueda.size();
+                        }
+                    }
+                }
+                
+            }
+        }
+        if(!huboerror){
+            for(int i = 0; i<nombresCheckBoxBusqueda.size();i++){
+                if(((JCheckBox)getFiltroComponentByName(nombresCheckBoxBusqueda.get(i))).isSelected()){
+                    String nombre_campo = camposBuscar.get(i).namefield;
+                    String tabla_campo = tablasCamposBuscar.get(i);
+                    if(primeroSelect){
+                        query1 += "SELECT "+tabla_campo+"."+nombre_campo;
+                        primeroSelect = false;
+                        columnasAmostrar.add(nombre_campo);
+                    }
+                    else{
+                        query1 += ", "+tabla_campo+"."+nombre_campo;
+                        columnasAmostrar.add(nombre_campo);
+                    }
+                }
+            }
+            if(primeroSelect){
+                query1 = "SELECT *";
+            }
+            String query = query1+"\n"+query2+"\n"+query3;
+            System.out.println(query);
+            metaDataBusqueda(query);
+            
+        }
+        
+    }//GEN-LAST:event_btn_buscarHomeActionPerformed
+    
     private void browseButtonActionPerformed(java.awt.event.ActionEvent evt) {
         JFileChooser fc = new JFileChooser(basePath);
         fc.setFileFilter(new JPEGImageFileFilter());
@@ -1125,42 +1328,125 @@ public class Frame extends javax.swing.JFrame {
         
     }
     
-    private ArrayList<PairTypeField> getNombresColumnas(){
-        ArrayList<PairTypeField> nombresColumna = new ArrayList();
-        String query = "SELECT * FROM (((cliente JOIN contacto ON (cliente.contacto_idcontacto = contacto.id))\n" +
+    private void createFiltros(){
+        //ArrayList<PairTypeField> nombresColumna = new ArrayList();
+        String query = "SELECT *" +
+                        "FROM (((cliente JOIN contacto ON (cliente.contacto_idcontacto = contacto.id))\n" +
                         "JOIN empresa ON (cliente.empresa_idempresa = empresa.id))\n" +
                         "JOIN industria ON (cliente.industria_idindustria = industria.id)\n" +
-                        "JOIN socialdata ON (cliente.socialdata_idsocialdata = socialdata.id)) WHERE id = -1";
+                        "JOIN socialdata ON (cliente.socialdata_idsocialdata = socialdata.id)) WHERE cliente.id = -1";
+        String countClient = "SELECT * FROM cliente WHERE id = -1";
         Statement st;
+        Statement st2;
+        int numeroFinalFiltro = 0;
         try{
             st = Postgre.bdConnection.createStatement();
+            st2 = Postgre.bdConnection.createStatement();
             ResultSet rs = st.executeQuery(query);
+            ResultSet rs2 = st2.executeQuery(countClient);
             ResultSetMetaData m = rs.getMetaData();
-            for(int i = 0; i<m.getColumnCount();i++){
+            ResultSetMetaData m2 = rs2.getMetaData();
+            numeroFinalFiltro = m2.getColumnCount()-6;
+            camposBuscar = new ArrayList();
+            for(int i = 1; i<m.getColumnCount()+1;i++){
+                if(m.getColumnName(i).contains("id") && !m.getColumnName(i).equals("apellido")){
+                    continue;
+                }
+                else if(m.getColumnName(i).contains("foto")){
+                    continue;
+                }
                 PairTypeField tempPair = new PairTypeField(m.getColumnTypeName(i),m.getColumnName(i));
-                nombresColumna.add(tempPair);
+                camposBuscar.add(tempPair);
             }
             
             
         }catch (SQLException ex){
             Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return nombresColumna;
+        loader2 = new FiltrosLoader(numeroFinalFiltro);
+        ArrayList<JPanel> paneles = loader2.componentesFiltro(camposBuscar);
+        nombresTextBoxBusqueda = new ArrayList();
+        nombresTextBoxBusqueda.addAll(loader2.nombreTextBox);
+        tablasCamposBuscar = new ArrayList();
+        tablasCamposBuscar.addAll(loader2.tablasRetorno);
+        nombresCheckBoxBusqueda = new ArrayList();
+        nombresCheckBoxBusqueda.addAll(loader2.nombreCheckBox);
+        panel_filtroHome.setLayout(new GridLayout(0, 1));
+        for(JPanel pa : paneles){
+            panel_filtroHome.add(pa);
+            panel_filtroHome.revalidate();
+            panel_filtroHome.repaint();
+        }
+        
+        setVisible(true);
     }
     
-    private ResultSetMetaData metaDataBusqueda(String query){
-        Statement st;
-        ResultSet rs;
-        ResultSetMetaData m =  null;
+    private void metaDataBusqueda(String query){
+        Statement st, st2;
+        ResultSet rs, rs2;
+        ResultSetMetaData m , m2;
+        int numFilas = 0;
         try{
             st = Postgre.bdConnection.createStatement();
+            st2 = Postgre.bdConnection.createStatement();
             rs = st.executeQuery(query);
+            rs2 = st2.executeQuery(query);
             m = rs.getMetaData();
+            m2 = rs.getMetaData();
+            
+            while(rs.next()){
+                
+                numFilas+=1;       
+            }
+            int contadorColumnas = 0;
+            for(int i = 0; i < m.getColumnCount();i++){
+                if(m.getColumnName(i+1).contains("id") && !m.getColumnName(i+1).equals("apellido")){
+                    continue;
+                }
+                else if(m.getColumnName(i+1).contains("foto")){
+                    continue;
+                }
+                contadorColumnas+=1;
+            }
+            String[] titulos = new String[contadorColumnas];
+            int count = 0;
+            for(int i = 0; i < m.getColumnCount();i++){
+                if(m.getColumnName(i+1).contains("id") && !m.getColumnName(i+1).equals("apellido")){
+                    continue;
+                }
+                else if(m.getColumnName(i+1).contains("foto")){
+                    continue;
+                }
+                titulos[count] =m.getColumnName(i+1);
+                count++;
+            }
+            String[][] contenido = new String[numFilas][contadorColumnas];
+            while(rs2.next()){
+                count = 0;
+                for(int i = 0; i < m.getColumnCount();i++){
+                    if(m2.getColumnName(i).contains("id") && !m2.getColumnName(i).equals("apellido")){
+                    continue;
+                    }
+                    else if(m2.getColumnName(i).contains("foto")){
+                        continue;
+                    }
+                    contenido[rs2.getRow()-1][count] = rs.getString(i+1);
+                    count++;
+                }
+            }
+            iniciarTablaBusquedaHome(titulos, contenido);
         }catch(SQLException ex){
             Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return m;
     }
+    
+    private void iniciarTablaBusquedaHome(String[] titulos, String[][] contenido){
+        
+        jTable1.removeColumnSelectionInterval(0, jTable1.getColumnCount()-1);
+        this.jTable1.setModel(new javax.swing.table.DefaultTableModel(contenido,titulos));
+        jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        //recorrer columnas y ponerles un tamaño estandarizado
+    } 
     
     /**
      * @param args the command line arguments
@@ -1239,6 +1525,7 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JPanel panelFoto;
     private javax.swing.JPanel panelNewUser;
     private javax.swing.JPanel panelSocial;
+    private javax.swing.JPanel panel_filtroHome;
     private javax.swing.JTable resultsTable;
     private java.awt.ScrollPane scrollPane2;
     private java.awt.ScrollPane scrollPane3;
