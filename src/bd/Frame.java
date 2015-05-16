@@ -50,6 +50,7 @@ public class Frame extends javax.swing.JFrame {
     JPanel jPanel4 = new JPanel();
     ArrayList<Integer> idsSelectedInUpdate = new ArrayList();
     ArrayList<PairTypeNumber> tiposNuevoCliente = new ArrayList();
+    ArrayList<String> nombresColumnas = new ArrayList();
     ClientLoader loader;
     File targetFile;
     BufferedImage targetImg;
@@ -167,7 +168,7 @@ public class Frame extends javax.swing.JFrame {
             .addComponent(jScrollPane2)
             .addComponent(jScrollPane3)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(466, Short.MAX_VALUE)
+                .addContainerGap(473, Short.MAX_VALUE)
                 .addComponent(btn_buscarHome)
                 .addGap(384, 384, 384)
                 .addComponent(btn_limpiarHome)
@@ -197,7 +198,7 @@ public class Frame extends javax.swing.JFrame {
             panelFotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelFotoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(labelImage, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
+                .addComponent(labelImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelFotoLayout.setVerticalGroup(
@@ -254,17 +255,15 @@ public class Frame extends javax.swing.JFrame {
                     .addGroup(panelNewUserLayout.createSequentialGroup()
                         .addGap(179, 179, 179)
                         .addComponent(jButton1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(panelNewUserLayout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addGroup(panelNewUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane4)
                             .addComponent(panelFoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelNewUserLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2)
-                        .addGap(138, 138, 138))))
+                        .addContainerGap())))
         );
         panelNewUserLayout.setVerticalGroup(
             panelNewUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -275,11 +274,12 @@ public class Frame extends javax.swing.JFrame {
                     .addGroup(panelNewUserLayout.createSequentialGroup()
                         .addComponent(panelFoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1)
+                        .addGroup(panelNewUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton1)
+                            .addComponent(jButton2))
                         .addGap(40, 40, 40)
                         .addComponent(jScrollPane4)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2)))
+                        .addGap(41, 41, 41)))
                 .addContainerGap())
         );
 
@@ -304,7 +304,7 @@ public class Frame extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 859, Short.MAX_VALUE)
+                .addComponent(scrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 866, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -337,7 +337,7 @@ public class Frame extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 859, Short.MAX_VALUE)
+                .addComponent(scrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 866, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -506,7 +506,7 @@ public class Frame extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(panelSocialLayout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 1015, Short.MAX_VALUE)
+                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 1022, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelSocialLayout.setVerticalGroup(
@@ -699,183 +699,271 @@ public class Frame extends javax.swing.JFrame {
         // Primero se comeienza a tomar cada uno de los valores
         ArrayList<ArrayList<String>> nuevosValores = getValueForNewUser();
         System.out.println("El size del coso es "+nuevosValores.size());
-        int indexIntoArrayOfArray = 0;
-        int numeroTipo = 0;
-        boolean necesitaComillas = false;
-        for(ArrayList<String> i : nuevosValores){
-            
-            for(int k = 0; k<i.size(); k++){
-                String tipo = tiposNuevoCliente.get(numeroTipo).nameType;
-                if(tipo.contains("VARCHAR") || tipo.contains("TEXT") || tipo.contains("DATE")){
-                    necesitaComillas = true;
+        //una vez recolectado los valores se procede a realizar una verificacion de los mismo
+        ArrayList<String> dataProbar = new ArrayList();
+        int indiceDeArrayFila = 0;
+        int indiceInterno = 0;
+        String mensajeNoNull = "";
+        for(ArrayList<String> fila: nuevosValores){ //llenamos la data
+            indiceInterno = 0;
+            for(String dato: fila){
+                if(indiceDeArrayFila == 0 && dato.equals("NULL")){
+                    //se va a lanzar error porque este campo es obligatorio
+                    mensajeNoNull += "El campo de "+nombresColumnas.get(indiceInterno)+" es obligatorio.\n";
+                    indiceInterno++;
+                    continue;
                 }
-                String j = i.get(k);
-                System.out.println(j);
-                if(indexIntoArrayOfArray == 0){
-                    if(necesitaComillas){
-                        valuesCliente+="\'"+j+"\', ";
-                        numeroTipo++;
-                    }
-                    else{
-                        valuesCliente+=j+", ";
-                        numeroTipo++;
-                    }
-                    
-                }
-                else if(indexIntoArrayOfArray == 1){
-                    if(necesitaComillas){
-                        if(k == i.size()-1){
-                            valuesContacto += "\'"+j+"\'";
-                            numeroTipo++;
-                        }
-                        else{
-                            valuesContacto+="\'"+j+"\', ";
-                            numeroTipo++;
-                        }
-                    }
-                    else{
-                        if(k == i.size()-1){
-                            valuesContacto += j;
-                            numeroTipo++;
-                        }
-                        else{
-                            valuesContacto+=j+", ";
-                            numeroTipo++;
-                        }
-                    }
-                }
-                else if(indexIntoArrayOfArray == 2){
-                    if(necesitaComillas){
-                        if(k == i.size()-1){
-                            valuesEmpresa+="\'"+j+"\'";
-                            numeroTipo++;
-                        }
-                        else{
-                            valuesEmpresa+="\'"+j+"\', ";
-                            numeroTipo++;
-                        }
-                    }
-                    else{
-                        if(k == i.size()-1){
-                            valuesEmpresa+=j;
-                            numeroTipo++;
-                        }
-                        else{
-                            valuesEmpresa+=j+", ";
-                            numeroTipo++;
-                        }
-                    }
-                    
-                }
-                else if(indexIntoArrayOfArray == 3){
-                    if(necesitaComillas){
-                        if(k == i.size()-1){
-                            valuesIndustria+="\'"+j+"\'";
-                            numeroTipo++;
-                        }
-                        else{
-                            valuesIndustria+="\'"+j+"\', ";
-                            numeroTipo++;
-                        }
-                    }
-                    else{
-                        if(k == i.size()-1){
-                            valuesIndustria+=j;
-                            numeroTipo++;
-                        }
-                        else{
-                            valuesIndustria+=j+", ";
-                            numeroTipo++;
-                        }
-                    }
-                    
-                }
-                else if(indexIntoArrayOfArray == 4){
-                    if(necesitaComillas){
-                        if(k == i.size()-1){
-                            valuesSocialData+="\'"+j+"\'";
-                            numeroTipo++;
-                        }
-                        else{
-                            valuesSocialData+="\'"+j+"\', ";
-                            numeroTipo++;
-                        }
-                    }
-                    else{
-                        if(k == i.size()-1){
-                            valuesSocialData+=j;
-                            numeroTipo++;
-                        }
-                        else{
-                            valuesSocialData+=j+", ";
-                            numeroTipo++;
-                        }
-                    }
-                    
-                }
+                dataProbar.add(dato);
+                indiceInterno++;
             }
-            if(indexIntoArrayOfArray == 0){
-                System.out.println(targetFile.getAbsolutePath());
-                valuesCliente+="\'"+targetFile.getAbsolutePath()+"\'";
+            if(indiceDeArrayFila == 0 && !mensajeNoNull.isEmpty()){
+                JOptionPane.showMessageDialog(null,
+                        mensajeNoNull, "Error en Campos Obligatorios",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
             }
-            else{
+            indiceDeArrayFila++;
+        }
+        
+        ArrayList<PairTypeNumber> arreglar = loader.checkCamposNuevo(tiposNuevoCliente, dataProbar);
+        if(!arreglar.isEmpty()){
+            //Si no esta vacio entonces hay cosas que arreglar entonces TODO!!!!!!!!!
+            String mensajeDeErrorCompleto ="";
+            ArrayList<Integer> numberComponer = new ArrayList();
+            for(PairTypeNumber deber: arreglar){
+                mensajeDeErrorCompleto+=deber.nameType+"\n";
+                numberComponer.add(deber.numberType);
                 
             }
-            indexIntoArrayOfArray++;
-            System.out.println("----------------------");
+            //ahora se deben borrar los textfield con ese indice
+            //hmmmm para esto tengo que recorrer otra vez los paneles y aha D:
+            int indiceJPanel = 0;
+            for(int k = 1; k < panelesNewUser.size(); k++){
+                JPanel panel = panelesNewUser.get(k);
+                for(int i = 0; i < panel.getComponentCount(); i++) {
+                    if(panel.getComponent(i) instanceof JTextField) {
+                       JTextField campo = (JTextField)panel.getComponent(i);
+                       if(numberComponer.contains(indiceJPanel)){
+                            campo.setText("");
+                       }
+                       indiceJPanel++;
+                    }
+                 }  
+            }
+            //Por ultimo solo tengo que lanzar el mensaje de error x)
+            JOptionPane.showMessageDialog(null,
+                        mensajeDeErrorCompleto, "Error en Campos",
+                        JOptionPane.ERROR_MESSAGE);
+            return;
         }
-        
-        String queryInstert = "INSERT INTO cliente "+"ALGO QUE DARA QUE HACER D;"+ "VALUES ("+valuesCliente+", ";
-        String queryInsertContacto="INSERT INTO contacto "+"(telefono_cliente,direccion_cliente, correo, celular, departamento)"+ " VALUES ("+valuesContacto+") RETURNING id;";
-        String queryInsertEmpresa="INSERT INTO empresa "+"(nombre_empresa, cargo, direccion_empresa, telefono_empresa)"+" VALUES ("+valuesEmpresa+"); RETURNING id";
-        String queryInsertIndustria="INSERT INTO industria "+"(nombre_industria, descripcion)"+" VALUES ("+valuesIndustria+"); RETURNING id";
-        String queryInsertSocialData="INSERT INTO socialData "+"(facebook, twitter, \"google+\",youtube, tumblr)"+" VALUES ("+valuesSocialData+"); RETURNING id";
-        
-        //executing the queries
-        Statement st;
-        Statement st2;
-        Statement st3;
-        Statement st4;
-        Statement stFinal;
-        
-        String idContacto;
-        String idEmpresa;
-        String idIndustria;
-        String idSocialData;
-        try {
-            //contacto
-            st = Postgre.bdConnection.createStatement();
-            ResultSet rs = st.executeQuery(queryInsertContacto);
-            ResultSetMetaData m = rs.getMetaData();
-            idContacto = rs.getString(1);
-            //empresa
-            st2 = Postgre.bdConnection.createStatement();
-            ResultSet rs2 = st2.executeQuery(queryInsertEmpresa);
-            ResultSetMetaData m2 = rs2.getMetaData();
-            idEmpresa = rs2.getString(1);
-            //industria
-            st3 = Postgre.bdConnection.createStatement();
-            ResultSet rs3 = st3.executeQuery(queryInsertIndustria);
-            ResultSetMetaData m3 = rs3.getMetaData();
-            idIndustria = rs3.getString(1);
-            //socialData
-            st4 = Postgre.bdConnection.createStatement();
-            ResultSet rs4 = st4.executeQuery(queryInsertSocialData);
-            ResultSetMetaData m4 = rs4.getMetaData();
-            idSocialData = rs4.getString(1);
-            queryInstert+=idContacto+", "+idEmpresa+", "+idIndustria+", "+idSocialData+");";
+        else{
+            int indexIntoArrayOfArray = 0;
+            int numeroTipo = 0;
+            boolean necesitaComillas = false;
+            for(ArrayList<String> i : nuevosValores){
+
+                for(int k = 0; k<i.size(); k++){
+                    String tipo = tiposNuevoCliente.get(numeroTipo).nameType;
+                    if(tipo.contains("VARCHAR") || tipo.contains("TEXT") || tipo.contains("DATE")){
+                        necesitaComillas = true;
+                    }
+                    String j = i.get(k);
+                    System.out.println(j);
+                    if(j.equals("NULL")){
+                        valuesCliente+=j+", ";
+                        numeroTipo++;
+                        necesitaComillas = false;
+                        continue;
+                        
+                    }
+                    if(indexIntoArrayOfArray == 0){
+                        if(necesitaComillas){
+                            valuesCliente+="\'"+j+"\', ";
+                            numeroTipo++;
+                            necesitaComillas = false;
+                        }
+                        else{
+                            valuesCliente+=j+", ";
+                            numeroTipo++;
+                        }
+
+                    }
+                    else if(indexIntoArrayOfArray == 1){
+                        if(necesitaComillas){
+                            if(k == i.size()-1){
+                                valuesContacto += "\'"+j+"\'";
+                                numeroTipo++;
+                                necesitaComillas = false;
+                            }
+                            else{
+                                valuesContacto+="\'"+j+"\', ";
+                                numeroTipo++;
+                                necesitaComillas = false;
+                            }
+                        }
+                        else{
+                            if(k == i.size()-1){
+                                valuesContacto += j;
+                                numeroTipo++;
+                            }
+                            else{
+                                valuesContacto+=j+", ";
+                                numeroTipo++;
+                            }
+                        }
+                    }
+                    else if(indexIntoArrayOfArray == 2){
+                        if(necesitaComillas){
+                            if(k == i.size()-1){
+                                valuesEmpresa+="\'"+j+"\'";
+                                numeroTipo++;
+                                necesitaComillas = false;
+                            }
+                            else{
+                                valuesEmpresa+="\'"+j+"\', ";
+                                numeroTipo++;
+                                necesitaComillas = false;
+                            }
+                        }
+                        else{
+                            if(k == i.size()-1){
+                                valuesEmpresa+=j;
+                                numeroTipo++;
+                            }
+                            else{
+                                valuesEmpresa+=j+", ";
+                                numeroTipo++;
+                            }
+                        }
+
+                    }
+                    else if(indexIntoArrayOfArray == 3){
+                        if(necesitaComillas){
+                            if(k == i.size()-1){
+                                valuesIndustria+="\'"+j+"\'";
+                                numeroTipo++;
+                                necesitaComillas = false;
+                            }
+                            else{
+                                valuesIndustria+="\'"+j+"\', ";
+                                numeroTipo++;
+                                necesitaComillas = false;
+                            }
+                        }
+                        else{
+                            if(k == i.size()-1){
+                                valuesIndustria+=j;
+                                numeroTipo++;
+                            }
+                            else{
+                                valuesIndustria+=j+", ";
+                                numeroTipo++;
+                            }
+                        }
+
+                    }
+                    else if(indexIntoArrayOfArray == 4){
+                        if(necesitaComillas){
+                            if(k == i.size()-1){
+                                valuesSocialData+="\'"+j+"\'";
+                                numeroTipo++;
+                                necesitaComillas = false;
+                            }
+                            else{
+                                valuesSocialData+="\'"+j+"\', ";
+                                numeroTipo++;
+                                necesitaComillas = false;
+                            }
+                        }
+                        else{
+                            if(k == i.size()-1){
+                                valuesSocialData+=j;
+                                numeroTipo++;
+                            }
+                            else{
+                                valuesSocialData+=j+", ";
+                                numeroTipo++;
+                            }
+                        }
+
+                    }
+                }
+                if(indexIntoArrayOfArray == 0){
+                    try{
+                        System.out.println(targetFile.getAbsolutePath());
+                        valuesCliente+="\'"+targetFile.getAbsolutePath()+"\'"; 
+                    }catch(Exception e){
+                        JOptionPane.showMessageDialog(null,
+                            "Se debe elegir una fotografia. \nEste es un campo obligatorio", "Error en Campo de Fotografia",
+                            JOptionPane.ERROR_MESSAGE);
+                    }
+                    
+                }
+                else{
+
+                }
+                indexIntoArrayOfArray++;
+                System.out.println("----------------------");
+            }
+
+            String queryInstert = "INSERT INTO cliente "+"ALGO QUE DARA QUE HACER D;"+ "VALUES ("+valuesCliente+", ";
+            String queryInsertContacto="INSERT INTO contacto "+"(telefono_cliente,direccion_cliente, correo, celular, departamento)"+ " VALUES ("+valuesContacto+") RETURNING id;";
+            String queryInsertEmpresa="INSERT INTO empresa "+"(nombre_empresa, cargo, direccion_empresa, telefono_empresa)"+" VALUES ("+valuesEmpresa+"); RETURNING id";
+            String queryInsertIndustria="INSERT INTO industria "+"(nombre_industria, descripcion)"+" VALUES ("+valuesIndustria+"); RETURNING id";
+            String queryInsertSocialData="INSERT INTO socialData "+"(facebook, twitter, \"google+\",youtube, tumblr)"+" VALUES ("+valuesSocialData+"); RETURNING id";
+
+            //executing the queries
+            Statement st;
+            Statement st2;
+            Statement st3;
+            Statement st4;
+            Statement stFinal;
+
+            String idContacto;
+            String idEmpresa;
+            String idIndustria;
+            String idSocialData;
+            try {
+                //contacto
+                st = Postgre.bdConnection.createStatement();
+                ResultSet rs = st.executeQuery(queryInsertContacto);
+                ResultSetMetaData m = rs.getMetaData();
+                idContacto = rs.getString(1);
+                //empresa
+                st2 = Postgre.bdConnection.createStatement();
+                ResultSet rs2 = st2.executeQuery(queryInsertEmpresa);
+                ResultSetMetaData m2 = rs2.getMetaData();
+                idEmpresa = rs2.getString(1);
+                //industria
+                st3 = Postgre.bdConnection.createStatement();
+                ResultSet rs3 = st3.executeQuery(queryInsertIndustria);
+                ResultSetMetaData m3 = rs3.getMetaData();
+                idIndustria = rs3.getString(1);
+                //socialData
+                st4 = Postgre.bdConnection.createStatement();
+                ResultSet rs4 = st4.executeQuery(queryInsertSocialData);
+                ResultSetMetaData m4 = rs4.getMetaData();
+                idSocialData = rs4.getString(1);
+                queryInstert+=idContacto+", "+idEmpresa+", "+idIndustria+", "+idSocialData+");";
+
+                //Ahora si se ejecuta la del inser final
+               stFinal = Postgre.bdConnection.createStatement();
+               ResultSet rsF = stFinal.executeQuery(queryInstert);
+               ResultSetMetaData mF = rsF.getMetaData();
+
+            } catch (SQLException ex) {
+                Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+
+            System.out.println(queryInstert);
+            System.out.println(queryInsertContacto);
+            System.out.println(queryInsertEmpresa);
+            System.out.println(queryInsertIndustria);
+            System.out.println(queryInsertSocialData);
+
             
-            //Ahora si se ejecuta la del inser final
-           stFinal = Postgre.bdConnection.createStatement();
-           ResultSet rsF = stFinal.executeQuery(queryInstert);
-           ResultSetMetaData mF = rsF.getMetaData();
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
-        System.out.println(queryInstert);
         
     }//GEN-LAST:event_jButton2ActionPerformed
     
@@ -933,6 +1021,9 @@ public class Frame extends javax.swing.JFrame {
                 if(panel.getComponent(i) instanceof JTextField) {
                    JTextField campo = (JTextField)panel.getComponent(i);
                    String valoresT = campo.getText();
+                   if(valoresT.isEmpty()){
+                       valoresT = "NULL";
+                   }
                    valTemp.add(valoresT);
                 }
                 if(panel.getComponentCount() == 1){
@@ -1014,6 +1105,7 @@ public class Frame extends javax.swing.JFrame {
         loader  = new ClientLoader(numeroFinalCliente);
         ArrayList<JPanel> previo= loader.componentesNuevoCliente(nombresLabels);
         tiposNuevoCliente = loader.tiposNuevoCliente;
+        nombresColumnas = loader.nombresColumnas;
         if(panelesNewUser.size() != previo.size()){
             panelesNewUser = new ArrayList(); //se resetea
             panelesNewUser.addAll(previo); //se carga la nueva data

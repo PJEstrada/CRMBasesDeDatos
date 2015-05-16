@@ -23,6 +23,7 @@ public class ClientLoader {
 
     ArrayList<Integer> numerosTotal = new ArrayList();
     ArrayList<PairTypeNumber> tiposNuevoCliente = new ArrayList();
+    ArrayList<String> nombresColumnas = new ArrayList();
     public ClientLoader(int numberCamps){
         numerosTotal.add(numberCamps);
         numerosTotal.add(5);
@@ -139,21 +140,22 @@ public class ClientLoader {
        
         for(PairTypeField par: columnas){
             String nombreColumna = par.namefield;
-            nombreColumna = nombreColumna.replace("_", " ");
-            nombreColumna = nombreColumna.substring(0, 1).toUpperCase() + nombreColumna.substring(1);
             if(nombreColumna.contains("id") && !nombreColumna.equals("apellido")){
                 continue;
             }
             else if(nombreColumna.contains("foto")){
                 continue;
             }
+            nombreColumna = nombreColumna.replace("_", " ");
+            nombreColumna = nombreColumna.substring(0, 1).toUpperCase() + nombreColumna.substring(1);
+            nombresColumnas.add(nombreColumna);
             String tipoColumna = par.typeField;
             tipoColumna = tipoColumna.toUpperCase();
             int numberTipo =0;
             if(tipoColumna.contains("TEXT") || tipoColumna.contains("VARCHAR")){
                 numberTipo = 1;
             }
-            else if(tipoColumna.contains("INTEGER")){
+            else if(tipoColumna.contains("INT")){
                 numberTipo = 2;
             }
             else if(tipoColumna.contains("FLOAT")){
@@ -198,9 +200,7 @@ public class ClientLoader {
         4 = Date
     */
     public boolean validateField(String text, int type){
-        if(text.length()==0){
-            return false;
-        }
+
         switch(type){
             case(1):
                 if(text.length()==0){
@@ -212,6 +212,9 @@ public class ClientLoader {
                     int he = Integer.parseInt(text);
                     return true;
                 }catch(Exception e){
+                    if(text.equals("NULL")){
+                        return true;
+                    }
                     return false;
                 }
             case(3):
@@ -219,6 +222,9 @@ public class ClientLoader {
                     double he2 = Double.parseDouble(text);
                     return true;
                 }catch(Exception e2){
+                    if(text.equals("NULL")){
+                        return true;
+                    }
                     return false;
                 }
             case(4):
@@ -226,6 +232,9 @@ public class ClientLoader {
                     LocalDate he3 = LocalDate.parse(text);
                     return true;
                 }catch(Exception e3){
+                    if(text.equals("NULL")){
+                        return true;
+                    }
                     return false;
                 }
             default:
