@@ -1719,6 +1719,19 @@ public class Frame extends javax.swing.JFrame {
         //Si llego a necesitar los id estan en indicesActualizar
         //Para ver la data esta en totalPanelesActualzar
         //para ver la data separada por parte totalSubpaneles
+        ArrayList<ArrayList<String>> valoresRevisar = getValueForUpdateUser();
+        //ahora se cargan los valores de totalSubpaneles en un arraylist de arraylist
+        ArrayList<ArrayList<String>> valoresAntiguos = new ArrayList();
+        for(ArrayList<classForUsers> coso1: totalSubpaneles){
+            ArrayList<String> valo = new ArrayList();
+            for(classForUsers coso2 : coso1){
+                valo.add(coso2.datosEnColumna);
+            }
+            valoresAntiguos.add(valo);
+        }
+        //va ahora que ya tengo los antiguos y los nuevos, tengo que comenzar a recorrer ambos para compararlos
+        
+        
     }//GEN-LAST:event_jButton3ActionPerformed
     
     private void browseButtonActionPerformed(java.awt.event.ActionEvent evt) {
@@ -1945,6 +1958,9 @@ public class Frame extends javax.swing.JFrame {
         nombresColumnas = loader.nombresColumnas;
         nombresColumnasNativas = loader.nombresColumnasNativas;
         if(panelesNewUser.size() != previo.size()){
+            subPanelNewUser.removeAll();
+            subPanelNewUser.revalidate();
+            subPanelNewUser.repaint();
             panelesNewUser = new ArrayList(); //se resetea
             panelesNewUser.addAll(previo); //se carga la nueva data
             //subPanelNewUser_A.remove(subPanelNewUser);
