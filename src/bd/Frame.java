@@ -80,7 +80,8 @@ public class Frame extends javax.swing.JFrame {
             titulos[i] = camposBuscar.get(i).namefield;
         }
         iniciarTablaBusquedaHome(titulos, contenido);
-        txtAreaAgregarColumna.setText("   Escriba el nombre y el tipo de la nueva columna y presione el botón \"Agregar Columna\". \n   Se agregará null en los clientes existentes por lo que se le recuerda que debe editarlos.");
+        txtAreaAgregarColumna.setText("   Escriba el nombre y el tipo de la nueva columna y presione el botón \"Agregar Columna\". \n   "
+                + "                       Se agregará null en los clientes existentes por lo que se le recuerda que debe editarlos.");
         txtAreaAgregarColumna.setEnabled(false);
         jTabbedPane2.addChangeListener(new ChangeListener(){
         
@@ -164,7 +165,7 @@ public class Frame extends javax.swing.JFrame {
         lblColumna1 = new javax.swing.JLabel();
         txtColumnaNueva1 = new javax.swing.JTextField();
         lblColumna2 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox();
+        cmbBoxTipos = new javax.swing.JComboBox();
         btnAgregarColumna = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
         txtAreaAgregarColumna = new javax.swing.JTextArea();
@@ -624,9 +625,19 @@ public class Frame extends javax.swing.JFrame {
 
         lblColumna2.setText("Tipo de la nueva columna:");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "String", "Int", "Float", "Date" }));
+        cmbBoxTipos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "String", "Int", "Float", "Date" }));
+        cmbBoxTipos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbBoxTiposActionPerformed(evt);
+            }
+        });
 
         btnAgregarColumna.setText("Agregar Columna");
+        btnAgregarColumna.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarColumnaActionPerformed(evt);
+            }
+        });
 
         txtAreaAgregarColumna.setEditable(false);
         txtAreaAgregarColumna.setColumns(20);
@@ -640,41 +651,41 @@ public class Frame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(92, 92, 92)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 873, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblColumna1)
+                            .addComponent(txtColumnaNueva1, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblColumna2)
+                            .addComponent(cmbBoxTipos, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(205, 205, 205))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblColumna1)
-                                    .addComponent(txtColumnaNueva1, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblColumna2)
-                                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 873, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(365, 365, 365)
-                                .addComponent(btnAgregarColumna)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 282, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(205, 205, 205))))
+                                .addComponent(btnAgregarColumna)))
+                        .addContainerGap(94, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(245, 245, 245)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblColumna1)
-                    .addComponent(lblColumna2))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtColumnaNueva1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(57, 57, 57)
+                .addGap(289, 289, 289)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblColumna1)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtColumnaNueva1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblColumna2)
+                        .addGap(18, 18, 18)
+                        .addComponent(cmbBoxTipos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(110, 110, 110)
                 .addComponent(btnAgregarColumna)
                 .addGap(58, 58, 58)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(377, Short.MAX_VALUE))
+                .addContainerGap(280, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("Agregar Columna", jPanel1);
@@ -1230,7 +1241,7 @@ public class Frame extends javax.swing.JFrame {
                         else{
                             huboerror = true;
                             ((JTextField)getFiltroComponentByName(nombresTextBoxBusqueda.get(i))).setText("");
-                            JOptionPane.showMessageDialog(this, "El campo "+nombre_campo+" no se especifico un string valido.");
+                            JOptionPane.showMessageDialog(this, "En el campo "+nombre_campo+" no se especifico un string valido.");
                             j = ingresos.size();
                             i = nombresTextBoxBusqueda.size();
                         }
@@ -1249,7 +1260,7 @@ public class Frame extends javax.swing.JFrame {
                         else{
                             huboerror = true;
                             ((JTextField)getFiltroComponentByName(nombresTextBoxBusqueda.get(i))).setText("");
-                            JOptionPane.showMessageDialog(this, "El campo "+nombre_campo+" no se especifico un entero valido.");
+                            JOptionPane.showMessageDialog(this, "En el campo "+nombre_campo+" no se especifico un entero valido.");
                             j = ingresos.size();
                             i = nombresTextBoxBusqueda.size();
                         }
@@ -1268,7 +1279,7 @@ public class Frame extends javax.swing.JFrame {
                         else{
                             huboerror = true;
                             ((JTextField)getFiltroComponentByName(nombresTextBoxBusqueda.get(i))).setText("");
-                            JOptionPane.showMessageDialog(this, "El campo "+nombre_campo+" no se especifico un decimal valido.");
+                            JOptionPane.showMessageDialog(this, "En el campo "+nombre_campo+" no se especifico un decimal valido.");
                             j = ingresos.size();
                             i = nombresTextBoxBusqueda.size();
                         }
@@ -1287,7 +1298,7 @@ public class Frame extends javax.swing.JFrame {
                         else{
                             huboerror = true;
                             ((JTextField)getFiltroComponentByName(nombresTextBoxBusqueda.get(i))).setText("");
-                            JOptionPane.showMessageDialog(this, "El campo "+nombre_campo+" no se especifico una fecha valida.");
+                            JOptionPane.showMessageDialog(this, "En el campo "+nombre_campo+" no se especifico una fecha valida.");
                             j = ingresos.size();
                             i = nombresTextBoxBusqueda.size();
                         }
@@ -1332,6 +1343,40 @@ public class Frame extends javax.swing.JFrame {
             ((JCheckBox)getFiltroComponentByName(nombresCheckBoxBusqueda.get(i))).setSelected(false);
         }
     }//GEN-LAST:event_btn_limpiarHomeActionPerformed
+
+    private void cmbBoxTiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBoxTiposActionPerformed
+        
+    }//GEN-LAST:event_cmbBoxTiposActionPerformed
+
+    private void btnAgregarColumnaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarColumnaActionPerformed
+        String tipo = "";
+        String nombreNuevaColumna = txtColumnaNueva1.getText().toLowerCase();
+        if(nombreNuevaColumna.equals("")){
+            JOptionPane.showMessageDialog(this, "Debe ingresar un nombre para la nueva columna");
+        }
+        else{
+            //Que no se repita el nombre de la columna
+            if(this.existeColumna(nombreNuevaColumna)){
+                JOptionPane.showMessageDialog(this, "En la Tabla Cliente ya existe una columna de nombre: "+nombreNuevaColumna);
+            }
+            else{
+                if(cmbBoxTipos.getSelectedIndex()==0){
+                    crearColumna(nombreNuevaColumna,"text");
+                }
+                else if(cmbBoxTipos.getSelectedIndex()==1){
+                    crearColumna(nombreNuevaColumna,"integer");
+                }
+                else if(cmbBoxTipos.getSelectedIndex()==2){
+                    crearColumna(nombreNuevaColumna,"double precision");
+                }
+                else if(cmbBoxTipos.getSelectedIndex()==3){
+                    crearColumna(nombreNuevaColumna,"date");
+                }
+            }
+            
+        }
+        
+    }//GEN-LAST:event_btnAgregarColumnaActionPerformed
     
     private void browseButtonActionPerformed(java.awt.event.ActionEvent evt) {
         JFileChooser fc = new JFileChooser(basePath);
@@ -1494,6 +1539,7 @@ public class Frame extends javax.swing.JFrame {
     
     private void createFiltros(){
         //ArrayList<PairTypeField> nombresColumna = new ArrayList();
+        panel_filtroHome.removeAll();
         String query = "SELECT *" +
                         "FROM (((cliente JOIN contacto ON (cliente.contacto_idcontacto = contacto.id))\n" +
                         "JOIN empresa ON (cliente.empresa_idempresa = empresa.id))\n" +
@@ -1612,6 +1658,51 @@ public class Frame extends javax.swing.JFrame {
         //recorrer columnas y ponerles un tamaño estandarizado
     } 
     
+    public boolean existeColumna(String nombre){
+        ArrayList<String> Columnas = new ArrayList();
+        String query = "SELECT * FROM cliente WHERE id = -1";
+        Statement st;
+        Boolean existe = false;
+        try {
+            st = Postgre.bdConnection.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            ResultSetMetaData m = rs.getMetaData();
+            
+            for(int i = 1; i<=m.getColumnCount();i++){
+                if(m.getColumnName(i).equals(nombre)){
+                    existe = true;
+                }
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return existe;
+    }
+    
+    public void crearColumna(String nombre, String tipo){
+        ArrayList<String> Columnas = new ArrayList();
+        Statement st;
+        String query = "";
+        //if(tipo.equals("date")){
+            query = "ALTER TABLE cliente ADD "+nombre+" "+tipo;
+        //}
+        //else{
+        //    query = "ALTER TABLE cliente ADD "+nombre+" "+tipo+"("+tam+")";
+        //}
+        
+        try {
+            st = Postgre.bdConnection.createStatement();
+            System.out.println(query);
+            st.execute(query);
+            
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -1652,6 +1743,7 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JButton btn_buscarHome;
     private javax.swing.JButton btn_limpiarHome;
     private javax.swing.JButton buscar;
+    private javax.swing.JComboBox cmbBoxTipos;
     private javax.swing.JTextField fieldClientes;
     private javax.swing.JTextField fieldHashtags;
     private javax.swing.JTextField fieldMentions;
@@ -1661,7 +1753,6 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JComboBox jComboBox2;
     private javax.swing.JComboBox jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
