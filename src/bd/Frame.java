@@ -896,6 +896,7 @@ public class Frame extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null,
                             "Se debe elegir una fotografia. \nEste es un campo obligatorio", "Error en Campo de Fotografia",
                             JOptionPane.ERROR_MESSAGE);
+                        return;
                     }
                     
                 }
