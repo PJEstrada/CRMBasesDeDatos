@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -13,13 +14,26 @@ import javax.swing.JTextField;
 public class FiltrosLoader {
     
     ArrayList<Integer> numerosTotal = new ArrayList();
+    //nombre de los textBox
     ArrayList<String> nombreTextBox = new ArrayList();
+    //nombre de los checkBox
+    ArrayList<String> nombreCheckBox = new ArrayList();
+    
+    
+    //nombre de las tablas
+    ArrayList<String> nombreTablas = new ArrayList();
+    ArrayList<String> tablasRetorno = new ArrayList();
     public FiltrosLoader(int numberCamps){
         numerosTotal.add(numberCamps);
         numerosTotal.add(5);
         numerosTotal.add(4);
         numerosTotal.add(2);
         numerosTotal.add(5);
+        nombreTablas.add("cliente");
+        nombreTablas.add("contacto");
+        nombreTablas.add("empresa");
+        nombreTablas.add("industria");
+        nombreTablas.add("socialdata");
     }
     //Metodo de validacion (copiado de ClientLoader)
     public ArrayList<Integer> checkCampos(ArrayList<PairTypeField> columnas, ArrayList<String> dataIngresada){
@@ -52,6 +66,8 @@ public class FiltrosLoader {
         int i =0;
         int index =0;
         int indexActual = numerosTotal.get(index);
+        int contador = 0;
+        String tablaActual = nombreTablas.get(index);
         ArrayList<JPanel> filasLlenar = new ArrayList();
         JPanel panelito = new JPanel();
         JLabel titulo1 = new JLabel("Datos Cliente");
@@ -91,13 +107,22 @@ public class FiltrosLoader {
             }
             //String tipoColumna = par.typeField;
             JPanel panel = new JPanel();
+            panel.setName("subPanel_"+contador);
+            contador++;
             panel.setLayout(new GridLayout(1, 2));
+            JCheckBox checkBox = new JCheckBox();
+            checkBox.setName("checkBox_"+contador);
+            checkBox.setText(nombreColumna);
             JLabel label = new JLabel(nombreColumna);
             JTextField textField = new JTextField();
             textField.setPreferredSize(new Dimension(200,24));
-            panel.add(label);
+            textField.setName("campo_"+contador);
+            panel.add(checkBox);
+            //panel.add(label);
             panel.add(textField);
             nombreTextBox.add(textField.getName());
+            nombreCheckBox.add(checkBox.getName());
+            tablasRetorno.add(tablaActual);
             i++;
             if(i==indexActual){
                 index++;
@@ -106,6 +131,7 @@ public class FiltrosLoader {
                     filasLlenar.add(titulosPanel.get(index));
                      i = 0;
                      indexActual = numerosTotal.get(index);
+                     tablaActual = nombreTablas.get(index);
                      continue;
                 }
             }
