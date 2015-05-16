@@ -63,7 +63,11 @@
                   <Component id="jScrollPane2" max="32767" attributes="0"/>
                   <Component id="jScrollPane3" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
+<<<<<<< HEAD
                       <EmptySpace pref="473" max="32767" attributes="0"/>
+=======
+                      <EmptySpace max="32767" attributes="0"/>
+>>>>>>> origin/NETO
                       <Component id="btn_buscarHome" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="384" max="-2" attributes="0"/>
                       <Component id="btn_limpiarHome" min="-2" max="-2" attributes="0"/>
@@ -92,6 +96,23 @@
             <Container class="javax.swing.JScrollPane" name="jScrollPane2">
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+              <SubComponents>
+                <Container class="javax.swing.JPanel" name="panel_filtroHome">
+
+                  <Layout>
+                    <DimensionLayout dim="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <EmptySpace min="0" pref="1050" max="32767" attributes="0"/>
+                      </Group>
+                    </DimensionLayout>
+                    <DimensionLayout dim="1">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <EmptySpace min="0" pref="284" max="32767" attributes="0"/>
+                      </Group>
+                    </DimensionLayout>
+                  </Layout>
+                </Container>
+              </SubComponents>
             </Container>
             <Container class="javax.swing.JScrollPane" name="jScrollPane3">
 
@@ -115,6 +136,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Buscar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_buscarHomeActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btn_limpiarHome">
               <Properties>
