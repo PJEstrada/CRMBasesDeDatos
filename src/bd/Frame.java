@@ -63,6 +63,16 @@ public class Frame extends javax.swing.JFrame {
     ArrayList<String> nombresCheckBoxBusqueda = new ArrayList();
     ArrayList<String> columnasAmostrar = new ArrayList();
     ArrayList<String> nombresColumnasNativas = new ArrayList();
+    
+    ArrayList<String> nombresColumnasNativasActualizar = new ArrayList();
+    ArrayList<String> nombresColumnasActualizar = new ArrayList();
+    ArrayList<PairTypeNumber> tiposActualizarCliente = new ArrayList();
+    ArrayList<JPanel> panelesUpdateUser = new ArrayList();
+    
+    ArrayList<classForUsers> totalPanelesActualizar = new ArrayList();
+    
+    ArrayList<Integer> indicesActualizar = new ArrayList();
+    ArrayList<Integer> indicesDelete = new ArrayList();
     HashMap componentesFiltroMap;
     File targetFile;
     BufferedImage targetImg;
@@ -87,13 +97,16 @@ public class Frame extends javax.swing.JFrame {
             public void stateChanged(ChangeEvent e) {
                 System.out.println("Tab: "+jTabbedPane2.getSelectedIndex());
                 //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                if(jTabbedPane2.getSelectedIndex() == 2){
+                if(jTabbedPane2.getSelectedIndex() == 3){
+                    jComboBox3.setModel(new DefaultComboBoxModel(getNameFromPostgre()));
+                }
+                else if(jTabbedPane2.getSelectedIndex() == 2){
                     jComboBox1.setModel(new DefaultComboBoxModel(getNameFromPostgre()));
-                    resetAreasForNewUser();
+                    
                 }
                 else if(jTabbedPane2.getSelectedIndex() == 1){
+                    resetAreasForNewUser();
                     createAreasForNewUser();
-                    System.out.println("Esta shit");
                     
                 }
                 else if(jTabbedPane2.getSelectedIndex()==0){
@@ -132,11 +145,20 @@ public class Frame extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jComboBox1 = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
-        scrollPane2 = new java.awt.ScrollPane();
+        subPanelNewUser_A1 = new javax.swing.JScrollPane();
+        subPanelNewUser1 = new javax.swing.JPanel();
+        panelFoto1 = new javax.swing.JPanel();
+        labelImage1 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jComboBox3 = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
-        scrollPane3 = new java.awt.ScrollPane();
+        subPanelNewUser_A2 = new javax.swing.JScrollPane();
+        subPanelNewUser2 = new javax.swing.JPanel();
+        panelFoto2 = new javax.swing.JPanel();
+        labelImage2 = new javax.swing.JLabel();
+        jButton5 = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         panelSocial = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -211,7 +233,6 @@ public class Frame extends javax.swing.JFrame {
             .addComponent(jScrollPane3)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap(473, Short.MAX_VALUE)
                 .addComponent(btn_buscarHome)
                 .addGap(384, 384, 384)
                 .addComponent(btn_limpiarHome)
@@ -337,64 +358,186 @@ public class Frame extends javax.swing.JFrame {
 
         jLabel1.setText("Elegir el cliente a actualizar:");
 
+        subPanelNewUser_A1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+        javax.swing.GroupLayout subPanelNewUser1Layout = new javax.swing.GroupLayout(subPanelNewUser1);
+        subPanelNewUser1.setLayout(subPanelNewUser1Layout);
+        subPanelNewUser1Layout.setHorizontalGroup(
+            subPanelNewUser1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 606, Short.MAX_VALUE)
+        );
+        subPanelNewUser1Layout.setVerticalGroup(
+            subPanelNewUser1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 829, Short.MAX_VALUE)
+        );
+
+        subPanelNewUser_A1.setViewportView(subPanelNewUser1);
+
+        labelImage1.setText("                                                Fotografia del Cliente");
+
+        javax.swing.GroupLayout panelFoto1Layout = new javax.swing.GroupLayout(panelFoto1);
+        panelFoto1.setLayout(panelFoto1Layout);
+        panelFoto1Layout.setHorizontalGroup(
+            panelFoto1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelFoto1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelImage1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        panelFoto1Layout.setVerticalGroup(
+            panelFoto1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelFoto1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelImage1, javax.swing.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jButton3.setText("Listo");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText("Cambiar Foto");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addContainerGap(680, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 866, Short.MAX_VALUE)
-                .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addComponent(jButton4)
+                        .addGap(29, 29, 29)
+                        .addComponent(jButton3)
+                        .addGap(72, 72, 72))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(87, 87, 87))))
+            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel5Layout.createSequentialGroup()
+                    .addGap(5, 5, 5)
+                    .addComponent(subPanelNewUser_A1, javax.swing.GroupLayout.PREFERRED_SIZE, 608, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(22, 22, 22)
+                    .addComponent(panelFoto1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(5, 5, 5)))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(752, Short.MAX_VALUE))
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(scrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 833, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(388, 388, 388)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton4)
+                    .addComponent(jButton3))
+                .addGap(36, 36, 36)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(386, Short.MAX_VALUE))
+            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel5Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(subPanelNewUser_A1)
+                        .addGroup(jPanel5Layout.createSequentialGroup()
+                            .addComponent(panelFoto1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(472, 472, 472)))
+                    .addContainerGap()))
         );
 
         jTabbedPane2.addTab("Actualizar Cliente", jPanel5);
 
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox3ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Elegir el cliente a eliminar:");
+
+        subPanelNewUser_A2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+        javax.swing.GroupLayout subPanelNewUser2Layout = new javax.swing.GroupLayout(subPanelNewUser2);
+        subPanelNewUser2.setLayout(subPanelNewUser2Layout);
+        subPanelNewUser2Layout.setHorizontalGroup(
+            subPanelNewUser2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 606, Short.MAX_VALUE)
+        );
+        subPanelNewUser2Layout.setVerticalGroup(
+            subPanelNewUser2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 829, Short.MAX_VALUE)
+        );
+
+        subPanelNewUser_A2.setViewportView(subPanelNewUser2);
+
+        labelImage2.setText("                                                Fotografia del Cliente");
+
+        javax.swing.GroupLayout panelFoto2Layout = new javax.swing.GroupLayout(panelFoto2);
+        panelFoto2.setLayout(panelFoto2Layout);
+        panelFoto2Layout.setHorizontalGroup(
+            panelFoto2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelFoto2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelImage2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        panelFoto2Layout.setVerticalGroup(
+            panelFoto2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelFoto2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelImage2, javax.swing.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jButton5.setText("Eliminar");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addContainerGap(723, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 866, Short.MAX_VALUE)
-                .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(54, 54, 54)
+                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                        .addComponent(jButton5)
+                        .addGap(147, 147, 147))))
+            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel6Layout.createSequentialGroup()
+                    .addGap(5, 5, 5)
+                    .addComponent(subPanelNewUser_A2, javax.swing.GroupLayout.PREFERRED_SIZE, 608, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(22, 22, 22)
+                    .addComponent(panelFoto2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(5, 5, 5)))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(752, Short.MAX_VALUE))
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(scrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 833, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(438, 438, 438)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(33, 33, 33)
+                .addComponent(jButton5)
+                .addContainerGap(339, Short.MAX_VALUE))
+            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel6Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(subPanelNewUser_A2)
+                        .addGroup(jPanel6Layout.createSequentialGroup()
+                            .addComponent(panelFoto2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(472, 472, 472)))
+                    .addContainerGap()))
         );
 
         jTabbedPane2.addTab("Eliminar Cliente", jPanel6);
@@ -723,8 +866,165 @@ public class Frame extends javax.swing.JFrame {
     }//GEN-LAST:event_fieldNumHashtagsActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-        
+        subPanelNewUser1.removeAll();
+        subPanelNewUser1.revalidate();
+        subPanelNewUser1.repaint();
+        totalPanelesActualizar = new ArrayList();
+        indicesActualizar = new ArrayList();
+        //setVisitible(true);
+        //subPanelNewUser_A1.removeAll();
+        System.out.println("Selected: " + jComboBox1.getSelectedItem());
+        System.out.println(", Position: " + jComboBox1.getSelectedIndex());
+        PairNameIdClient seleccionado = (PairNameIdClient) jComboBox1.getSelectedItem();
+        int id = seleccionado.id;
+        int idContacto = seleccionado.idContacto;
+        int idEmpresa = seleccionado.idEmpresa;
+        int idIndustria = seleccionado.idIndustria;
+        int idSocial = seleccionado.idSocial;
+        indicesActualizar.add(id);
+        indicesActualizar.add(idContacto);
+        indicesActualizar.add(idEmpresa);
+        indicesActualizar.add(idIndustria);
+        indicesActualizar.add(idSocial);
+        System.out.println("Todos los ids son: "+id +" "+idContacto+" "+idEmpresa+" "+idIndustria+" "+idSocial);
+        //ahora se arman las querys para poder llevar a cabo los select
+        String queryCliente = "SELECT * FROM cliente WHERE id = "+id;
+        String queryContacto = "SELECT * FROM contacto WHERE id = "+idContacto;
+        String queryEmpresa = "SELECT * FROM empresa WHERE id = "+idEmpresa;
+        String queryIndustria = "SELECT * FROM industria WHERE id = "+idIndustria;
+        String querySocial = "SELECT * FROM socialdata WHERE id = "+idSocial; 
+        ArrayList<classForUsers> paraCliente = new ArrayList();
+        ArrayList<classForUsers> paraContacto = new ArrayList();
+        ArrayList<classForUsers> paraEmpresa = new ArrayList();
+        ArrayList<classForUsers> paraIndustria = new ArrayList();
+        ArrayList<classForUsers> paraSocial = new ArrayList();
+        int numeroEnCliente = 0;
+        String pathFoto = "";
+        //PairNameData
+        Statement stCliente;
+        Statement stContacto;
+        Statement stEmpresa;
+        Statement stIndustria;
+        Statement stSocial;
+        try {
+            //cliente
+            stCliente = Postgre.bdConnection.createStatement();
+            ResultSet rsCliente = stCliente.executeQuery(queryCliente);
+            ResultSetMetaData mCliente = rsCliente.getMetaData();
+            numeroEnCliente = mCliente.getColumnCount()-6;
+            while(rsCliente.next()){
+                for(int i = 1; i < mCliente.getColumnCount();i++){
+                    if(mCliente.getColumnName(i).contains("id") && !mCliente.getColumnName(i).equals("apellido")){
+                        continue;
+                    }
+                    else if(mCliente.getColumnName(i).contains("foto")){
+                        pathFoto = rsCliente.getString(i);
+                    }
+                    /*else if(m2.getColumnName(i).contains("foto")){
+                        continue;
+                    }*/
+                    String data = rsCliente.getString(i);
+                    String nombreC = mCliente.getColumnName(i);
+                    String tipo = mCliente.getColumnTypeName(i);
+                    classForUsers clienteUsar = new classForUsers(nombreC,data,tipo);
+                    paraCliente.add(clienteUsar);
+                }
+            }
+            //contacto
+            stContacto = Postgre.bdConnection.createStatement();
+            ResultSet rsContacto = stContacto.executeQuery(queryContacto);
+            ResultSetMetaData mContacto = rsContacto.getMetaData();
+            while(rsContacto.next()){
+                for(int i = 1; i < mContacto.getColumnCount();i++){
+                    if(mContacto.getColumnName(i).contains("id") && !mContacto.getColumnName(i).equals("apellido")){
+                        continue;
+                    }
+                    /*else if(m2.getColumnName(i).contains("foto")){
+                        continue;
+                    }*/
+                    String data = rsContacto.getString(i);
+                    String nombreC = mContacto.getColumnName(i);
+                    String tipo = mContacto.getColumnTypeName(i);
+                    classForUsers contactoUsar = new classForUsers(nombreC,data,tipo);
+                    paraContacto.add(contactoUsar);
+                }
+            }
+            //empresa
+            stEmpresa = Postgre.bdConnection.createStatement();
+            ResultSet rsEmpresa = stEmpresa.executeQuery(queryEmpresa);
+            ResultSetMetaData mEmpresa = rsEmpresa.getMetaData();
+            while(rsEmpresa.next()){
+                for(int i = 1; i < mEmpresa.getColumnCount();i++){
+                    if(mEmpresa.getColumnName(i).contains("id") && !mEmpresa.getColumnName(i).equals("apellido")){
+                        continue;
+                    }
+                    /*else if(m2.getColumnName(i).contains("foto")){
+                        continue;
+                    }*/
+                    String data = rsEmpresa.getString(i);
+                    String nombreC = mEmpresa.getColumnName(i);
+                    String tipo = mEmpresa.getColumnTypeName(i);
+                    classForUsers empresaUsar = new classForUsers(nombreC,data,tipo);
+                    paraEmpresa.add(empresaUsar);
+                }
+            }
+            //industria
+            stIndustria = Postgre.bdConnection.createStatement();
+            ResultSet rsIndustria = stIndustria.executeQuery(queryIndustria);
+            ResultSetMetaData mIndustria = rsIndustria.getMetaData();
+            while(rsIndustria.next()){
+                for(int i = 1; i < mIndustria.getColumnCount();i++){
+                    if(mIndustria.getColumnName(i).contains("id") && !mIndustria.getColumnName(i).equals("apellido")){
+                        continue;
+                    }
+                    /*else if(m2.getColumnName(i).contains("foto")){
+                        continue;
+                    }*/
+                    String data = rsIndustria.getString(i);
+                    String nombreC = mIndustria.getColumnName(i);
+                    String tipo = mIndustria.getColumnTypeName(i);
+                    classForUsers industriaUsar = new classForUsers(nombreC,data,tipo);
+                    paraIndustria.add(industriaUsar);
+                }
+            }
+            //social
+            stSocial = Postgre.bdConnection.createStatement();
+            ResultSet rsSocial = stSocial.executeQuery(querySocial);
+            ResultSetMetaData mSocial = rsSocial.getMetaData();
+            while(rsSocial.next()){
+                for(int i = 1; i < mSocial.getColumnCount();i++){
+                    if(mSocial.getColumnName(i).contains("id") && !mSocial.getColumnName(i).equals("apellido")){
+                        continue;
+                    }
+                    /*else if(m2.getColumnName(i).contains("foto")){
+                        continue;
+                    }*/
+                    String data = rsSocial.getString(i);
+                    String nombreC = mSocial.getColumnName(i);
+                    String tipo = mSocial.getColumnTypeName(i);
+                    classForUsers socialUsar = new classForUsers(nombreC,data,tipo);
+                    paraSocial.add(socialUsar);
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //Ahora ya teniendo la data se tienen que crear los paneles
+        //primero se une todo
+        ArrayList<classForUsers> totalPaneles = new ArrayList();
+        totalPaneles.addAll(paraCliente);
+        totalPaneles.addAll(paraContacto);
+        totalPaneles.addAll(paraEmpresa);
+        totalPaneles.addAll(paraIndustria);
+        totalPaneles.addAll(paraSocial);
+        totalPanelesActualizar.addAll(totalPaneles);
+        createAreasForUpdateUser(totalPaneles,numeroEnCliente,true);
+        //y se pone la fotita
+        System.out.println(pathFoto);
+        pathFoto = pathFoto.replace('\\', '/');
+        System.out.println(pathFoto);
+        File filePict = new File(pathFoto);
+        setTargetUpdate(filePict);
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -1250,6 +1550,169 @@ public class Frame extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_btn_buscarHomeActionPerformed
+
+    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
+        subPanelNewUser2.removeAll();
+        subPanelNewUser2.revalidate();
+        subPanelNewUser2.repaint();
+        totalPanelesActualizar = new ArrayList();
+        //setVisitible(true);
+        //subPanelNewUser_A1.removeAll();
+        System.out.println("Selected: " + jComboBox3.getSelectedItem());
+        System.out.println(", Position: " + jComboBox3.getSelectedIndex());
+        PairNameIdClient seleccionado = (PairNameIdClient) jComboBox3.getSelectedItem();
+        int id = seleccionado.id;
+        int idContacto = seleccionado.idContacto;
+        int idEmpresa = seleccionado.idEmpresa;
+        int idIndustria = seleccionado.idIndustria;
+        int idSocial = seleccionado.idSocial;
+        System.out.println("Todos los ids son: "+id +" "+idContacto+" "+idEmpresa+" "+idIndustria+" "+idSocial);
+        //ahora se arman las querys para poder llevar a cabo los select
+        String queryCliente = "SELECT * FROM cliente WHERE id = "+id;
+        String queryContacto = "SELECT * FROM contacto WHERE id = "+idContacto;
+        String queryEmpresa = "SELECT * FROM empresa WHERE id = "+idEmpresa;
+        String queryIndustria = "SELECT * FROM industria WHERE id = "+idIndustria;
+        String querySocial = "SELECT * FROM socialdata WHERE id = "+idSocial; 
+        ArrayList<classForUsers> paraCliente = new ArrayList();
+        ArrayList<classForUsers> paraContacto = new ArrayList();
+        ArrayList<classForUsers> paraEmpresa = new ArrayList();
+        ArrayList<classForUsers> paraIndustria = new ArrayList();
+        ArrayList<classForUsers> paraSocial = new ArrayList();
+        int numeroEnCliente = 0;
+        String pathFoto = "";
+        //PairNameData
+        Statement stCliente;
+        Statement stContacto;
+        Statement stEmpresa;
+        Statement stIndustria;
+        Statement stSocial;
+        try {
+            //cliente
+            stCliente = Postgre.bdConnection.createStatement();
+            ResultSet rsCliente = stCliente.executeQuery(queryCliente);
+            ResultSetMetaData mCliente = rsCliente.getMetaData();
+            numeroEnCliente = mCliente.getColumnCount()-6;
+            while(rsCliente.next()){
+                for(int i = 1; i < mCliente.getColumnCount();i++){
+                    if(mCliente.getColumnName(i).contains("id") && !mCliente.getColumnName(i).equals("apellido")){
+                        continue;
+                    }
+                    else if(mCliente.getColumnName(i).contains("foto")){
+                        pathFoto = rsCliente.getString(i);
+                    }
+                    /*else if(m2.getColumnName(i).contains("foto")){
+                        continue;
+                    }*/
+                    String data = rsCliente.getString(i);
+                    String nombreC = mCliente.getColumnName(i);
+                    String tipo = mCliente.getColumnTypeName(i);
+                    classForUsers clienteUsar = new classForUsers(nombreC,data,tipo);
+                    paraCliente.add(clienteUsar);
+                }
+            }
+            //contacto
+            stContacto = Postgre.bdConnection.createStatement();
+            ResultSet rsContacto = stContacto.executeQuery(queryContacto);
+            ResultSetMetaData mContacto = rsContacto.getMetaData();
+            while(rsContacto.next()){
+                for(int i = 1; i < mContacto.getColumnCount();i++){
+                    if(mContacto.getColumnName(i).contains("id") && !mContacto.getColumnName(i).equals("apellido")){
+                        continue;
+                    }
+                    /*else if(m2.getColumnName(i).contains("foto")){
+                        continue;
+                    }*/
+                    String data = rsContacto.getString(i);
+                    String nombreC = mContacto.getColumnName(i);
+                    String tipo = mContacto.getColumnTypeName(i);
+                    classForUsers contactoUsar = new classForUsers(nombreC,data,tipo);
+                    paraContacto.add(contactoUsar);
+                }
+            }
+            //empresa
+            stEmpresa = Postgre.bdConnection.createStatement();
+            ResultSet rsEmpresa = stEmpresa.executeQuery(queryEmpresa);
+            ResultSetMetaData mEmpresa = rsEmpresa.getMetaData();
+            while(rsEmpresa.next()){
+                for(int i = 1; i < mEmpresa.getColumnCount();i++){
+                    if(mEmpresa.getColumnName(i).contains("id") && !mEmpresa.getColumnName(i).equals("apellido")){
+                        continue;
+                    }
+                    /*else if(m2.getColumnName(i).contains("foto")){
+                        continue;
+                    }*/
+                    String data = rsEmpresa.getString(i);
+                    String nombreC = mEmpresa.getColumnName(i);
+                    String tipo = mEmpresa.getColumnTypeName(i);
+                    classForUsers empresaUsar = new classForUsers(nombreC,data,tipo);
+                    paraEmpresa.add(empresaUsar);
+                }
+            }
+            //industria
+            stIndustria = Postgre.bdConnection.createStatement();
+            ResultSet rsIndustria = stIndustria.executeQuery(queryIndustria);
+            ResultSetMetaData mIndustria = rsIndustria.getMetaData();
+            while(rsIndustria.next()){
+                for(int i = 1; i < mIndustria.getColumnCount();i++){
+                    if(mIndustria.getColumnName(i).contains("id") && !mIndustria.getColumnName(i).equals("apellido")){
+                        continue;
+                    }
+                    /*else if(m2.getColumnName(i).contains("foto")){
+                        continue;
+                    }*/
+                    String data = rsIndustria.getString(i);
+                    String nombreC = mIndustria.getColumnName(i);
+                    String tipo = mIndustria.getColumnTypeName(i);
+                    classForUsers industriaUsar = new classForUsers(nombreC,data,tipo);
+                    paraIndustria.add(industriaUsar);
+                }
+            }
+            //social
+            stSocial = Postgre.bdConnection.createStatement();
+            ResultSet rsSocial = stSocial.executeQuery(querySocial);
+            ResultSetMetaData mSocial = rsSocial.getMetaData();
+            while(rsSocial.next()){
+                for(int i = 1; i < mSocial.getColumnCount();i++){
+                    if(mSocial.getColumnName(i).contains("id") && !mSocial.getColumnName(i).equals("apellido")){
+                        continue;
+                    }
+                    /*else if(m2.getColumnName(i).contains("foto")){
+                        continue;
+                    }*/
+                    String data = rsSocial.getString(i);
+                    String nombreC = mSocial.getColumnName(i);
+                    String tipo = mSocial.getColumnTypeName(i);
+                    classForUsers socialUsar = new classForUsers(nombreC,data,tipo);
+                    paraSocial.add(socialUsar);
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //Ahora ya teniendo la data se tienen que crear los paneles
+        //primero se une todo
+        ArrayList<classForUsers> totalPaneles = new ArrayList();
+        totalPaneles.addAll(paraCliente);
+        totalPaneles.addAll(paraContacto);
+        totalPaneles.addAll(paraEmpresa);
+        totalPaneles.addAll(paraIndustria);
+        totalPaneles.addAll(paraSocial);
+        totalPanelesActualizar.addAll(totalPaneles);
+        createAreasForUpdateUser(totalPaneles,numeroEnCliente,false);
+        //y se pone la fotita
+        System.out.println(pathFoto);
+        pathFoto = pathFoto.replace('\\', '/');
+        System.out.println(pathFoto);
+        File filePict = new File(pathFoto);
+        setTargetDelete(filePict);
+    }//GEN-LAST:event_jComboBox3ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        //bueeeeeeeeeeeeeeeno. Primero tomemos todos los id
+        //Si llego a necesitar los id estan en indicesActualizar
+        //Para ver la data esta en totalPanelesActualzar
+        
+    }//GEN-LAST:event_jButton3ActionPerformed
     
     private void browseButtonActionPerformed(java.awt.event.ActionEvent evt) {
         JFileChooser fc = new JFileChooser(basePath);
@@ -1260,6 +1723,26 @@ public class Frame extends javax.swing.JFrame {
                 File file = fc.getSelectedFile();
                 //System.out.println(file.getAbsolutePath());
                 setTarget(file);
+            } 
+            else {
+                JOptionPane.showMessageDialog(null,
+                        "Debe elegir una imagen para un cliente nuevo.", "Cancelando...",
+                        JOptionPane.WARNING_MESSAGE);
+            }
+        } catch (Exception iOException) {
+        }
+
+    }
+    
+    private void browseButtonActionPerformedUpdate(java.awt.event.ActionEvent evt) {
+        JFileChooser fc = new JFileChooser(basePath);
+        fc.setFileFilter(new JPEGImageFileFilter());
+        int res = fc.showOpenDialog(null);
+        try {
+            if (res == JFileChooser.APPROVE_OPTION) {
+                File file = fc.getSelectedFile();
+                //System.out.println(file.getAbsolutePath());
+                setTargetUpdate(file);
             } 
             else {
                 JOptionPane.showMessageDialog(null,
@@ -1284,6 +1767,38 @@ public class Frame extends javax.swing.JFrame {
         labelImage.setText("");
         labelImage.setIcon(new ImageIcon(targetImg));
         labelImage.setHorizontalAlignment(SwingConstants.CENTER);
+        setVisible(true);
+    }
+    
+    public void setTargetUpdate(File reference)
+    {
+        try {
+            targetFile = reference;
+            targetImg = rescale(ImageIO.read(reference));
+        } catch (IOException ex) {
+            Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        //panelFoto.setLayout(new BorderLayout(0, 0));
+        labelImage1.setText("");
+        labelImage1.setIcon(new ImageIcon(targetImg));
+        labelImage1.setHorizontalAlignment(SwingConstants.CENTER);
+        setVisible(true);
+    }
+    
+    public void setTargetDelete(File reference)
+    {
+        try {
+            targetFile = reference;
+            targetImg = rescale(ImageIO.read(reference));
+        } catch (IOException ex) {
+            Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        //panelFoto.setLayout(new BorderLayout(0, 0));
+        labelImage2.setText("");
+        labelImage2.setIcon(new ImageIcon(targetImg));
+        labelImage2.setHorizontalAlignment(SwingConstants.CENTER);
         setVisible(true);
     }
     
@@ -1320,6 +1835,32 @@ public class Frame extends javax.swing.JFrame {
         valores.add(valTemp);
         return valores;
     }
+    
+    private ArrayList<ArrayList<String>> getValueForUpdateUser(){
+        ArrayList<ArrayList<String>> valores = new ArrayList();
+        ArrayList<String> valTemp = new ArrayList();
+        for(int k = 1; k < panelesUpdateUser.size(); k++){
+            JPanel panel = panelesUpdateUser.get(k);
+            for(int i = 0; i < panel.getComponentCount(); i++) {
+                if(panel.getComponent(i) instanceof JTextField) {
+                   JTextField campo = (JTextField)panel.getComponent(i);
+                   String valoresT = campo.getText();
+                   if(valoresT.isEmpty()){
+                       valoresT = "NULL";
+                   }
+                   valTemp.add(valoresT);
+                }
+                if(panel.getComponentCount() == 1){
+                    valores.add(valTemp);
+                    valTemp = new ArrayList();
+                }
+             }  
+        }
+        //se agrega el ultimo
+        valores.add(valTemp);
+        return valores;
+    }
+    
     private void resetAreasForNewUser(){
         for(int k = 1; k < panelesNewUser.size(); k++){
             JPanel panel = panelesNewUser.get(k);
@@ -1331,9 +1872,9 @@ public class Frame extends javax.swing.JFrame {
              }  
         }
     }
-    private String[] getNameFromPostgre(){
-        ArrayList<String> namePersona = new ArrayList();
-        String query = "SELECT id, nombre FROM cliente";
+    private PairNameIdClient[] getNameFromPostgre(){
+        ArrayList<PairNameIdClient> namePersona = new ArrayList();
+        String query = "SELECT id, contacto_idcontacto, empresa_idempresa, industria_idindustria, socialdata_idsocialdata, nombre,apellido FROM cliente";
         Statement st;
         try {
             st = Postgre.bdConnection.createStatement();
@@ -1341,15 +1882,20 @@ public class Frame extends javax.swing.JFrame {
             ResultSetMetaData m = rs.getMetaData();
             
             while(rs.next()){
-                String nombreAdd = rs.getString(2);
-                namePersona.add(nombreAdd);
+                String nombreAdd = rs.getString(6)+" "+rs.getString(7);
                 int numeroId = Integer.parseInt(rs.getString(1));
+                int numero2 = Integer.parseInt(rs.getString(2));
+                int numero3 = Integer.parseInt(rs.getString(3));
+                int numero4 = Integer.parseInt(rs.getString(4));
+                int numero5 = Integer.parseInt(rs.getString(5));
+                PairNameIdClient nuevoPar = new PairNameIdClient(numeroId, numero2, numero3, numero4, numero5,nombreAdd);
+                namePersona.add(nuevoPar);
                 idsSelectedInUpdate.add(numeroId);
             }
         } catch (SQLException ex) {
             Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        String[] nombresToReturn = new String[namePersona.size()];
+        PairNameIdClient[] nombresToReturn = new PairNameIdClient[namePersona.size()];
         namePersona.toArray(nombresToReturn);
         return nombresToReturn;
     }
@@ -1409,7 +1955,36 @@ public class Frame extends javax.swing.JFrame {
         }
         
     }
-    
+    private void createAreasForUpdateUser(ArrayList<classForUsers> parametro, int filasC, boolean canEdit){
+        loader = new ClientLoader(filasC);
+        ArrayList<JPanel> nuevo = loader.componentesEditarCliente(parametro, canEdit);
+        if(canEdit){
+            tiposActualizarCliente = loader.tiposActualizarCliente;
+            nombresColumnasActualizar = loader.nombresColumnasActualizar;
+            nombresColumnasNativasActualizar = loader.nombresColumnasNativasActualizar;
+            //if(panelesUpdateUser.size() != nuevo.size()){
+                panelesUpdateUser = new ArrayList();
+                panelesUpdateUser.addAll(nuevo);
+                subPanelNewUser1.setLayout(new GridLayout(0,1));
+                for(JPanel pa: panelesUpdateUser){
+                    subPanelNewUser1.add(pa);
+                    subPanelNewUser1.revalidate();
+                    subPanelNewUser1.repaint();
+                }
+                setVisible(true);
+        }
+        else{
+            //if(panelesUpdateUser.size() != nuevo.size()){
+                subPanelNewUser2.setLayout(new GridLayout(0,1));
+                for(JPanel pa: nuevo){
+                    subPanelNewUser2.add(pa);
+                    subPanelNewUser2.revalidate();
+                    subPanelNewUser2.repaint();
+                }
+                setVisible(true);
+        }
+       // }
+    }
     private void createFiltros(){
         //ArrayList<PairTypeField> nombresColumna = new ArrayList();
         String query = "SELECT *" +
@@ -1577,6 +2152,9 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JTextField fieldUsernames;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox3;
     private javax.swing.JLabel jLabel1;
@@ -1604,14 +2182,20 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel labelImage;
+    private javax.swing.JLabel labelImage1;
+    private javax.swing.JLabel labelImage2;
     private javax.swing.JPanel panelFoto;
+    private javax.swing.JPanel panelFoto1;
+    private javax.swing.JPanel panelFoto2;
     private javax.swing.JPanel panelNewUser;
     private javax.swing.JPanel panelSocial;
     private javax.swing.JPanel panel_filtroHome;
     private javax.swing.JTable resultsTable;
-    private java.awt.ScrollPane scrollPane2;
-    private java.awt.ScrollPane scrollPane3;
     private javax.swing.JPanel subPanelNewUser;
+    private javax.swing.JPanel subPanelNewUser1;
+    private javax.swing.JPanel subPanelNewUser2;
     private javax.swing.JScrollPane subPanelNewUser_A;
+    private javax.swing.JScrollPane subPanelNewUser_A1;
+    private javax.swing.JScrollPane subPanelNewUser_A2;
     // End of variables declaration//GEN-END:variables
 }
