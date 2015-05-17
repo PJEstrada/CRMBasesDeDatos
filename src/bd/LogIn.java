@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,12 +22,14 @@ import javax.swing.JOptionPane;
  */
 public class LogIn extends javax.swing.JFrame {
     public boolean aceptado;
+    JFrame principal;
     /**
      * Creates new form LogIn
      */
-    public LogIn() {
+    public LogIn(JFrame principal) {
         initComponents();
         aceptado = false;
+        this.principal = principal;
     }
 
     /**
@@ -106,6 +109,9 @@ public class LogIn extends javax.swing.JFrame {
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         String usuario = txtUsuario.getText();
         String pass = txtPass.getText();
+        if(pass==null){
+            pass = "";
+        }
         if(usuario.equals("")&&pass.equals("")){
             JOptionPane.showMessageDialog(null,
                             "Ingrese ambos campos para poder iniciar sesión", "Error al iniciar sesión",
@@ -119,14 +125,16 @@ public class LogIn extends javax.swing.JFrame {
                             JOptionPane.ERROR_MESSAGE);
             }
             else{
-                
+                aceptado = true;
+                this.setVisible(false);
+                principal.setVisible(true);
             }
         }
     }//GEN-LAST:event_btnAceptarActionPerformed
     
     private Boolean ingreso(String user, String pass){
         ArrayList<String> Columnas = new ArrayList();
-        String query = "SELECT user FROM usuario WHERE usuario = \'"+user+"\' AND password = md5(\'"+pass+"\')";
+        String query = "SELECT usuario FROM usuario WHERE usuario = \'"+user+"\' AND password = md5(\'"+pass+"\')";
         Statement st;
         Boolean existe = false;
         try {
@@ -149,37 +157,7 @@ public class LogIn extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LogIn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LogIn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LogIn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LogIn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new LogIn().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
