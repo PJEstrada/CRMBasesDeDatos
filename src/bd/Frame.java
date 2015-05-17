@@ -100,9 +100,11 @@ public class Frame extends javax.swing.JFrame {
                 System.out.println("Tab: "+jTabbedPane2.getSelectedIndex());
                 //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
                 if(jTabbedPane2.getSelectedIndex() == 3){
+                    resetAreasForDelete();
                     jComboBox3.setModel(new DefaultComboBoxModel(getNameFromPostgre()));
                 }
                 else if(jTabbedPane2.getSelectedIndex() == 2){
+                    resetAreasForUpdate();
                     jComboBox1.setModel(new DefaultComboBoxModel(getNameFromPostgre()));
                     
                 }
@@ -408,6 +410,7 @@ public class Frame extends javax.swing.JFrame {
         );
 
         jButton3.setText("Listo");
+        jButton3.setEnabled(false);
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -415,6 +418,7 @@ public class Frame extends javax.swing.JFrame {
         });
 
         jButton4.setText("Cambiar Foto");
+        jButton4.setEnabled(false);
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -457,7 +461,7 @@ public class Frame extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(386, Short.MAX_VALUE))
+                .addContainerGap(441, Short.MAX_VALUE))
             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel5Layout.createSequentialGroup()
                     .addContainerGap()
@@ -515,6 +519,7 @@ public class Frame extends javax.swing.JFrame {
         );
 
         jButton5.setText("Eliminar");
+        jButton5.setEnabled(false);
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
@@ -1130,6 +1135,8 @@ public class Frame extends javax.swing.JFrame {
         System.out.println(pathFoto);
         File filePict = new File(pathFoto);
         setTargetUpdate(filePict);
+        jButton4.setEnabled(true);
+        jButton3.setEnabled(true);
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -1507,6 +1514,7 @@ public class Frame extends javax.swing.JFrame {
                 
                
                 JOptionPane.showMessageDialog(this, "Cliente agregado exitosamente.");
+                resetAreasForNewUser();
                 return;               
 
             } catch (SQLException ex) {
@@ -1897,6 +1905,7 @@ public class Frame extends javax.swing.JFrame {
         System.out.println(pathFoto);
         File filePict = new File(pathFoto);
         setTargetDelete(filePict);
+        jButton5.setEnabled(true);
     }//GEN-LAST:event_jComboBox3ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -2056,6 +2065,7 @@ public class Frame extends javax.swing.JFrame {
         /*jPanel5.revalidate();
         jPanel5.repaint();
         setVisible(true);*/
+        resetAreasForUpdate();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -2070,6 +2080,7 @@ public class Frame extends javax.swing.JFrame {
             st = Postgre.bdConnection.createStatement();
             ResultSet rs = st.executeQuery(queryD);
         }catch(Exception e){}
+        resetAreasForDelete();
     }//GEN-LAST:event_jButton5ActionPerformed
     
     private void browseButtonActionPerformed(java.awt.event.ActionEvent evt) {
@@ -2230,6 +2241,21 @@ public class Frame extends javax.swing.JFrame {
                 }
              }  
         }
+        labelImage.setIcon(null);
+        labelImage.setText("                                                    Fotografia del Cliente");
+    }
+    private void resetAreasForUpdate(){
+        subPanelNewUser1.removeAll();
+        jButton4.setEnabled(false);
+        jButton3.setEnabled(false);
+        labelImage1.setIcon(null);
+        labelImage1.setText("                      Fotografia del Cliente");
+    }
+    private void resetAreasForDelete(){
+        subPanelNewUser2.removeAll();
+        jButton5.setEnabled(false);
+        labelImage2.setIcon(null);
+        labelImage2.setText("                     Fotografia del Cliente");
     }
     private PairNameIdClient[] getNameFromPostgre(){
         ArrayList<PairNameIdClient> namePersona = new ArrayList();
