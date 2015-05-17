@@ -31,7 +31,7 @@ public class MongoDB {
     MongoClient client;
     DB database;
     
-    public MongoDB(){
+    public MongoDB() throws Exception{
       try{   
         // To connect to mongodb server
         client = new MongoClient( "localhost" , 27017 );
@@ -50,7 +50,7 @@ public class MongoDB {
         
         
       }catch(Exception e){
-	     System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+	     throw new Exception();
 	  }    
     
     }

@@ -5,6 +5,7 @@
  */
 package bd;
 
+import com.mongodb.MongoSocketOpenException;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Container;
@@ -923,26 +924,32 @@ public class Frame extends javax.swing.JFrame {
             }
             
         }
+        try{
+            MongoDB mongo = new MongoDB();
+            ArrayList<Tweet> tweets = mongo.buscarTweets(texto, clientes2, users2, hashtags2, mentions2, numHashtags);
+            String[] cols =     new String [] {
+                    "Tweet", "ID del Cliente","Cliente" , "Username","Fecha", "Hashtags","Numero Hashtags", "Mentions"
+
+                };          
+
+            String[][] filasT = new String[tweets.size()][cols.length];
+            for(int i =0 ;i< tweets.size(); i++){
+                String[] filaI = new String[tweets.get(i).toStringArrayList().size()];
+                filaI = tweets.get(i).toStringArrayList().toArray(filaI);
+                filasT[i] = filaI;        
+            }
+            this.resultsTable.setModel(new javax.swing.table.DefaultTableModel(filasT,cols));
+            TableColumnModel cm = this.resultsTable.getColumnModel();
+            TextAreaRenderer textAreaRenderer = new TextAreaRenderer(); 
+            cm.getColumn(0).setCellRenderer(textAreaRenderer);
+            cm.getColumn(5).setCellRenderer(textAreaRenderer);
+            cm.getColumn(7).setCellRenderer(textAreaRenderer);       
         
-        MongoDB mongo = new MongoDB();
-        ArrayList<Tweet> tweets = mongo.buscarTweets(texto, clientes2, users2, hashtags2, mentions2, numHashtags);
-        String[] cols =     new String [] {
-                "Tweet", "ID del Cliente","Cliente" , "Username","Fecha", "Hashtags","Numero Hashtags", "Mentions"
-                
-            };          
-        
-        String[][] filasT = new String[tweets.size()][cols.length];
-        for(int i =0 ;i< tweets.size(); i++){
-            String[] filaI = new String[tweets.get(i).toStringArrayList().size()];
-            filaI = tweets.get(i).toStringArrayList().toArray(filaI);
-            filasT[i] = filaI;        
         }
-        this.resultsTable.setModel(new javax.swing.table.DefaultTableModel(filasT,cols));
-        TableColumnModel cm = this.resultsTable.getColumnModel();
-        TextAreaRenderer textAreaRenderer = new TextAreaRenderer(); 
-        cm.getColumn(0).setCellRenderer(textAreaRenderer);
-        cm.getColumn(5).setCellRenderer(textAreaRenderer);
-        cm.getColumn(7).setCellRenderer(textAreaRenderer);
+        catch(Exception ex){
+            JOptionPane.showMessageDialog(this, "Error al conectar al servidor");
+        }
+        
 
       
     }//GEN-LAST:event_buscarActionPerformed
@@ -1461,12 +1468,47 @@ public class Frame extends javax.swing.JFrame {
                stFinal = Postgre.bdConnection.createStatement();
                stFinal.execute(queryInstert,Statement.RETURN_GENERATED_KEYS);
                ResultSet keysetFinal = stFinal.getGeneratedKeys();
+               int idCliente = -1;
                if(keysetFinal.next()){
-                   System.out.println(keysetFinal.getInt(1));
+                   idCliente = keysetFinal.getInt(1);
+                   System.out.println("ID DEL CLIENTE: "+idCliente);
+                   
                }
+               //Agregando tweets del cliente
+               MongoDB mongo = new MongoDB();
+               Twitter twitter = new Twitter();
+               //Obtenemos ultimo id insertado
+               String twitterQuery = " SELECT nombre,twitter from cliente JOIN socialdata ON (cliente.socialdata_idsocialdata= socialdata.id ) WHERE cliente.id = "+idCliente;
+               Statement stTwitter = Postgre.bdConnection.createStatement();
+               ResultSet rsTwitter = st.executeQuery(twitterQuery);   
+               String nombreCliente = "";
+               String userName = "";
+               if(rsTwitter.next()){
+                    nombreCliente = rsTwitter.getString(1);
+                    userName = rsTwitter.getString(2);
+               
+               }
+               ArrayList<Tweet> tweets = new ArrayList<Tweet>();
+               if(userName!=null &&!userName.equals("")){
+                  tweets =  Twitter.obtener15TweetDelUsuario(userName, idCliente, nombreCliente);
+               }
+               if(!tweets.isEmpty()){
+                   mongo.addTweets(tweets);
+               }
+               
+               
+                
+               
+                JOptionPane.showMessageDialog(this, "Cliente agregado exitosamente.");
+                return;               
 
             } catch (SQLException ex) {
                 Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Error al insertar, este cliente ya existe.");
+            }
+            catch (Exception e){
+                JOptionPane.showMessageDialog(this, "Error de conexion");
+                
             }
 
 
