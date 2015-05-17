@@ -999,7 +999,7 @@ public class Frame extends javax.swing.JFrame {
             ResultSetMetaData mCliente = rsCliente.getMetaData();
             numeroEnCliente = mCliente.getColumnCount()-6;
             while(rsCliente.next()){
-                for(int i = 1; i < mCliente.getColumnCount();i++){
+                for(int i = 1; i <= mCliente.getColumnCount();i++){
                     if(mCliente.getColumnName(i).contains("id") && !mCliente.getColumnName(i).equals("apellido")){
                         continue;
                     }
@@ -1021,7 +1021,7 @@ public class Frame extends javax.swing.JFrame {
             ResultSet rsContacto = stContacto.executeQuery(queryContacto);
             ResultSetMetaData mContacto = rsContacto.getMetaData();
             while(rsContacto.next()){
-                for(int i = 1; i < mContacto.getColumnCount();i++){
+                for(int i = 1; i <= mContacto.getColumnCount();i++){
                     if(mContacto.getColumnName(i).contains("id") && !mContacto.getColumnName(i).equals("apellido")){
                         continue;
                     }
@@ -1040,7 +1040,7 @@ public class Frame extends javax.swing.JFrame {
             ResultSet rsEmpresa = stEmpresa.executeQuery(queryEmpresa);
             ResultSetMetaData mEmpresa = rsEmpresa.getMetaData();
             while(rsEmpresa.next()){
-                for(int i = 1; i < mEmpresa.getColumnCount();i++){
+                for(int i = 1; i <= mEmpresa.getColumnCount();i++){
                     if(mEmpresa.getColumnName(i).contains("id") && !mEmpresa.getColumnName(i).equals("apellido")){
                         continue;
                     }
@@ -1059,7 +1059,7 @@ public class Frame extends javax.swing.JFrame {
             ResultSet rsIndustria = stIndustria.executeQuery(queryIndustria);
             ResultSetMetaData mIndustria = rsIndustria.getMetaData();
             while(rsIndustria.next()){
-                for(int i = 1; i < mIndustria.getColumnCount();i++){
+                for(int i = 1; i <= mIndustria.getColumnCount();i++){
                     if(mIndustria.getColumnName(i).contains("id") && !mIndustria.getColumnName(i).equals("apellido")){
                         continue;
                     }
@@ -1078,7 +1078,7 @@ public class Frame extends javax.swing.JFrame {
             ResultSet rsSocial = stSocial.executeQuery(querySocial);
             ResultSetMetaData mSocial = rsSocial.getMetaData();
             while(rsSocial.next()){
-                for(int i = 1; i < mSocial.getColumnCount();i++){
+                for(int i = 1; i <= mSocial.getColumnCount();i++){
                     if(mSocial.getColumnName(i).contains("id") && !mSocial.getColumnName(i).equals("apellido")){
                         continue;
                     }
@@ -1864,9 +1864,40 @@ public class Frame extends javax.swing.JFrame {
             3 = industria
             4 = social
         */
+        ArrayList<String> querysUpdate = new ArrayList();
         for(int i = 0; i< valoresRevisar.size(); i++){
-            
+            String queryUpdate = "";
+            for(int j = 0; j<valoresRevisar.get(i).size(); j++){
+                String compararNuevo = valoresRevisar.get(i).get(j);
+                String compararAntiguo = totalSubpaneles.get(i).get(j).datosEnColumna;
+                if(!compararNuevo.equals(compararAntiguo)){
+                    //Si son diferentes hay que armar la query
+                    String tabla = "";
+                    switch(i){
+                        case (0):
+                            tabla = "cliente";
+                            break;
+                        case (1):
+                            tabla = "contacto";
+                            break;
+                        case (2):
+                            tabla = "empresa";
+                            break;
+                        case (3):
+                            tabla = "industria";
+                            break;
+                        case (4):
+                            tabla = "socialdata";
+                            break;
+                        default:
+                            break;
+                    }
+                    queryUpdate="UPDATE "+tabla+" SET "+" "+totalSubpaneles.get(i).get(j).nombreColumna+" = "+compararNuevo+" WHERE id = "+indicesActualizar.get(i)+";";
+                    querysUpdate.add(queryUpdate);
+                }
+            }
         }
+        //bueno, ahora que ya tengo todas las queries que tengo que actualizar tendria que pasar a ejecutarlas yare yare
     }//GEN-LAST:event_jButton3ActionPerformed
     
     private void browseButtonActionPerformed(java.awt.event.ActionEvent evt) {
