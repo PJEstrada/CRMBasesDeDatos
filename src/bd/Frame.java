@@ -413,7 +413,6 @@ public class Frame extends javax.swing.JFrame {
         );
 
         jButton3.setText("Listo");
-        jButton3.setEnabled(false);
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -421,7 +420,6 @@ public class Frame extends javax.swing.JFrame {
         });
 
         jButton4.setText("Cambiar Foto");
-        jButton4.setEnabled(false);
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -555,7 +553,6 @@ public class Frame extends javax.swing.JFrame {
         );
 
         jButton5.setText("Eliminar");
-        jButton5.setEnabled(false);
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
