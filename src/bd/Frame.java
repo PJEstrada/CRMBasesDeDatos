@@ -2149,6 +2149,8 @@ public class Frame extends javax.swing.JFrame {
             ResultSet rs = st.executeQuery(queryD);
         }catch(Exception e){}
         resetAreasForDelete();
+        JOptionPane.showMessageDialog(this, "Cliente borrado exitosamente."); //este es un comentario x)
+
     }//GEN-LAST:event_jButton5ActionPerformed
     
     private void browseButtonActionPerformed(java.awt.event.ActionEvent evt) {
