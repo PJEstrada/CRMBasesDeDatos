@@ -36,7 +36,7 @@ CREATE TABLE contacto
   id SERIAL NOT NULL,
   telefono_cliente integer,
   direccion_cliente text,
-  correo text,
+  correo text UNIQUE,
   celular integer,
   departamento text,
   CONSTRAINT contacto_pkey PRIMARY KEY (id)
@@ -71,7 +71,7 @@ CREATE TABLE cliente
   nombre text,
   apellido text,
   rating double precision,
-  dpi text,
+  dpi text UNIQUE,
   genero text,
   fecha_nacimiento date,
   foto text,
@@ -82,18 +82,31 @@ CREATE TABLE cliente
   CONSTRAINT cliente_pkey PRIMARY KEY (id),
   CONSTRAINT cliente_contacto_idcontacto_fkey FOREIGN KEY (contacto_idcontacto)
       REFERENCES contacto (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
+      ON UPDATE NO ACTION  ON DELETE CASCADE,
   CONSTRAINT cliente_empresa_idempresa_fkey FOREIGN KEY (empresa_idempresa)
       REFERENCES empresa (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
+      ON UPDATE NO ACTION ON DELETE CASCADE,
   CONSTRAINT cliente_industria_idindustria_fkey FOREIGN KEY (industria_idindustria)
       REFERENCES industria (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
+      ON UPDATE NO ACTION ON DELETE CASCADE,
   CONSTRAINT cliente_socialdata_idsocialdata_fkey FOREIGN KEY (socialdata_idsocialdata)
       REFERENCES socialdata (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION
+      ON UPDATE NO ACTION ON DELETE CASCADE
 )
 WITH (
   OIDS=FALSE
 );
-  
+CREATE FUNCTION clienteDelete() RETURNS TRIGGER AS $_$
+BEGIN
+    DELETE FROM contacto WHERE contacto.id = OLD.contacto_idcontacto;
+    DELETE FROM empresa WHERE empresa.id = OLD.empresa_idempresa;
+    DELETE FROM industria WHERE industria.id = OLD.industria_idindustria;
+    DELETE FROM socialdata WHERE socialdata.id = OLD.socialdata_idsocialdata;
+    RETURN OLD;
+END $_$ LANGUAGE 'plpgsql';
+
+
+CREATE TRIGGER delete_contacto 
+AFTER DELETE ON cliente 
+FOR EACH ROW 
+EXECUTE PROCEDURE clienteDelete();

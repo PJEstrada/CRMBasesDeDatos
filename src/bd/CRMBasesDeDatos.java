@@ -39,9 +39,9 @@ public class CRMBasesDeDatos {
         Twitter twitter = new Twitter();
         //ArrayList<Tweet> tweets = Twitter.obtener15TweetDelUsuario("ign",1,"Revista IGN");
         
-        MongoDB mongo = new MongoDB();
+        //MongoDB mongo = new MongoDB();
         //mongo.addTweets(tweets);
-        mongo.eliminarTweetsClientes(1);
+        //mongo.eliminarTweetsClientes(1);
         ArrayList<String> h = new ArrayList<String>();
         h.add("GetInked");
         h.add("AttackonTitan3DS");
