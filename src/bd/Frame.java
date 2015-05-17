@@ -5,11 +5,8 @@
  */
 package bd;
 
-import com.mongodb.MongoSocketOpenException;
-import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Container;
-import java.awt.FlowLayout;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
@@ -25,7 +22,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
@@ -37,9 +33,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.table.TableColumnModel;
 import javax.imageio.ImageIO;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 
@@ -106,9 +100,11 @@ public class Frame extends javax.swing.JFrame {
                 System.out.println("Tab: "+jTabbedPane2.getSelectedIndex());
                 //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
                 if(jTabbedPane2.getSelectedIndex() == 3){
+                    resetAreasForDelete();
                     jComboBox3.setModel(new DefaultComboBoxModel(getNameFromPostgre()));
                 }
                 else if(jTabbedPane2.getSelectedIndex() == 2){
+                    resetAreasForUpdate();
                     jComboBox1.setModel(new DefaultComboBoxModel(getNameFromPostgre()));
                     
                 }
@@ -417,6 +413,7 @@ public class Frame extends javax.swing.JFrame {
         );
 
         jButton3.setText("Listo");
+        jButton3.setEnabled(false);
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -424,6 +421,7 @@ public class Frame extends javax.swing.JFrame {
         });
 
         jButton4.setText("Cambiar Foto");
+        jButton4.setEnabled(false);
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -557,6 +555,12 @@ public class Frame extends javax.swing.JFrame {
         );
 
         jButton5.setText("Eliminar");
+        jButton5.setEnabled(false);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -1202,6 +1206,8 @@ public class Frame extends javax.swing.JFrame {
         System.out.println(pathFoto);
         File filePict = new File(pathFoto);
         setTargetUpdate(filePict);
+        jButton4.setEnabled(true);
+        jButton3.setEnabled(true);
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -1579,6 +1585,7 @@ public class Frame extends javax.swing.JFrame {
                 
                
                 JOptionPane.showMessageDialog(this, "Cliente agregado exitosamente.");
+                resetAreasForNewUser();
                 return;               
 
             } catch (SQLException ex) {
@@ -1825,6 +1832,11 @@ public class Frame extends javax.swing.JFrame {
         int idEmpresa = seleccionado.idEmpresa;
         int idIndustria = seleccionado.idIndustria;
         int idSocial = seleccionado.idSocial;
+        indicesDelete.add(id);
+        indicesDelete.add(idContacto);
+        indicesDelete.add(idEmpresa);
+        indicesDelete.add(idIndustria);
+        indicesDelete.add(idSocial);
         System.out.println("Todos los ids son: "+id +" "+idContacto+" "+idEmpresa+" "+idIndustria+" "+idSocial);
         //ahora se arman las querys para poder llevar a cabo los select
         String queryCliente = "SELECT * FROM cliente WHERE id = "+id;
@@ -1964,6 +1976,7 @@ public class Frame extends javax.swing.JFrame {
         System.out.println(pathFoto);
         File filePict = new File(pathFoto);
         setTargetDelete(filePict);
+        jButton5.setEnabled(true);
     }//GEN-LAST:event_jComboBox3ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -1981,6 +1994,62 @@ public class Frame extends javax.swing.JFrame {
             }
             valoresAntiguos.add(valo);
         }
+        ArrayList<String> dataProbar = new ArrayList();
+        int indiceInterno = 0;
+        int indiceDeArrayFila = 0;
+        String mensajeNoNull = "";
+        for(ArrayList<String> fila: valoresRevisar){ //llenamos la data
+            indiceInterno = 0;
+            for(String dato: fila){
+                if(indiceDeArrayFila == 0 && dato.equals("NULL")){
+                    //se va a lanzar error porque este campo es obligatorio
+                    mensajeNoNull += "El campo de "+nombresColumnas.get(indiceInterno)+" es obligatorio.\n";
+                    indiceInterno++;
+                    continue;
+                }
+                dataProbar.add(dato);
+                indiceInterno++;
+            }
+            if(indiceDeArrayFila == 0 && !mensajeNoNull.isEmpty()){
+                JOptionPane.showMessageDialog(null,
+                        mensajeNoNull, "Error en Campos Obligatorios",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            indiceDeArrayFila++;
+        }
+        //se revisa antes de hacer cualquier otra cosa
+         ArrayList<PairTypeNumber> arreglar = loader.checkCamposNuevo(tiposActualizarCliente, dataProbar);
+         if(!arreglar.isEmpty()){
+            //Si no esta vacio entonces hay cosas que arreglar entonces TODO!!!!!!!!!
+            String mensajeDeErrorCompleto ="";
+            ArrayList<Integer> numberComponer = new ArrayList();
+            for(PairTypeNumber deber: arreglar){
+                mensajeDeErrorCompleto+=deber.nameType+"\n";
+                numberComponer.add(deber.numberType);
+                
+            }
+            //ahora se deben borrar los textfield con ese indice
+            //hmmmm para esto tengo que recorrer otra vez los paneles y aha D:
+            int indiceJPanel = 0;
+            for(int k = 1; k < panelesUpdateUser.size(); k++){
+                JPanel panel = panelesUpdateUser.get(k);
+                for(int i = 0; i < panel.getComponentCount(); i++) {
+                    if(panel.getComponent(i) instanceof JTextField) {
+                       JTextField campo = (JTextField)panel.getComponent(i);
+                       if(numberComponer.contains(indiceJPanel)){
+                            campo.setText("");
+                       }
+                       indiceJPanel++;
+                    }
+                 }  
+            }
+            //Por ultimo solo tengo que lanzar el mensaje de error x)
+            JOptionPane.showMessageDialog(null,
+                        mensajeDeErrorCompleto, "Error en Campos",
+                        JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         //va ahora que ya tengo los antiguos y los nuevos, tengo que comenzar a recorrer ambos para compararlos
         /*
             0 = cliente
@@ -1989,6 +2058,7 @@ public class Frame extends javax.swing.JFrame {
             3 = industria
             4 = social
         */
+        ArrayList<PairTypeNumber> camposNuevos = new ArrayList();
         ArrayList<String> querysUpdate = new ArrayList();
         for(int i = 0; i< valoresRevisar.size(); i++){
             String queryUpdate = "";
@@ -1997,6 +2067,7 @@ public class Frame extends javax.swing.JFrame {
                 String compararAntiguo = totalSubpaneles.get(i).get(j).datosEnColumna;
                 if(!compararNuevo.equals(compararAntiguo)){
                     //Si son diferentes hay que armar la query
+                    //tiposActualizarCliente
                     String tabla = "";
                     switch(i){
                         case (0):
@@ -2018,6 +2089,8 @@ public class Frame extends javax.swing.JFrame {
                             break;
                     }
                     String tipo = totalSubpaneles.get(i).get(j).tipoColumna;
+                    //una vez sabiendo el tipo se tiene que validar la nueva data
+                    
                     if(tipo.contains("text") || tipo.contains("varchar")){
                         queryUpdate="UPDATE "+tabla+" SET "+" "+totalSubpaneles.get(i).get(j).nombreColumna+" = \'"+compararNuevo+"\' WHERE id = "+indicesActualizar.get(i)+";";
                         querysUpdate.add(queryUpdate);
@@ -2058,11 +2131,28 @@ public class Frame extends javax.swing.JFrame {
         else{
             JOptionPane.showMessageDialog(this, "No exitieron cambios a realizar.");
         }
+        //se supondria que se repopula la lista esa
+        jComboBox1.setModel(new DefaultComboBoxModel(getNameFromPostgre()));        
+        /*jPanel5.revalidate();
+        jPanel5.repaint();
+        setVisible(true);*/
+        resetAreasForUpdate();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         browseButtonActionPerformedUpdate(evt);
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        //Se hace la query
+        String queryD = "DELETE FROM cliente WHERE id = "+indicesDelete.get(0);
+        Statement st;
+        try{
+            st = Postgre.bdConnection.createStatement();
+            ResultSet rs = st.executeQuery(queryD);
+        }catch(Exception e){}
+        resetAreasForDelete();
+    }//GEN-LAST:event_jButton5ActionPerformed
     
     private void browseButtonActionPerformed(java.awt.event.ActionEvent evt) {
         JFileChooser fc = new JFileChooser(basePath);
@@ -2222,9 +2312,25 @@ public class Frame extends javax.swing.JFrame {
                 }
              }  
         }
+        labelImage.setIcon(null);
+        labelImage.setText("                                                    Fotografia del Cliente");
+    }
+    private void resetAreasForUpdate(){
+        subPanelNewUser1.removeAll();
+        jButton4.setEnabled(false);
+        jButton3.setEnabled(false);
+        labelImage1.setIcon(null);
+        labelImage1.setText("                      Fotografia del Cliente");
+    }
+    private void resetAreasForDelete(){
+        subPanelNewUser2.removeAll();
+        jButton5.setEnabled(false);
+        labelImage2.setIcon(null);
+        labelImage2.setText("                     Fotografia del Cliente");
     }
     private PairNameIdClient[] getNameFromPostgre(){
         ArrayList<PairNameIdClient> namePersona = new ArrayList();
+        namePersona.add(null);
         String query = "SELECT id, contacto_idcontacto, empresa_idempresa, industria_idindustria, socialdata_idsocialdata, nombre,apellido FROM cliente";
         Statement st;
         try {
