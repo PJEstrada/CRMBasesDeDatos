@@ -159,6 +159,9 @@ public class Frame extends javax.swing.JFrame {
         labelImage1 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jLabel14 = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        tableTweets = new javax.swing.JTable();
         jPanel6 = new javax.swing.JPanel();
         jComboBox3 = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
@@ -210,7 +213,7 @@ public class Frame extends javax.swing.JFrame {
         panel_filtroHome.setLayout(panel_filtroHomeLayout);
         panel_filtroHomeLayout.setHorizontalGroup(
             panel_filtroHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1050, Short.MAX_VALUE)
+            .addGap(0, 1091, Short.MAX_VALUE)
         );
         panel_filtroHomeLayout.setVerticalGroup(
             panel_filtroHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -269,7 +272,7 @@ public class Frame extends javax.swing.JFrame {
                     .addComponent(btn_buscarHome)
                     .addComponent(btn_limpiarHome))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 653, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -311,7 +314,7 @@ public class Frame extends javax.swing.JFrame {
         );
         subPanelNewUserLayout.setVerticalGroup(
             subPanelNewUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 867, Short.MAX_VALUE)
+            .addGap(0, 979, Short.MAX_VALUE)
         );
 
         subPanelNewUser_A.setViewportView(subPanelNewUser);
@@ -389,7 +392,7 @@ public class Frame extends javax.swing.JFrame {
         );
         subPanelNewUser1Layout.setVerticalGroup(
             subPanelNewUser1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 829, Short.MAX_VALUE)
+            .addGap(0, 979, Short.MAX_VALUE)
         );
 
         subPanelNewUser_A1.setViewportView(subPanelNewUser1);
@@ -427,12 +430,35 @@ public class Frame extends javax.swing.JFrame {
             }
         });
 
+        jLabel14.setIcon(new javax.swing.ImageIcon("C:\\Users\\pablo\\Dropbox\\Año 4 Semestre 1\\Bases de Datos\\CRM Bases de Datos\\src\\bd\\twitter.png")); // NOI18N
+
+        tableTweets.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Tweet", "Fecha"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane6.setViewportView(tableTweets);
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap(680, Short.MAX_VALUE)
+                .addContainerGap(627, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                         .addComponent(jButton4)
@@ -443,7 +469,13 @@ public class Frame extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(87, 87, 87))))
+                        .addGap(87, 87, 87))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel14)
+                        .addGap(168, 168, 168))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel5Layout.createSequentialGroup()
                     .addGap(5, 5, 5)
@@ -463,7 +495,11 @@ public class Frame extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(386, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addComponent(jLabel14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44))
             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel5Layout.createSequentialGroup()
                     .addContainerGap()
@@ -496,7 +532,7 @@ public class Frame extends javax.swing.JFrame {
         );
         subPanelNewUser2Layout.setVerticalGroup(
             subPanelNewUser2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 829, Short.MAX_VALUE)
+            .addGap(0, 979, Short.MAX_VALUE)
         );
 
         subPanelNewUser_A2.setViewportView(subPanelNewUser2);
@@ -527,7 +563,7 @@ public class Frame extends javax.swing.JFrame {
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap(723, Short.MAX_VALUE)
+                .addContainerGap(725, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                         .addComponent(jLabel2)
@@ -554,7 +590,7 @@ public class Frame extends javax.swing.JFrame {
                     .addComponent(jLabel2))
                 .addGap(33, 33, 33)
                 .addComponent(jButton5)
-                .addContainerGap(339, Short.MAX_VALUE))
+                .addContainerGap(510, Short.MAX_VALUE))
             .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel6Layout.createSequentialGroup()
                     .addContainerGap()
@@ -718,7 +754,7 @@ public class Frame extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(panelSocialLayout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 1022, Short.MAX_VALUE)
+                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 1054, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelSocialLayout.setVerticalGroup(
@@ -757,7 +793,7 @@ public class Frame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
-                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE))
+                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -821,7 +857,7 @@ public class Frame extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(365, 365, 365)
                                 .addComponent(btnAgregarColumna)))
-                        .addContainerGap(94, Short.MAX_VALUE))))
+                        .addContainerGap(128, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -840,7 +876,7 @@ public class Frame extends javax.swing.JFrame {
                 .addComponent(btnAgregarColumna)
                 .addGap(58, 58, 58)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(280, Short.MAX_VALUE))
+                .addContainerGap(394, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("Agregar Columna", jPanel1);
@@ -987,7 +1023,40 @@ public class Frame extends javax.swing.JFrame {
         indicesActualizar.add(idEmpresa);
         indicesActualizar.add(idIndustria);
         indicesActualizar.add(idSocial);
+        
         System.out.println("Todos los ids son: "+id +" "+idContacto+" "+idEmpresa+" "+idIndustria+" "+idSocial);
+        /* Llenando la tabla de Tweets*/
+        String[] cols = new String [] {"Tweet","Fecha", };          
+        ArrayList<Tweet> tweets = new ArrayList<Tweet>();
+        try{
+            MongoDB mongo = new MongoDB();
+            tweets = mongo.obtenerTweetsCliente(id);
+       
+        
+            String[][] filasT = new String[tweets.size()][cols.length];
+            for(int i =0 ;i< tweets.size(); i++){
+                String[] filaI = new String[2];
+                ArrayList<String> t = new ArrayList<String>();
+                t.add(tweets.get(i).texto);
+                t.add(tweets.get(i).fecha.toString());
+                filaI = t.toArray(filaI);
+                filasT[i] = filaI;        
+            }            
+            this.tableTweets.setModel(new javax.swing.table.DefaultTableModel(filasT,cols));
+            TableColumnModel cm = this.tableTweets.getColumnModel();
+            TextAreaRenderer textAreaRenderer = new TextAreaRenderer(); 
+            cm.getColumn(0).setCellRenderer(textAreaRenderer);             
+        }
+        catch(Exception e){
+                JOptionPane.showMessageDialog(null,
+                        "Ocurrio un error al conectarse con la base de datos.", "Error de conexion",
+                        JOptionPane.ERROR_MESSAGE);
+        
+        }
+
+
+
+        
         //ahora se arman las querys para poder llevar a cabo los select
         String queryCliente = "SELECT * FROM cliente WHERE id = "+id;
         String queryContacto = "SELECT * FROM contacto WHERE id = "+idContacto;
@@ -1007,6 +1076,8 @@ public class Frame extends javax.swing.JFrame {
         Statement stEmpresa;
         Statement stIndustria;
         Statement stSocial;
+
+        
         try {
             //cliente
             stCliente = Postgre.bdConnection.createStatement();
@@ -2493,6 +2564,7 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -2511,6 +2583,7 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
@@ -2532,6 +2605,7 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JScrollPane subPanelNewUser_A;
     private javax.swing.JScrollPane subPanelNewUser_A1;
     private javax.swing.JScrollPane subPanelNewUser_A2;
+    private javax.swing.JTable tableTweets;
     private javax.swing.JTextArea txtAreaAgregarColumna;
     private javax.swing.JTextField txtColumnaNueva1;
     // End of variables declaration//GEN-END:variables

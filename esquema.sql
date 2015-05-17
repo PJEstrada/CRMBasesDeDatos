@@ -110,3 +110,14 @@ CREATE TRIGGER delete_contacto
 AFTER DELETE ON cliente 
 FOR EACH ROW 
 EXECUTE PROCEDURE clienteDelete();
+
+CREATE TABLE usuario
+(
+  id SERIAL NOT NULL,
+  usuario text,
+  password text,
+  CONSTRAINT usuario_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
