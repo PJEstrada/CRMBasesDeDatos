@@ -93,7 +93,7 @@ public class Frame extends javax.swing.JFrame {
         }
         iniciarTablaBusquedaHome(titulos, contenido);
         txtAreaAgregarColumna.setText("   Escriba el nombre y el tipo de la nueva columna y presione el botón \"Agregar Columna\". \n   "
-                + "                       Se agregará null en los clientes existentes por lo que se le recuerda que debe editarlos.");
+                + "   Se agregará null en los clientes existentes por lo que se le recuerda que debe editarlos.");
         txtAreaAgregarColumna.setEnabled(false);
         jTabbedPane2.addChangeListener(new ChangeListener(){
         
