@@ -37,6 +37,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.table.TableColumnModel;
 import javax.imageio.ImageIO;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -75,6 +76,8 @@ public class Frame extends javax.swing.JFrame {
     
     ArrayList<Integer> indicesActualizar = new ArrayList();
     ArrayList<Integer> indicesDelete = new ArrayList();  //<-------------------
+    
+    String imagenUpdate = "";
     
     HashMap componentesFiltroMap;
     File targetFile;
@@ -156,6 +159,9 @@ public class Frame extends javax.swing.JFrame {
         labelImage1 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jLabel14 = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        tableTweets = new javax.swing.JTable();
         jPanel6 = new javax.swing.JPanel();
         jComboBox3 = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
@@ -207,7 +213,7 @@ public class Frame extends javax.swing.JFrame {
         panel_filtroHome.setLayout(panel_filtroHomeLayout);
         panel_filtroHomeLayout.setHorizontalGroup(
             panel_filtroHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1050, Short.MAX_VALUE)
+            .addGap(0, 1091, Short.MAX_VALUE)
         );
         panel_filtroHomeLayout.setVerticalGroup(
             panel_filtroHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -266,7 +272,7 @@ public class Frame extends javax.swing.JFrame {
                     .addComponent(btn_buscarHome)
                     .addComponent(btn_limpiarHome))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 653, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -308,7 +314,7 @@ public class Frame extends javax.swing.JFrame {
         );
         subPanelNewUserLayout.setVerticalGroup(
             subPanelNewUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 867, Short.MAX_VALUE)
+            .addGap(0, 979, Short.MAX_VALUE)
         );
 
         subPanelNewUser_A.setViewportView(subPanelNewUser);
@@ -386,7 +392,7 @@ public class Frame extends javax.swing.JFrame {
         );
         subPanelNewUser1Layout.setVerticalGroup(
             subPanelNewUser1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 829, Short.MAX_VALUE)
+            .addGap(0, 979, Short.MAX_VALUE)
         );
 
         subPanelNewUser_A1.setViewportView(subPanelNewUser1);
@@ -418,13 +424,41 @@ public class Frame extends javax.swing.JFrame {
         });
 
         jButton4.setText("Cambiar Foto");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jLabel14.setIcon(new javax.swing.ImageIcon("C:\\Users\\pablo\\Dropbox\\Año 4 Semestre 1\\Bases de Datos\\CRM Bases de Datos\\src\\bd\\twitter.png")); // NOI18N
+
+        tableTweets.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Tweet", "Fecha"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane6.setViewportView(tableTweets);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap(680, Short.MAX_VALUE)
+                .addContainerGap(627, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                         .addComponent(jButton4)
@@ -435,7 +469,13 @@ public class Frame extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(87, 87, 87))))
+                        .addGap(87, 87, 87))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel14)
+                        .addGap(168, 168, 168))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel5Layout.createSequentialGroup()
                     .addGap(5, 5, 5)
@@ -455,7 +495,11 @@ public class Frame extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(386, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addComponent(jLabel14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44))
             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel5Layout.createSequentialGroup()
                     .addContainerGap()
@@ -488,7 +532,7 @@ public class Frame extends javax.swing.JFrame {
         );
         subPanelNewUser2Layout.setVerticalGroup(
             subPanelNewUser2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 829, Short.MAX_VALUE)
+            .addGap(0, 979, Short.MAX_VALUE)
         );
 
         subPanelNewUser_A2.setViewportView(subPanelNewUser2);
@@ -519,7 +563,7 @@ public class Frame extends javax.swing.JFrame {
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap(723, Short.MAX_VALUE)
+                .addContainerGap(725, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                         .addComponent(jLabel2)
@@ -546,7 +590,7 @@ public class Frame extends javax.swing.JFrame {
                     .addComponent(jLabel2))
                 .addGap(33, 33, 33)
                 .addComponent(jButton5)
-                .addContainerGap(339, Short.MAX_VALUE))
+                .addContainerGap(510, Short.MAX_VALUE))
             .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel6Layout.createSequentialGroup()
                     .addContainerGap()
@@ -710,7 +754,7 @@ public class Frame extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(panelSocialLayout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 1022, Short.MAX_VALUE)
+                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 1054, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelSocialLayout.setVerticalGroup(
@@ -749,7 +793,7 @@ public class Frame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
-                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE))
+                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -813,7 +857,7 @@ public class Frame extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(365, 365, 365)
                                 .addComponent(btnAgregarColumna)))
-                        .addContainerGap(94, Short.MAX_VALUE))))
+                        .addContainerGap(128, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -832,7 +876,7 @@ public class Frame extends javax.swing.JFrame {
                 .addComponent(btnAgregarColumna)
                 .addGap(58, 58, 58)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(280, Short.MAX_VALUE))
+                .addContainerGap(394, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("Agregar Columna", jPanel1);
@@ -979,7 +1023,40 @@ public class Frame extends javax.swing.JFrame {
         indicesActualizar.add(idEmpresa);
         indicesActualizar.add(idIndustria);
         indicesActualizar.add(idSocial);
+        
         System.out.println("Todos los ids son: "+id +" "+idContacto+" "+idEmpresa+" "+idIndustria+" "+idSocial);
+        /* Llenando la tabla de Tweets*/
+        String[] cols = new String [] {"Tweet","Fecha", };          
+        ArrayList<Tweet> tweets = new ArrayList<Tweet>();
+        try{
+            MongoDB mongo = new MongoDB();
+            tweets = mongo.obtenerTweetsCliente(id);
+       
+        
+            String[][] filasT = new String[tweets.size()][cols.length];
+            for(int i =0 ;i< tweets.size(); i++){
+                String[] filaI = new String[2];
+                ArrayList<String> t = new ArrayList<String>();
+                t.add(tweets.get(i).texto);
+                t.add(tweets.get(i).fecha.toString());
+                filaI = t.toArray(filaI);
+                filasT[i] = filaI;        
+            }            
+            this.tableTweets.setModel(new javax.swing.table.DefaultTableModel(filasT,cols));
+            TableColumnModel cm = this.tableTweets.getColumnModel();
+            TextAreaRenderer textAreaRenderer = new TextAreaRenderer(); 
+            cm.getColumn(0).setCellRenderer(textAreaRenderer);             
+        }
+        catch(Exception e){
+                JOptionPane.showMessageDialog(null,
+                        "Ocurrio un error al conectarse con la base de datos.", "Error de conexion",
+                        JOptionPane.ERROR_MESSAGE);
+        
+        }
+
+
+
+        
         //ahora se arman las querys para poder llevar a cabo los select
         String queryCliente = "SELECT * FROM cliente WHERE id = "+id;
         String queryContacto = "SELECT * FROM contacto WHERE id = "+idContacto;
@@ -999,6 +1076,8 @@ public class Frame extends javax.swing.JFrame {
         Statement stEmpresa;
         Statement stIndustria;
         Statement stSocial;
+
+        
         try {
             //cliente
             stCliente = Postgre.bdConnection.createStatement();
@@ -1006,7 +1085,7 @@ public class Frame extends javax.swing.JFrame {
             ResultSetMetaData mCliente = rsCliente.getMetaData();
             numeroEnCliente = mCliente.getColumnCount()-6;
             while(rsCliente.next()){
-                for(int i = 1; i < mCliente.getColumnCount();i++){
+                for(int i = 1; i <= mCliente.getColumnCount();i++){
                     if(mCliente.getColumnName(i).contains("id") && !mCliente.getColumnName(i).equals("apellido")){
                         continue;
                     }
@@ -1028,7 +1107,7 @@ public class Frame extends javax.swing.JFrame {
             ResultSet rsContacto = stContacto.executeQuery(queryContacto);
             ResultSetMetaData mContacto = rsContacto.getMetaData();
             while(rsContacto.next()){
-                for(int i = 1; i < mContacto.getColumnCount();i++){
+                for(int i = 1; i <= mContacto.getColumnCount();i++){
                     if(mContacto.getColumnName(i).contains("id") && !mContacto.getColumnName(i).equals("apellido")){
                         continue;
                     }
@@ -1047,7 +1126,7 @@ public class Frame extends javax.swing.JFrame {
             ResultSet rsEmpresa = stEmpresa.executeQuery(queryEmpresa);
             ResultSetMetaData mEmpresa = rsEmpresa.getMetaData();
             while(rsEmpresa.next()){
-                for(int i = 1; i < mEmpresa.getColumnCount();i++){
+                for(int i = 1; i <= mEmpresa.getColumnCount();i++){
                     if(mEmpresa.getColumnName(i).contains("id") && !mEmpresa.getColumnName(i).equals("apellido")){
                         continue;
                     }
@@ -1066,7 +1145,7 @@ public class Frame extends javax.swing.JFrame {
             ResultSet rsIndustria = stIndustria.executeQuery(queryIndustria);
             ResultSetMetaData mIndustria = rsIndustria.getMetaData();
             while(rsIndustria.next()){
-                for(int i = 1; i < mIndustria.getColumnCount();i++){
+                for(int i = 1; i <= mIndustria.getColumnCount();i++){
                     if(mIndustria.getColumnName(i).contains("id") && !mIndustria.getColumnName(i).equals("apellido")){
                         continue;
                     }
@@ -1085,7 +1164,7 @@ public class Frame extends javax.swing.JFrame {
             ResultSet rsSocial = stSocial.executeQuery(querySocial);
             ResultSetMetaData mSocial = rsSocial.getMetaData();
             while(rsSocial.next()){
-                for(int i = 1; i < mSocial.getColumnCount();i++){
+                for(int i = 1; i <= mSocial.getColumnCount();i++){
                     if(mSocial.getColumnName(i).contains("id") && !mSocial.getColumnName(i).equals("apellido")){
                         continue;
                     }
@@ -1504,11 +1583,15 @@ public class Frame extends javax.swing.JFrame {
 
             } catch (SQLException ex) {
                 Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(this, "Error al insertar, este cliente ya existe.");
+                JOptionPane.showMessageDialog(null,
+                        "Este cliente ya existe.", "Error al Insertar",
+                        JOptionPane.ERROR_MESSAGE);
             }
             catch (Exception e){
-                JOptionPane.showMessageDialog(this, "Error de conexion");
-                
+                //JOptionPane.showMessageDialog(this, "Error de conexion");
+                JOptionPane.showMessageDialog(null,
+                        "Ocurrio un error al conectarse con la base de datos.", "Error de conexion",
+                        JOptionPane.ERROR_MESSAGE);
             }
 
 
@@ -1906,10 +1989,80 @@ public class Frame extends javax.swing.JFrame {
             3 = industria
             4 = social
         */
+        ArrayList<String> querysUpdate = new ArrayList();
         for(int i = 0; i< valoresRevisar.size(); i++){
-            
+            String queryUpdate = "";
+            for(int j = 0; j<valoresRevisar.get(i).size(); j++){
+                String compararNuevo = valoresRevisar.get(i).get(j);
+                String compararAntiguo = totalSubpaneles.get(i).get(j).datosEnColumna;
+                if(!compararNuevo.equals(compararAntiguo)){
+                    //Si son diferentes hay que armar la query
+                    String tabla = "";
+                    switch(i){
+                        case (0):
+                            tabla = "cliente";
+                            break;
+                        case (1):
+                            tabla = "contacto";
+                            break;
+                        case (2):
+                            tabla = "empresa";
+                            break;
+                        case (3):
+                            tabla = "industria";
+                            break;
+                        case (4):
+                            tabla = "socialdata";
+                            break;
+                        default:
+                            break;
+                    }
+                    String tipo = totalSubpaneles.get(i).get(j).tipoColumna;
+                    if(tipo.contains("text") || tipo.contains("varchar")){
+                        queryUpdate="UPDATE "+tabla+" SET "+" "+totalSubpaneles.get(i).get(j).nombreColumna+" = \'"+compararNuevo+"\' WHERE id = "+indicesActualizar.get(i)+";";
+                        querysUpdate.add(queryUpdate);
+                    }
+                    else{
+                        queryUpdate="UPDATE "+tabla+" SET "+" "+totalSubpaneles.get(i).get(j).nombreColumna+" = "+compararNuevo+" WHERE id = "+indicesActualizar.get(i)+";";
+                        querysUpdate.add(queryUpdate);
+                    }
+                    
+                }
+            }
+        }
+        //creo que solo falta la imagen entonces hay que buscarla en el coso de totalSubpaneles
+        String pathAntiguo = "";
+        for(classForUsers c : totalSubpaneles.get(0)){
+            if(c.nombreColumna.equals("foto")){
+                pathAntiguo = c.datosEnColumna;
+            }
+        }
+        //ahora hay que tomar el nuevo path del cosito
+        if(!pathAntiguo.equals(imagenUpdate) && !imagenUpdate.equals("")){
+            String qeF = "UPDATE cliente SET foto = \'"+imagenUpdate+"\' WHERE id = "+indicesActualizar.get(0)+";";
+            querysUpdate.add(qeF);
+        }
+        //bueno, ahora que ya tengo todas las queries que tengo que actualizar tendria que pasar a ejecutarlas yare yare
+        Statement st;
+        for(String query: querysUpdate){
+            try{
+                st = Postgre.bdConnection.createStatement();
+                ResultSet rs = st.executeQuery(query);
+                ResultSetMetaData m = rs.getMetaData();
+            }
+            catch(Exception e){}
+        }
+        if(querysUpdate.size()>0){
+            JOptionPane.showMessageDialog(this, "Cliente editado correctamente.");
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "No exitieron cambios a realizar.");
         }
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        browseButtonActionPerformedUpdate(evt);
+    }//GEN-LAST:event_jButton4ActionPerformed
     
     private void browseButtonActionPerformed(java.awt.event.ActionEvent evt) {
         JFileChooser fc = new JFileChooser(basePath);
@@ -1938,6 +2091,7 @@ public class Frame extends javax.swing.JFrame {
         try {
             if (res == JFileChooser.APPROVE_OPTION) {
                 File file = fc.getSelectedFile();
+                imagenUpdate = file.getAbsolutePath();
                 //System.out.println(file.getAbsolutePath());
                 setTargetUpdate(file);
             } 
@@ -2418,6 +2572,7 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -2436,14 +2591,15 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel labelImage;
-    private javax.swing.JLabel lblColumna1;
-    private javax.swing.JLabel lblColumna2;
     private javax.swing.JLabel labelImage1;
     private javax.swing.JLabel labelImage2;
+    private javax.swing.JLabel lblColumna1;
+    private javax.swing.JLabel lblColumna2;
     private javax.swing.JPanel panelFoto;
     private javax.swing.JPanel panelFoto1;
     private javax.swing.JPanel panelFoto2;
@@ -2457,6 +2613,7 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JScrollPane subPanelNewUser_A;
     private javax.swing.JScrollPane subPanelNewUser_A1;
     private javax.swing.JScrollPane subPanelNewUser_A2;
+    private javax.swing.JTable tableTweets;
     private javax.swing.JTextArea txtAreaAgregarColumna;
     private javax.swing.JTextField txtColumnaNueva1;
     // End of variables declaration//GEN-END:variables
