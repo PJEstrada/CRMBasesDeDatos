@@ -37,6 +37,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.table.TableColumnModel;
 import javax.imageio.ImageIO;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -75,6 +76,8 @@ public class Frame extends javax.swing.JFrame {
     
     ArrayList<Integer> indicesActualizar = new ArrayList();
     ArrayList<Integer> indicesDelete = new ArrayList();  //<-------------------
+    
+    String imagenUpdate = "";
     
     HashMap componentesFiltroMap;
     File targetFile;
@@ -418,6 +421,11 @@ public class Frame extends javax.swing.JFrame {
         });
 
         jButton4.setText("Cambiar Foto");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -1504,11 +1512,15 @@ public class Frame extends javax.swing.JFrame {
 
             } catch (SQLException ex) {
                 Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(this, "Error al insertar, este cliente ya existe.");
+                JOptionPane.showMessageDialog(null,
+                        "Este cliente ya existe.", "Error al Insertar",
+                        JOptionPane.ERROR_MESSAGE);
             }
             catch (Exception e){
-                JOptionPane.showMessageDialog(this, "Error de conexion");
-                
+                //JOptionPane.showMessageDialog(this, "Error de conexion");
+                JOptionPane.showMessageDialog(null,
+                        "Ocurrio un error al conectarse con la base de datos.", "Error de conexion",
+                        JOptionPane.ERROR_MESSAGE);
             }
 
 
@@ -1934,13 +1946,52 @@ public class Frame extends javax.swing.JFrame {
                         default:
                             break;
                     }
-                    queryUpdate="UPDATE "+tabla+" SET "+" "+totalSubpaneles.get(i).get(j).nombreColumna+" = "+compararNuevo+" WHERE id = "+indicesActualizar.get(i)+";";
-                    querysUpdate.add(queryUpdate);
+                    String tipo = totalSubpaneles.get(i).get(j).tipoColumna;
+                    if(tipo.contains("text") || tipo.contains("varchar")){
+                        queryUpdate="UPDATE "+tabla+" SET "+" "+totalSubpaneles.get(i).get(j).nombreColumna+" = \'"+compararNuevo+"\' WHERE id = "+indicesActualizar.get(i)+";";
+                        querysUpdate.add(queryUpdate);
+                    }
+                    else{
+                        queryUpdate="UPDATE "+tabla+" SET "+" "+totalSubpaneles.get(i).get(j).nombreColumna+" = "+compararNuevo+" WHERE id = "+indicesActualizar.get(i)+";";
+                        querysUpdate.add(queryUpdate);
+                    }
+                    
                 }
             }
         }
+        //creo que solo falta la imagen entonces hay que buscarla en el coso de totalSubpaneles
+        String pathAntiguo = "";
+        for(classForUsers c : totalSubpaneles.get(0)){
+            if(c.nombreColumna.equals("foto")){
+                pathAntiguo = c.datosEnColumna;
+            }
+        }
+        //ahora hay que tomar el nuevo path del cosito
+        if(!pathAntiguo.equals(imagenUpdate) && !imagenUpdate.equals("")){
+            String qeF = "UPDATE cliente SET foto = \'"+imagenUpdate+"\' WHERE id = "+indicesActualizar.get(0)+";";
+            querysUpdate.add(qeF);
+        }
         //bueno, ahora que ya tengo todas las queries que tengo que actualizar tendria que pasar a ejecutarlas yare yare
+        Statement st;
+        for(String query: querysUpdate){
+            try{
+                st = Postgre.bdConnection.createStatement();
+                ResultSet rs = st.executeQuery(query);
+                ResultSetMetaData m = rs.getMetaData();
+            }
+            catch(Exception e){}
+        }
+        if(querysUpdate.size()>0){
+            JOptionPane.showMessageDialog(this, "Cliente editado correctamente.");
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "No exitieron cambios a realizar.");
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        browseButtonActionPerformedUpdate(evt);
+    }//GEN-LAST:event_jButton4ActionPerformed
     
     private void browseButtonActionPerformed(java.awt.event.ActionEvent evt) {
         JFileChooser fc = new JFileChooser(basePath);
@@ -1969,6 +2020,7 @@ public class Frame extends javax.swing.JFrame {
         try {
             if (res == JFileChooser.APPROVE_OPTION) {
                 File file = fc.getSelectedFile();
+                imagenUpdate = file.getAbsolutePath();
                 //System.out.println(file.getAbsolutePath());
                 setTargetUpdate(file);
             } 
@@ -2463,10 +2515,10 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel labelImage;
-    private javax.swing.JLabel lblColumna1;
-    private javax.swing.JLabel lblColumna2;
     private javax.swing.JLabel labelImage1;
     private javax.swing.JLabel labelImage2;
+    private javax.swing.JLabel lblColumna1;
+    private javax.swing.JLabel lblColumna2;
     private javax.swing.JPanel panelFoto;
     private javax.swing.JPanel panelFoto1;
     private javax.swing.JPanel panelFoto2;
