@@ -1461,7 +1461,7 @@ public class Frame extends javax.swing.JFrame {
                 if(keyset4.next()){
                     idSocialData = keyset4.getInt(1)+"";
                 }
-                
+                //
                 queryInstert+=idContacto+", "+idEmpresa+", "+idIndustria+", "+idSocialData+");";
 
                 //Ahora si se ejecuta la del inser final
