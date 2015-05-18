@@ -1731,7 +1731,8 @@ public class Frame extends javax.swing.JFrame {
                         else{
                             huboerror = true;
                             ((JTextField)getFiltroComponentByName(nombresTextBoxBusqueda.get(i))).setText("");
-                            JOptionPane.showMessageDialog(this, "En el campo "+nombre_campo+" no se especifico un string valido.");
+                            JOptionPane.showMessageDialog(this, "En el campo "+nombre_campo+" no se especifico un string valido.", "Error",
+                        JOptionPane.ERROR_MESSAGE);
                             j = ingresos.size();
                             i = nombresTextBoxBusqueda.size();
                         }
@@ -1750,7 +1751,8 @@ public class Frame extends javax.swing.JFrame {
                         else{
                             huboerror = true;
                             ((JTextField)getFiltroComponentByName(nombresTextBoxBusqueda.get(i))).setText("");
-                            JOptionPane.showMessageDialog(this, "En el campo "+nombre_campo+" no se especifico un entero valido.");
+                            JOptionPane.showMessageDialog(this, "En el campo "+nombre_campo+" no se especifico un entero valido.","Error",
+                        JOptionPane.ERROR_MESSAGE);
                             j = ingresos.size();
                             i = nombresTextBoxBusqueda.size();
                         }
@@ -1769,7 +1771,8 @@ public class Frame extends javax.swing.JFrame {
                         else{
                             huboerror = true;
                             ((JTextField)getFiltroComponentByName(nombresTextBoxBusqueda.get(i))).setText("");
-                            JOptionPane.showMessageDialog(this, "En el campo "+nombre_campo+" no se especifico un decimal valido.");
+                            JOptionPane.showMessageDialog(this, "En el campo "+nombre_campo+" no se especifico un decimal valido.","Error",
+                        JOptionPane.ERROR_MESSAGE);
                             j = ingresos.size();
                             i = nombresTextBoxBusqueda.size();
                         }
@@ -1788,7 +1791,8 @@ public class Frame extends javax.swing.JFrame {
                         else{
                             huboerror = true;
                             ((JTextField)getFiltroComponentByName(nombresTextBoxBusqueda.get(i))).setText("");
-                            JOptionPane.showMessageDialog(this, "En el campo "+nombre_campo+" no se especifico una fecha valida.");
+                            JOptionPane.showMessageDialog(this, "En el campo "+nombre_campo+" no se especifico una fecha valida.","Error",
+                        JOptionPane.ERROR_MESSAGE);
                             j = ingresos.size();
                             i = nombresTextBoxBusqueda.size();
                         }
@@ -1842,12 +1846,14 @@ public class Frame extends javax.swing.JFrame {
         String tipo = "";
         String nombreNuevaColumna = txtColumnaNueva1.getText().toLowerCase();
         if(nombreNuevaColumna.equals("")){
-            JOptionPane.showMessageDialog(this, "Debe ingresar un nombre para la nueva columna");
+            JOptionPane.showMessageDialog(this, "Debe ingresar un nombre para la nueva columna","Error",
+                        JOptionPane.ERROR_MESSAGE);
         }
         else{
             //Que no se repita el nombre de la columna
             if(this.existeColumna(nombreNuevaColumna)){
-                JOptionPane.showMessageDialog(this, "En la Tabla Cliente ya existe una columna de nombre: "+nombreNuevaColumna);
+                JOptionPane.showMessageDialog(this, "En la Tabla Cliente ya existe una columna de nombre: "+nombreNuevaColumna,"Error",
+                        JOptionPane.ERROR_MESSAGE);
             }
             else{
                 if(cmbBoxTipos.getSelectedIndex()==0){
@@ -2618,10 +2624,10 @@ public class Frame extends javax.swing.JFrame {
             while(rs2.next()){
                 count = 0;
                 for(int i = 0; i < m.getColumnCount();i++){
-                    if(m2.getColumnName(i).contains("id") && !m2.getColumnName(i).equals("apellido")){
+                    if(m2.getColumnName(i+1).contains("id") && !m2.getColumnName(i+1).equals("apellido")){
                     continue;
                     }
-                    else if(m2.getColumnName(i).contains("foto")){
+                    else if(m2.getColumnName(i+1).contains("foto")){
                         continue;
                     }
                     contenido[rs2.getRow()-1][count] = rs.getString(i+1);
@@ -2679,7 +2685,8 @@ public class Frame extends javax.swing.JFrame {
             st = Postgre.bdConnection.createStatement();
             System.out.println(query);
             st.execute(query);
-            
+            JOptionPane.showMessageDialog(null,
+                        "Columna agregada con exito.");
             
             
         } catch (SQLException ex) {
