@@ -1,7 +1,7 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * and open the template in the editor asdf.
  */
 
 package bd;
@@ -2622,14 +2622,14 @@ public class Frame extends javax.swing.JFrame {
             String[][] contenido = new String[numFilas][contadorColumnas];
             while(rs2.next()){
                 count = 0;
-                for(int i = 0; i < m.getColumnCount();i++){
+                for(int i = 0; i < m2.getColumnCount();i++){
                     if(m2.getColumnName(i+1).contains("id") && !m2.getColumnName(i+1).equals("apellido")){
                     continue;
                     }
                     else if(m2.getColumnName(i+1).contains("foto")){
                         continue;
                     }
-                    contenido[rs2.getRow()-1][count] = rs.getString(i+1);
+                    contenido[rs2.getRow()-1][count] = rs2.getString(i+1);
                     count++;
                 }
             }
