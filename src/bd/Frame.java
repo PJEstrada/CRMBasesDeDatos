@@ -98,7 +98,7 @@ public class Frame extends javax.swing.JFrame {
         
             @Override
             public void stateChanged(ChangeEvent e) {
-                System.out.println("Tab: "+jTabbedPane2.getSelectedIndex());
+                //System.out.println("Tab: "+jTabbedPane2.getSelectedIndex());
                 //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
                 if(jTabbedPane2.getSelectedIndex() == 3){
                     resetAreasForDelete();
@@ -1063,8 +1063,8 @@ public class Frame extends javax.swing.JFrame {
         indicesActualizar = new ArrayList();
         //setVisitible(true);
         //subPanelNewUser_A1.removeAll();
-        System.out.println("Selected: " + jComboBox1.getSelectedItem());
-        System.out.println(", Position: " + jComboBox1.getSelectedIndex());
+        //System.out.println("Selected: " + jComboBox1.getSelectedItem());
+        //System.out.println(", Position: " + jComboBox1.getSelectedIndex());
         PairNameIdClient seleccionado = (PairNameIdClient) jComboBox1.getSelectedItem();
         int id = seleccionado.id;
         int idContacto = seleccionado.idContacto;
@@ -1077,7 +1077,7 @@ public class Frame extends javax.swing.JFrame {
         indicesActualizar.add(idIndustria);
         indicesActualizar.add(idSocial);
         
-        System.out.println("Todos los ids son: "+id +" "+idContacto+" "+idEmpresa+" "+idIndustria+" "+idSocial);
+        //System.out.println("Todos los ids son: "+id +" "+idContacto+" "+idEmpresa+" "+idIndustria+" "+idSocial);
         /* Llenando la tabla de Tweets*/
         String[] cols = new String [] {"Tweet","Fecha", };          
         ArrayList<Tweet> tweets = new ArrayList<Tweet>();
@@ -1250,9 +1250,9 @@ public class Frame extends javax.swing.JFrame {
         totalPanelesActualizar.addAll(totalPaneles);
         createAreasForUpdateUser(totalPaneles,numeroEnCliente,true);
         //y se pone la fotita
-        System.out.println(pathFoto);
+        //System.out.println(pathFoto);
         pathFoto = pathFoto.replace('\\', '/');
-        System.out.println(pathFoto);
+        //System.out.println(pathFoto);
         File filePict = new File(pathFoto);
         setTargetUpdate(filePict);
         jButton4.setEnabled(true);
@@ -1273,7 +1273,7 @@ public class Frame extends javax.swing.JFrame {
         String valuesSocialData = "";
         // Primero se comeienza a tomar cada uno de los valores
         ArrayList<ArrayList<String>> nuevosValores = getValueForNewUser();
-        System.out.println("El size del coso es "+nuevosValores.size());
+        //System.out.println("El size del coso es "+nuevosValores.size());
         //una vez recolectado los valores se procede a realizar una verificacion de los mismo
         ArrayList<String> dataProbar = new ArrayList();
         int indiceDeArrayFila = 0;
@@ -1343,7 +1343,7 @@ public class Frame extends javax.swing.JFrame {
                         necesitaComillas = true;
                     }
                     String j = i.get(k);
-                    System.out.println(j);
+                    //System.out.println(j);
                     if(j.equals("NULL")){
                         if(indexIntoArrayOfArray == 0){
                             if(k == i.size()-1){
@@ -1522,7 +1522,7 @@ public class Frame extends javax.swing.JFrame {
                 }
                 if(indexIntoArrayOfArray == 0){
                     try{
-                        System.out.println(targetFile.getAbsolutePath());
+                        //System.out.println(targetFile.getAbsolutePath());
                         valuesCliente+="\'"+targetFile.getAbsolutePath()+"\'"; 
                     }catch(Exception e){
                         JOptionPane.showMessageDialog(null,
@@ -1536,7 +1536,7 @@ public class Frame extends javax.swing.JFrame {
 
                 }
                 indexIntoArrayOfArray++;
-                System.out.println("----------------------");
+                //System.out.println("----------------------");
             }
             String camposCliente = "";
             for(int kk = 0; kk< nombresColumnasNativas.size(); kk++){
@@ -1605,7 +1605,7 @@ public class Frame extends javax.swing.JFrame {
                int idCliente = -1;
                if(keysetFinal.next()){
                    idCliente = keysetFinal.getInt(1);
-                   System.out.println("ID DEL CLIENTE: "+idCliente);
+                   //System.out.println("ID DEL CLIENTE: "+idCliente);
                    
                }
                //Agregando tweets del cliente
@@ -1651,11 +1651,11 @@ public class Frame extends javax.swing.JFrame {
             }
 
 
-            System.out.println(queryInstert);
-            System.out.println(queryInsertContacto);
-            System.out.println(queryInsertEmpresa);
-            System.out.println(queryInsertIndustria);
-            System.out.println(queryInsertSocialData);
+            //System.out.println(queryInstert);
+            //System.out.println(queryInsertContacto);
+            //System.out.println(queryInsertEmpresa);
+            //System.out.println(queryInsertIndustria);
+            //System.out.println(queryInsertSocialData);
 
             
         }
@@ -1820,7 +1820,7 @@ public class Frame extends javax.swing.JFrame {
                 query1 = "SELECT *";
             }
             String query = query1+"\n"+query2+"\n"+query3;
-            System.out.println(query);
+            //System.out.println(query);
             metaDataBusqueda(query);
             
         }
@@ -1877,10 +1877,11 @@ public class Frame extends javax.swing.JFrame {
         subPanelNewUser2.revalidate();
         subPanelNewUser2.repaint();
         totalPanelesActualizar = new ArrayList();
+        indicesDelete = new ArrayList();
         //setVisitible(true);
         //subPanelNewUser_A1.removeAll();
-        System.out.println("Selected: " + jComboBox3.getSelectedItem());
-        System.out.println(", Position: " + jComboBox3.getSelectedIndex());
+        //System.out.println("Selected: " + jComboBox3.getSelectedItem());
+        //System.out.println(", Position: " + jComboBox3.getSelectedIndex());
         PairNameIdClient seleccionado = (PairNameIdClient) jComboBox3.getSelectedItem();
         int id = seleccionado.id;
         int idContacto = seleccionado.idContacto;
@@ -1892,7 +1893,8 @@ public class Frame extends javax.swing.JFrame {
         indicesDelete.add(idEmpresa);
         indicesDelete.add(idIndustria);
         indicesDelete.add(idSocial);
-        System.out.println("Todos los ids son: "+id +" "+idContacto+" "+idEmpresa+" "+idIndustria+" "+idSocial);
+        //System.out.println("Los indices son: "+indicesDelete);
+        //System.out.println("Todos los ids son: "+id +" "+idContacto+" "+idEmpresa+" "+idIndustria+" "+idSocial);
         //ahora se arman las querys para poder llevar a cabo los select
         String queryCliente = "SELECT * FROM cliente WHERE id = "+id;
         String queryContacto = "SELECT * FROM contacto WHERE id = "+idContacto;
@@ -2026,9 +2028,9 @@ public class Frame extends javax.swing.JFrame {
         totalPanelesActualizar.addAll(totalPaneles);
         createAreasForUpdateUser(totalPaneles,numeroEnCliente,false);
         //y se pone la fotita
-        System.out.println(pathFoto);
+        //System.out.println(pathFoto);
         pathFoto = pathFoto.replace('\\', '/');
-        System.out.println(pathFoto);
+        //System.out.println(pathFoto);
         File filePict = new File(pathFoto);
         setTargetDelete(filePict);
         jButton5.setEnabled(true);
@@ -2224,7 +2226,8 @@ public class Frame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgregarUserActionPerformed
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         //Se hace la query
-        String queryD = "DELETE FROM cliente WHERE id = "+indicesDelete.get(0);
+        //System.out.println("El indice que hay que boorar es "+indicesDelete.get(0));
+        String queryD = "DELETE FROM cliente WHERE id = "+indicesDelete.get(0)+";";
         Statement st;
         try{
             st = Postgre.bdConnection.createStatement();
@@ -2427,16 +2430,21 @@ public class Frame extends javax.swing.JFrame {
     }
     private void resetAreasForUpdate(){
         subPanelNewUser1.removeAll();
+        subPanelNewUser1.revalidate();
+        subPanelNewUser1.repaint();
         jButton4.setEnabled(false);
         jButton3.setEnabled(false);
         labelImage1.setIcon(null);
-        labelImage1.setText("                      Fotografia del Cliente");
+        labelImage1.setText("                                                Fotografia del Cliente");
     }
     private void resetAreasForDelete(){
         subPanelNewUser2.removeAll();
+        subPanelNewUser2.revalidate();
+        subPanelNewUser2.repaint();
+        jComboBox3.setModel(new DefaultComboBoxModel(getNameFromPostgre()));
         jButton5.setEnabled(false);
         labelImage2.setIcon(null);
-        labelImage2.setText("                     Fotografia del Cliente");
+        labelImage2.setText("                                                Fotografia del Cliente");
     }
     private PairNameIdClient[] getNameFromPostgre(){
         ArrayList<PairNameIdClient> namePersona = new ArrayList();
@@ -2517,7 +2525,7 @@ public class Frame extends javax.swing.JFrame {
                 subPanelNewUser.revalidate();
                 subPanelNewUser.repaint();
             }
-            System.out.println(panelesNewUser.size());
+            //System.out.println(panelesNewUser.size());
             //subPanelNewUser_A.add(subPanelNewUser);
             //subPanelNewUser_A.revalidate();
             //subPanelNewUser_A.repaint();
@@ -2711,7 +2719,7 @@ public class Frame extends javax.swing.JFrame {
         
         try {
             st = Postgre.bdConnection.createStatement();
-            System.out.println(query);
+            //System.out.println(query);
             st.execute(query);
             JOptionPane.showMessageDialog(null,
                         "Columna agregada con exito.");
