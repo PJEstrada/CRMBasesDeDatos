@@ -1720,10 +1720,10 @@ public class Frame extends javax.swing.JFrame {
                         boolean correcto = loader2.validateField(ingresos.get(j), 1);
                         if(correcto){
                             if(j==ingresos.size()-1){
-                                query3 += tabla_campo+"."+nombre_campo+" LIKE \'"+ingresos.get(j)+"\' )";
+                                query3 += tabla_campo+"."+nombre_campo+" iLIKE \'"+ingresos.get(j)+"\' )";
                             }
                             else{
-                                query3 += tabla_campo+"."+nombre_campo+" LIKE \'"+ingresos.get(j)+"\' OR ";
+                                query3 += tabla_campo+"."+nombre_campo+" iLIKE \'"+ingresos.get(j)+"\' OR ";
                             }
                             
                         }
