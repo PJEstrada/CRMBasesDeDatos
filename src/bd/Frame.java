@@ -2230,6 +2230,8 @@ public class Frame extends javax.swing.JFrame {
             st = Postgre.bdConnection.createStatement();
             ResultSet rs = st.executeQuery(queryD);
         }catch(Exception e){}
+        
+        
         resetAreasForDelete();
         JOptionPane.showMessageDialog(this, "Cliente borrado exitosamente."); //este es un comentario x)
 
