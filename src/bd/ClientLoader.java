@@ -120,7 +120,11 @@ public class ClientLoader {
             panel.setLayout(new GridLayout(1, 2));
             JLabel label = new JLabel(nombreColumna);
             JTextField textField = new JTextField();
-            textField.setText(par.datosEnColumna);
+            String poner = par.datosEnColumna;
+            if(poner.equals("NULL")){
+                poner = "";
+            }
+            textField.setText(poner);
             textField.setEditable(canEdit);
             
             textField.setPreferredSize(new Dimension(200,24));
