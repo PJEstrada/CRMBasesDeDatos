@@ -2230,7 +2230,34 @@ public class Frame extends javax.swing.JFrame {
             st = Postgre.bdConnection.createStatement();
             ResultSet rs = st.executeQuery(queryD);
         }catch(Exception e){}
+
+        try{
+            //Agregando tweets del cliente
+            MongoDB mongo = new MongoDB();
+            Twitter twitter = new Twitter();
+            //Obtenemos ultimo id insertado            
+            String twitterQuery = " SELECT nombre,twitter from cliente JOIN socialdata ON (cliente.socialdata_idsocialdata= socialdata.id ) WHERE cliente.id = "+indicesDelete.get(0);
+            Statement stTwitter = Postgre.bdConnection.createStatement();
+            ResultSet rsTwitter = stTwitter.executeQuery(twitterQuery);   
+            String nombreCliente = "";
+            String userName = "";
+            if(rsTwitter.next()){
+                 nombreCliente = rsTwitter.getString(1);
+                 userName = rsTwitter.getString(2);
+
+            }
+            ArrayList<Tweet> tweets = new ArrayList<Tweet>();
+            if(userName!=null &&!userName.equals("")){
+               tweets =  Twitter.obtener15TweetDelUsuario(userName, indicesDelete.get(0), nombreCliente);
+            }
+            if(!tweets.isEmpty()){
+                mongo.addTweets(tweets);
+            }               
+        }
+        catch(Exception e){
         
+        }
+ 
         
         resetAreasForDelete();
         JOptionPane.showMessageDialog(this, "Cliente borrado exitosamente."); //este es un comentario x)
