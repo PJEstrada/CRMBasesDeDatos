@@ -121,7 +121,10 @@ public class ClientLoader {
             JLabel label = new JLabel(nombreColumna);
             JTextField textField = new JTextField();
             String poner = par.datosEnColumna;
-            if(poner.equals("NULL")){
+            if(poner == null){
+                poner = "";
+            }
+            else if(poner.equals("NULL")){
                 poner = "";
             }
             textField.setText(poner);
