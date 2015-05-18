@@ -130,7 +130,7 @@ public class ClientLoader {
             textField.setPreferredSize(new Dimension(200,24));
             panel.add(label);
             panel.add(textField);
-            i++;
+            i++; //esto es un comentario hehehe
             if(i==indexActual){
                 index++;
                 if(index<numerosTotal.size()){
