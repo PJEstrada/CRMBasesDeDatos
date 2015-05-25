@@ -2157,6 +2157,44 @@ public class Frame extends javax.swing.JFrame {
                         querysUpdate.add(queryUpdate);
                     }
                     
+                    //Si cambiaron el usuario de twitter
+                    if(i==4 && j ==1){
+                        try{
+                            
+                            MongoDB mongo = new MongoDB();
+                            Twitter twitter = new Twitter();
+                        //Debemos borrar los tweeets con el usuario anterior
+                            mongo.eliminarTweetsClientes(indicesActualizar.get(0));
+                                 
+                        //Luego agregamos los tweets del nuevo usuario
+                            //Obtenemos usuario y nombre del cliente
+                            String twitterQuery = " SELECT nombre,twitter from cliente JOIN socialdata ON (cliente.socialdata_idsocialdata= socialdata.id ) WHERE cliente.id = "+indicesActualizar.get(0);
+                            Statement stTwitter = Postgre.bdConnection.createStatement();
+                            ResultSet rsTwitter = stTwitter.executeQuery(twitterQuery);   
+                            String nombreCliente = "";
+                            String userName = "";
+                            if(rsTwitter.next()){
+                                 nombreCliente = rsTwitter.getString(1);
+                                 userName = rsTwitter.getString(2);
+
+                            }
+                            userName = compararNuevo;
+                            ArrayList<Tweet> tweets = new ArrayList<Tweet>();
+                            if(userName!=null &&!userName.equals("")){
+                               tweets =  Twitter.obtener15TweetDelUsuario(userName, indicesActualizar.get(0), nombreCliente);
+                            }
+                            if(!tweets.isEmpty()){
+                                mongo.addTweets(tweets);
+                            }
+
+                                      
+                        }
+                        catch(Exception e){
+                            
+                             JOptionPane.showMessageDialog(this, "Error de Conexión a Datos Sociales");
+                        }
+                    }
+                    
                 }
             }
         }
