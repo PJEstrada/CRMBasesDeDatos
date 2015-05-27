@@ -168,9 +168,11 @@ public class Twitter {
 
             // Parse the JSON response into a JSON mapped object to fetch fields from.
             JSONObject obj = (JSONObject)JSONValue.parse(readResponse(connection));
-            JSONArray ar = (JSONArray) obj.get("statuses");
+
+            
 
             if (obj != null) {
+                JSONArray ar = (JSONArray) obj.get("statuses");
                 for(int i =0; i<ar.size();i++){
                     String tweetText = ((JSONObject)ar.get(i)).get("text").toString();
                     String user = username;

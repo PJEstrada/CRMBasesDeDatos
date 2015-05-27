@@ -2819,9 +2819,10 @@ public class Frame extends javax.swing.JFrame {
     public void crearColumna(String nombre, String tipo){
         ArrayList<String> Columnas = new ArrayList();
         Statement st;
+        String n2 = nombre.replaceAll("\\s+","");
         String query = "";
         //if(tipo.equals("date")){
-            query = "ALTER TABLE cliente ADD "+nombre+" "+tipo;
+            query = "ALTER TABLE cliente ADD "+n2+" "+tipo;
         //}
         //else{
         //    query = "ALTER TABLE cliente ADD "+nombre+" "+tipo+"("+tam+")";
