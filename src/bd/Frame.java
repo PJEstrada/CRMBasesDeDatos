@@ -1068,6 +1068,7 @@ public class Frame extends javax.swing.JFrame {
         subPanelNewUser1.repaint();
         totalPanelesActualizar = new ArrayList();
         indicesActualizar = new ArrayList();
+        totalSubpaneles = new ArrayList();
         //setVisitible(true);
         //subPanelNewUser_A1.removeAll();
         //System.out.println("Selected: " + jComboBox1.getSelectedItem());
@@ -1162,7 +1163,7 @@ public class Frame extends javax.swing.JFrame {
                     }
                     else if(mCliente.getColumnName(i).contains("foto")){
                         pathFoto = rsCliente.getString(i);
-                        System.out.println("Bueno aca encontre este path: "+pathFoto);
+                        //System.out.println("Bueno aca encontre este path: "+pathFoto);
                         continue;
                     }
                     /*else if(m2.getColumnName(i).contains("foto")){h
@@ -2091,6 +2092,10 @@ public class Frame extends javax.swing.JFrame {
         //Si llego a necesitar los id estan en indicesActualizar
         //Para ver la data esta en totalPanelesActualzar
         //para ver la data separada por parte totalSubpaneles
+        
+        //se debe actualizar el totalSubpnales
+        
+        
         ArrayList<ArrayList<String>> valoresRevisar = getValueForUpdateUser();
         //ahora se cargan los valores de totalSubpaneles en un arraylist de arraylist
         ArrayList<ArrayList<String>> valoresAntiguos = new ArrayList();
@@ -2098,7 +2103,6 @@ public class Frame extends javax.swing.JFrame {
             ArrayList<String> valo = new ArrayList();
             for(classForUsers coso2 : coso1){
                 valo.add(coso2.datosEnColumna);
-                System.out.println(coso2.datosEnColumna);
             }
             valoresAntiguos.add(valo);
         }
@@ -2172,6 +2176,7 @@ public class Frame extends javax.swing.JFrame {
         for(int i = 0; i< valoresRevisar.size(); i++){
             String queryUpdate = "";
             for(int j = 0; j<valoresRevisar.get(i).size(); j++){
+                System.out.println(i+" "+j);
                 String compararNuevo = valoresRevisar.get(i).get(j);
                 String compararAntiguo = totalSubpaneles.get(i).get(j).datosEnColumna;
                 if(!compararNuevo.equals(compararAntiguo)){
@@ -2284,8 +2289,6 @@ public class Frame extends javax.swing.JFrame {
                 pathAntiguo = c.datosEnColumna;
             }
         }
-        System.out.println("heheheheeeeeeeeeeeeeeeeeeeeeee0: "+ pathAntiguo);
-        System.out.println("heheheheeeeeeeeeeeeeeeeeeeeeee0: "+ imagenUpdate);
         //ahora hay que tomar el nuevo path del cosito
         if(!pathAntiguo.equals(imagenUpdate) && !imagenUpdate.equals("")){
             String qeF = "UPDATE cliente SET foto = \'"+imagenUpdate+"\' WHERE id = "+indicesActualizar.get(0)+";";
