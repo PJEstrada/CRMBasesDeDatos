@@ -2462,7 +2462,7 @@ public class Frame extends javax.swing.JFrame {
         }
 
     }
-    
+    //Metodo para mostrar la imagen de usuario    
     public void setTarget(File reference)
     {
         try {
@@ -2478,7 +2478,7 @@ public class Frame extends javax.swing.JFrame {
         labelImage.setHorizontalAlignment(SwingConstants.CENTER);
         setVisible(true);
     }
-    
+    //Metodo que carga la imagen del usuario a ser actualizado    
     public void setTargetUpdate(File reference)
     {
         try {
@@ -2496,7 +2496,7 @@ public class Frame extends javax.swing.JFrame {
         }
 
     }
-    
+    //Metodo que carga la imagen del usuario que será borrado    
     public void setTargetDelete(File reference)
     {
         try {
@@ -2514,7 +2514,7 @@ public class Frame extends javax.swing.JFrame {
         }
 
     }
-    
+    //Metodo devuelve una imagen con el tamaño indicado    
     public BufferedImage rescale(BufferedImage originalImage)
     {
         BufferedImage resizedImage = new BufferedImage(baseSize, baseSize, BufferedImage.TYPE_INT_RGB);
@@ -2523,7 +2523,7 @@ public class Frame extends javax.swing.JFrame {
         g.dispose();
         return resizedImage;
     }
-    
+    //Metodo que obtiene los campos de la pesataña agregarCliente    
     private ArrayList<ArrayList<String>> getValueForNewUser(){
         ArrayList<ArrayList<String>> valores = new ArrayList();
         ArrayList<String> valTemp = new ArrayList();
@@ -2548,7 +2548,7 @@ public class Frame extends javax.swing.JFrame {
         valores.add(valTemp);
         return valores;
     }
-    
+    //Metodos que obtienen los datos en la pestaña de update para determinar que cambió    
     private ArrayList<ArrayList<String>> getValueForUpdateUser(){
         ArrayList<ArrayList<String>> valores = new ArrayList();
         ArrayList<String> valTemp = new ArrayList();
@@ -2573,7 +2573,7 @@ public class Frame extends javax.swing.JFrame {
         valores.add(valTemp);
         return valores;
     }
-    
+    //Metodo que regresa el area nuevo cliente a su estado inicial    
     private void resetAreasForNewUser(){
         for(int k = 1; k < panelesNewUser.size(); k++){
             JPanel panel = panelesNewUser.get(k);
@@ -2587,6 +2587,7 @@ public class Frame extends javax.swing.JFrame {
         labelImage.setIcon(null);
         labelImage.setText("                                                    Fotografia del Cliente");
     }
+    //Metodo que regresa la pestaña update a su estado inicial    
     private void resetAreasForUpdate(){
         subPanelNewUser1.removeAll();
         subPanelNewUser1.revalidate();
@@ -2596,6 +2597,7 @@ public class Frame extends javax.swing.JFrame {
         labelImage1.setIcon(null);
         labelImage1.setText("                                                Fotografia del Cliente");
     }
+    //Metodo que regresa la pestaña delete a su estado inicial    
     private void resetAreasForDelete(){
         subPanelNewUser2.removeAll();
         subPanelNewUser2.revalidate();
@@ -2605,6 +2607,7 @@ public class Frame extends javax.swing.JFrame {
         labelImage2.setIcon(null);
         labelImage2.setText("                                                Fotografia del Cliente");
     }
+    //Obtiene los datos de un usuario determinado    
     private PairNameIdClient[] getNameFromPostgre(){
         ArrayList<PairNameIdClient> namePersona = new ArrayList();
         namePersona.add(null);
@@ -2692,6 +2695,7 @@ public class Frame extends javax.swing.JFrame {
         }
         
     }
+    //Metodo que crea las areas para la pestaña de actualizar usuario    
     private void createAreasForUpdateUser(ArrayList<classForUsers> parametro, int filasC, boolean canEdit){
         loader = new ClientLoader(filasC);
         ArrayList<JPanel> nuevo = loader.componentesEditarCliente(parametro, canEdit);
@@ -2722,6 +2726,7 @@ public class Frame extends javax.swing.JFrame {
         }
        // }
     }
+    //Metodo que obtiene de la bd todos los campos existentes y realiza un frame para cada uno    
     private void createFiltros(){
         //ArrayList<PairTypeField> nombresColumna = new ArrayList();
         panel_filtroHome.removeAll();
@@ -2775,7 +2780,7 @@ public class Frame extends javax.swing.JFrame {
         
         setVisible(true);
     }
-    
+    //Metodo que recibe una query y muestra la tabla con lod datos obtenidos    
     private void metaDataBusqueda(String query){
         Statement st, st2;
         ResultSet rs, rs2;
@@ -2834,7 +2839,7 @@ public class Frame extends javax.swing.JFrame {
             Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+    //Metodo que inicializa los valores de la tabla con los dados (nombre columnas y contenido)    
     private void iniciarTablaBusquedaHome(String[] titulos, String[][] contenido){
         
         jTable1.removeColumnSelectionInterval(0, jTable1.getColumnCount()-1);
@@ -2842,7 +2847,7 @@ public class Frame extends javax.swing.JFrame {
         jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         //recorrer columnas y ponerles un tamaño estandarizado
     } 
-    
+    //Metodo que determina si ya existe una tabla con el nombre dado    
     public boolean existeColumna(String nombre){
         ArrayList<String> Columnas = new ArrayList();
         String query = "SELECT * FROM cliente WHERE id = -1";
@@ -2864,7 +2869,7 @@ public class Frame extends javax.swing.JFrame {
         }
         return existe;
     }
-    
+    //Recibe un nombre y un tipo y crea el query para agregarle dicha columna a la tabla cliente.    
     public void crearColumna(String nombre, String tipo){
         ArrayList<String> Columnas = new ArrayList();
         Statement st;
@@ -2889,7 +2894,7 @@ public class Frame extends javax.swing.JFrame {
             Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+    //Metodo que determina si en la tabla ya existe un usuario con el nombre dado.
     public boolean existeUsuarioUser(String nombre){
         ArrayList<String> Columnas = new ArrayList();
         String query = "SELECT usuario FROM usuario WHERE usuario = \'"+nombre+"\' ";
@@ -2912,6 +2917,7 @@ public class Frame extends javax.swing.JFrame {
         return existe;
     }
     
+    //Metodo que recibe un usuario y contraseña y crea la query para agregarlo a la bd.
     public void agregarUsuarioUser(String user, String pass){
         ArrayList<String> Columnas = new ArrayList();
         String query = "INSERT INTO usuario (usuario,password) VALUES (\'"+user+"\', md5(\'"+pass+"\'))";
