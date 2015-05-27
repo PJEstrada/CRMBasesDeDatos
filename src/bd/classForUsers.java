@@ -11,6 +11,9 @@ package bd;
  *
  * @author usuario
  */
+/*
+Clase que se encarga de llevar de forma conjunta el nombre de la columna, los datos en la columna y el tipo del mismo. 
+*/
 public class classForUsers {
     String nombreColumna;
     String datosEnColumna;

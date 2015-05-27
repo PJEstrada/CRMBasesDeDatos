@@ -40,6 +40,11 @@ public class ClientLoader {
         numerosTotal.add(5);
     }
     
+    /*
+    Metodo recibe un arraylist de columnas y una booleana para especificar  si es para update o para delete
+    Devuelve: un arraylist con Paneles para poder llenar el frame
+    Este metodo crea los paneles para poder llenar los paneles
+    */
     /*----------------------------------TODOS estos metodos son para actualizar o eliminar un cliente----------------------------------*/
     public ArrayList<JPanel> componentesEditarCliente(ArrayList<classForUsers> columnas, boolean canEdit){
         /*
@@ -154,6 +159,11 @@ public class ClientLoader {
     /*----------------------------------TODOS estos metodos son para agregar un nuevo cliente-----------------------------------------*/
     //Metodo que ira validando cada campo al hacerse clic en el boton de listo
     //Devolvera un arraylist con el numero de los campos que tienen error y los vaciara probablemente ????? not sure actually
+    /*
+    Recibe: ArrayList de columnas y arraylist de dataingresada
+    Devuelve: Un arraylist de indices
+    Metodo que devolvera el indice de los indices de los panales que tienen error
+    */
     public ArrayList<Integer> checkCampos(ArrayList<PairTypeField> columnas, ArrayList<String> dataIngresada){
         ArrayList<Integer> camposArreglar = new ArrayList();
         for(int i = 0; i< dataIngresada.size(); i++){
@@ -183,6 +193,11 @@ public class ClientLoader {
     //Metodo que se va a encargar de verificar campos a travez de un numero y un string
     //Hmmmmm creo que voy a usar mi clase PairTypeNumber donde Type sera el mensaje y number el numero logicamente hahahaha
     //Si me hago bolas no ps que le voy a hacer xD
+    /*
+    Recibe: Arraylist de campos y arraylist de los datos ingresados
+    Devuelve: Arraylist de los tipos y los numeros
+    Este metodo que analizara el los nuevos campos de un panel
+    */
     public ArrayList<PairTypeNumber> checkCamposNuevo(ArrayList<PairTypeNumber> campos, ArrayList<String> dataIngresada){
         ArrayList<PairTypeNumber> camposArreglar = new ArrayList();
         for(int i = 0; i< dataIngresada.size(); i++){
@@ -200,6 +215,11 @@ public class ClientLoader {
     }
     
     //Metodo para crear paneles con los componentes debidos para cuando se debe editar
+    /*
+    Recibe: Arraylist de columnas
+    Devuelve: Arraylist de paneles
+    Metodo que se encarga de cargar los componentes en paneles
+    */
     public ArrayList<JPanel> componentes(ArrayList<PairNameData> columnas){
         ArrayList<JPanel> filasLlenar = new ArrayList();
         for(PairNameData par: columnas){
@@ -218,6 +238,11 @@ public class ClientLoader {
         return filasLlenar;
     }
     //Metodo para crear paneles para cuando es un nuevo usuario 
+    /*
+    Recibe: Arraylist de columnas
+    Devuelve: Arraylist de paneles
+    Metodo que devolvera los componentes en paneles para un nuevo cliente
+    */
     public ArrayList<JPanel> componentesNuevoCliente(ArrayList<PairTypeField> columnas){
         /*
         Cliente: 6
@@ -325,6 +350,11 @@ public class ClientLoader {
         2 = Integer
         3 = Float
         4 = Date
+    */
+    /*
+    Recibe: Un string que sera la data a probar y un int para saber el tipo
+    Devuelve: Una boleana para saber si esta o no bien
+    Metodo que dira si un dato corresponde a su tipo
     */
     public boolean validateField(String text, int type){
 

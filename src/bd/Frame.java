@@ -1009,6 +1009,8 @@ public class Frame extends javax.swing.JFrame {
     }//GEN-LAST:event_fieldMentionsActionPerformed
 
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
+        //Metodo que se usa para darle la accion al boton de buscar
+        //En este se realizan las queries para hacer el filtro
         String texto = this.fieldTexto.getText();
         List<String> clientes = Arrays.asList( this.fieldClientes.getText().split("\\s*,\\s*")); 
         ArrayList<String> clientes2 = new ArrayList<String>();
@@ -1085,6 +1087,9 @@ public class Frame extends javax.swing.JFrame {
     }//GEN-LAST:event_fieldNumHashtagsActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        /*
+        
+        */
         resetAreasForUpdate();
         DefaultTableModel model = (DefaultTableModel)tableTweets.getModel();
         model.setRowCount(0);          

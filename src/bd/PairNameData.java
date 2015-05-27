@@ -11,6 +11,9 @@ package bd;
  *
  * @author Al
  */
+/*
+Clase que se encargara de poder llevar datos apareados siendo el nombre de la columna y los datos en en la fila de columna
+*/
 public class PairNameData {
     String nombreColumna;
     String datosFilaEnColumna;

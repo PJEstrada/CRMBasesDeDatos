@@ -11,6 +11,9 @@ package bd;
  *
  * @author Al
  */
+/*
+ Esta clase lleva de forma conjunta el nombre del campo y el tipo del mismo
+*/
 public class PairTypeField {
     
     String typeField;

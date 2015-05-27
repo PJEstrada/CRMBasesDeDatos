@@ -11,6 +11,7 @@ package bd;
  *
  * @author usuario
  */
+/*Esta clase lleva de forma conjunta dato de las llaves de la base de datos*/
 public class PairNameIdClient {
     int id;
     int idContacto;

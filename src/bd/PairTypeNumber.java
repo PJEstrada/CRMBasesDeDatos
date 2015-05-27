@@ -11,6 +11,9 @@ package bd;
  *
  * @author usuario
  */
+/*
+Clase que lleva de forma conjunta el numero que es del tipo y el nombre del mismo
+*/
 public class PairTypeNumber {
     int numberType;
     String nameType;

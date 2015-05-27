@@ -42,6 +42,11 @@ public class FiltrosLoader {
         nombreTablas.add("socialdata");
     }
     //Metodo de validacion (copiado de ClientLoader)
+    /*
+    Recibe: arraylist de columnas, arraylist de datos
+    Devuelve: arraylist de enteros
+    Metodo que revisa si los datos son correspondientes a un tipo de dato
+    */
     public ArrayList<Integer> checkCampos(ArrayList<PairTypeField> columnas, ArrayList<String> dataIngresada){
         ArrayList<Integer> camposArreglar = new ArrayList();
         for(int i = 0; i< dataIngresada.size(); i++){
@@ -68,6 +73,11 @@ public class FiltrosLoader {
         return camposArreglar;
     }
     //Metodo para crear paneles con los componentes debidos para cuando se debe editar
+    /*
+    Recibe: arraylist con columnas
+    Devuelve:arraylist con paneles
+    Metodo que devolvera ls compones para poder llenar paneles
+    */
     public ArrayList<JPanel> componentesFiltro(ArrayList<PairTypeField> columnas){
         int i =0;
         int index =0;
@@ -154,6 +164,11 @@ public class FiltrosLoader {
         2 = Integer
         3 = Float
         4 = Date
+    */
+    /*
+    Recibe: Un string que sera la data a probar y un int para saber el tipo
+    Devuelve: Una boleana para saber si esta o no bien
+    Metodo que dira si un dato corresponde a su tipo
     */
     public boolean validateField(String text, int type){
         if(text.length()==0){

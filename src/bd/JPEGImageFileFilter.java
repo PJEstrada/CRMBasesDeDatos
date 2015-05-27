@@ -13,6 +13,9 @@ import java.io.File;
 
 import javax.swing.filechooser.FileFilter;
 
+/*
+Clase que se encarga de poder hacer el filtro en un explorer
+*/
 public class JPEGImageFileFilter extends FileFilter implements java.io.FileFilter{
     public boolean accept(File f){
         if (f.getName().toLowerCase().endsWith(".jpeg")) 
