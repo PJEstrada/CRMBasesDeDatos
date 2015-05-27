@@ -40,6 +40,7 @@ public class Twitter {
     
     static String bearerToken;
     
+    //Inicializa conexion con la twitter api
     public Twitter(){
         String twitterApiEndpoint  = "https://api.twitter.com/oauth2/token";
         try {
@@ -115,7 +116,7 @@ public class Twitter {
     }
 
     
-    // Fetches the first tweet from a given user's timeline
+    // Obtiene tweets de un usuario 
     private static String fetchTimelineTweet(String endPointUrl) throws IOException {
             HttpsURLConnection connection = null;
 
@@ -150,7 +151,7 @@ public class Twitter {
                     }
             }
     }
-    
+    //Obtiene 15 tweets del usuario dado
     public static ArrayList<Tweet> obtener15TweetDelUsuario(String username,int idCliente, String nombreCliente) throws IOException{
         ArrayList<Tweet> result= new ArrayList<Tweet>();
         String Stringurl = "https://api.twitter.com/1.1/search/tweets.json?q=from%3A"+username;   

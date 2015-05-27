@@ -57,6 +57,7 @@ public class MongoDB {
     
     }
     
+    /*Metodo para agregar tweets a la base de datos*/
     public void addTweets(ArrayList<Tweet> tweets){
         for(Tweet tw: tweets){
             BasicDBObject doc = new BasicDBObject("text",tw.texto).append("idCliente", tw.idCliente).append("nombreCliente", tw.nombreCliente).append("userName", tw.userName).append("fecha", tw.fecha.toString());
@@ -83,7 +84,7 @@ public class MongoDB {
         
     
     }
-    
+    /* Metodo para obtener los tweets de un cliente dado su ID*/
     public ArrayList<Tweet> obtenerTweetsCliente(int idCliente){
         BasicDBObject searchQuery = new BasicDBObject("idCliente",idCliente);
         DBCursor cursor = this.collectionTweets.find(searchQuery);
@@ -126,6 +127,7 @@ public class MongoDB {
         
     }
     
+    /*Elimina tweets de la BD en base al id enviado*/
     public void eliminarTweetsClientes(int idCliente){
         BasicDBObject query = new BasicDBObject("idCliente",idCliente);
         this.collectionTweets.remove(query);
@@ -134,6 +136,7 @@ public class MongoDB {
 
     }
     
+    /*Metodo que construye la consulta para buscar tweets en base a los datos en los campos de busqueda del frame*/
     public ArrayList<Tweet> buscarTweets(String texto, ArrayList<String>  nombreClientes,  ArrayList<String> userNames, ArrayList<String> hashtags, ArrayList<String> mentions, int numHashtags){
         BasicDBObject searchQuery = new BasicDBObject();
         //Construyendo query texto del tweets

@@ -22,7 +22,7 @@ public class Postgre {
     
     public static Connection bdConnection;
     
-    
+    /*Metodo inicializa la conexion con Postgres y la almacena en la variable estatica bdconnection*/
     public Postgre() throws ClassNotFoundException{
         try {
             Class.forName("org.postgresql.Driver");
