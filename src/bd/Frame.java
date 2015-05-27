@@ -1162,6 +1162,8 @@ public class Frame extends javax.swing.JFrame {
                     }
                     else if(mCliente.getColumnName(i).contains("foto")){
                         pathFoto = rsCliente.getString(i);
+                        System.out.println("Bueno aca encontre este path: "+pathFoto);
+                        continue;
                     }
                     /*else if(m2.getColumnName(i).contains("foto")){
                         continue;
