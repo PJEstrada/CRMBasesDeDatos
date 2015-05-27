@@ -1,8 +1,10 @@
+/*
+CRM Bases De Datos
+Alberto Suriano 12281
+Ernesto Solís 12286
+Pablo Estrada 12121
+ */
 
-/** 
- * @(#)TextAreaRenderer.java 
- * de : http://manivelcode.blogspot.com/2008/08/how-to-wrap-text-inside-cells-of-jtable.html
- */ 
  package bd;
 import javax.swing.JTable; 
 import javax.swing.JTextArea; 

@@ -1,8 +1,10 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+CRM Bases De Datos
+Alberto Suriano 12281
+Ernesto Solís 12286
+Pablo Estrada 12121
  */
+
 package bd;
 
 import java.io.BufferedReader;
