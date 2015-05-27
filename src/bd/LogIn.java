@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -30,6 +31,7 @@ public class LogIn extends javax.swing.JFrame {
         initComponents();
         aceptado = false;
         this.principal = principal;
+        SwingUtilities.getRootPane(btnAceptar).setDefaultButton(btnAceptar);        
     }
 
     /**

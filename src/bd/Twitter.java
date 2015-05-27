@@ -231,7 +231,7 @@ public class Twitter {
                     
                     return result;
             }
-            return null;        
+            return result;        
         }
         
         catch(Exception e){
