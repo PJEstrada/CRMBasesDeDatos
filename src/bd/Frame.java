@@ -1924,11 +1924,19 @@ public class Frame extends javax.swing.JFrame {
         //System.out.println("Selected: " + jComboBox3.getSelectedItem());
         //System.out.println(", Position: " + jComboBox3.getSelectedIndex());
         PairNameIdClient seleccionado = (PairNameIdClient) jComboBox3.getSelectedItem();
-        int id = seleccionado.id;
-        int idContacto = seleccionado.idContacto;
-        int idEmpresa = seleccionado.idEmpresa;
-        int idIndustria = seleccionado.idIndustria;
-        int idSocial = seleccionado.idSocial;
+        int id = -1;
+        int idContacto =-1;
+        int idEmpresa =-1;
+        int idIndustria = -1;
+        int idSocial = -1;
+        if(seleccionado != null){
+             id = seleccionado.id;
+             idContacto = seleccionado.idContacto;
+             idEmpresa = seleccionado.idEmpresa;
+             idIndustria = seleccionado.idIndustria;
+             idSocial = seleccionado.idSocial;       
+        }
+
         indicesDelete.add(id);
         indicesDelete.add(idContacto);
         indicesDelete.add(idEmpresa);
@@ -2223,7 +2231,7 @@ public class Frame extends javax.swing.JFrame {
                             }
                             userName = compararNuevo;
                             ArrayList<Tweet> tweets = new ArrayList<Tweet>();
-                            if(userName!=null &&!userName.equals("")){
+                            if(userName!=null && !userName.equals("")&&indicesActualizar.get(0)!=null && nombreCliente!=null){
                                tweets =  Twitter.obtener15TweetDelUsuario(userName, indicesActualizar.get(0), nombreCliente);
                             }
                             if(!tweets.isEmpty()){
@@ -2439,6 +2447,7 @@ public class Frame extends javax.swing.JFrame {
             labelImage1.setHorizontalAlignment(SwingConstants.CENTER);
             setVisible(true);            
         } catch (IOException ex) {
+            labelImage2.setIcon(null);
             labelImage1.setText("Fotografía del Cliente");
         }
 
@@ -2449,15 +2458,17 @@ public class Frame extends javax.swing.JFrame {
         try {
             targetFile = reference;
             targetImg = rescale(ImageIO.read(reference));
+
+            //panelFoto.setLayout(new BorderLayout(0, 0));
+            labelImage2.setText("");
+            labelImage2.setIcon(new ImageIcon(targetImg));
+            labelImage2.setHorizontalAlignment(SwingConstants.CENTER);
+            setVisible(true);            
         } catch (IOException ex) {
-            Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
+             labelImage2.setIcon(null);
+             labelImage2.setText("Fotografía del Cliente");
         }
 
-        //panelFoto.setLayout(new BorderLayout(0, 0));
-        labelImage2.setText("");
-        labelImage2.setIcon(new ImageIcon(targetImg));
-        labelImage2.setHorizontalAlignment(SwingConstants.CENTER);
-        setVisible(true);
     }
     
     public BufferedImage rescale(BufferedImage originalImage)
