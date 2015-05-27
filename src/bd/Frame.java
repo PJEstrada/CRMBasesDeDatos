@@ -1897,23 +1897,33 @@ public class Frame extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "En la Tabla Cliente ya existe una columna de nombre: "+nombreNuevaColumna,"Error",
                         JOptionPane.ERROR_MESSAGE);
             }
+            else if(nombreNuevaColumna.contains("-")||nombreNuevaColumna.contains("+")
+                    ||nombreNuevaColumna.contains("*")||nombreNuevaColumna.contains("/")||nombreNuevaColumna.contains("drop")
+                    ||nombreNuevaColumna.contains("select")||nombreNuevaColumna.contains("update")||nombreNuevaColumna.contains("insert")){
+                JOptionPane.showMessageDialog(this, "El nombre de la columna posee caracteres no validos ","Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
             else{
                 if(cmbBoxTipos.getSelectedIndex()==0){
                     crearColumna(nombreNuevaColumna,"text");
+                    this.txtColumnaNueva1.setText("");
                 }
                 else if(cmbBoxTipos.getSelectedIndex()==1){
                     crearColumna(nombreNuevaColumna,"integer");
+                    this.txtColumnaNueva1.setText("");
                 }
                 else if(cmbBoxTipos.getSelectedIndex()==2){
                     crearColumna(nombreNuevaColumna,"double precision");
+                    this.txtColumnaNueva1.setText("");
                 }
                 else if(cmbBoxTipos.getSelectedIndex()==3){
                     crearColumna(nombreNuevaColumna,"date");
+                    this.txtColumnaNueva1.setText("");
                 }
+                
             }
             
         }
-        
     }//GEN-LAST:event_btnAgregarColumnaActionPerformed
     private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
         subPanelNewUser2.removeAll();
