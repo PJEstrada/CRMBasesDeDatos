@@ -45,6 +45,9 @@
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTabbedPane2MouseClicked"/>
       </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_LayoutCodePost" type="java.lang.String" value="JLabel tempLabel1 = new JLabel(&quot;Home&quot;);&#xd;&#xa;JLabel tempLabel2 = new JLabel(&quot;Agregar Cliente&quot;);&#xd;&#xa;JLabel tempLabel3 = new JLabel(&quot;Actualizar Cliente&quot;);&#xd;&#xa;JLabel tempLabel4 = new JLabel(&quot;Eliminar Cliente&quot;);&#xd;&#xa;JLabel tempLabel5 = new JLabel(&quot;Social&quot;);&#xd;&#xa;JLabel tempLabel6 = new JLabel(&quot;Agregar Columna&quot;);&#xd;&#xa;JLabel tempLabel7 = new JLabel(&quot;Agregar Usuario&quot;);&#xd;&#xa;tempLabel1.setIcon(new ImageIcon(&quot;img/home.png&quot;));&#xd;&#xa;jTabbedPane2.setTabComponentAt(0, tempLabel1);&#xd;&#xa;tempLabel2.setIcon(new ImageIcon(&quot;img/addClient.png&quot;));&#xd;&#xa;jTabbedPane2.setTabComponentAt(1, tempLabel2);&#xd;&#xa;tempLabel3.setIcon(new ImageIcon(&quot;img/updateClient.png&quot;));&#xd;&#xa;jTabbedPane2.setTabComponentAt(2, tempLabel3);&#xd;&#xa;tempLabel4.setIcon(new ImageIcon(&quot;img/deleteClient.png&quot;));&#xd;&#xa;jTabbedPane2.setTabComponentAt(3, tempLabel4);&#xd;&#xa;tempLabel5.setIcon(new ImageIcon(&quot;img/social.png&quot;));&#xd;&#xa;jTabbedPane2.setTabComponentAt(4, tempLabel5);&#xd;&#xa;tempLabel6.setIcon(new ImageIcon(&quot;img/addColumn.png&quot;));&#xd;&#xa;jTabbedPane2.setTabComponentAt(5, tempLabel6);&#xd;&#xa;tempLabel7.setIcon(new ImageIcon(&quot;img/addUser.png&quot;));&#xd;&#xa;jTabbedPane2.setTabComponentAt(6, tempLabel7);"/>
+      </AuxValues>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>

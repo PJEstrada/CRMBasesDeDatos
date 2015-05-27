@@ -37,6 +37,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JLabel;
 
 
 /**
@@ -938,6 +939,28 @@ public class Frame extends javax.swing.JFrame {
 
         jTabbedPane2.addTab("Agregar Usuario", panelAgregarUsuario);
 
+        JLabel tempLabel1 = new JLabel("Home");
+        JLabel tempLabel2 = new JLabel("Agregar Cliente");
+        JLabel tempLabel3 = new JLabel("Actualizar Cliente");
+        JLabel tempLabel4 = new JLabel("Eliminar Cliente");
+        JLabel tempLabel5 = new JLabel("Social");
+        JLabel tempLabel6 = new JLabel("Agregar Columna");
+        JLabel tempLabel7 = new JLabel("Agregar Usuario");
+        tempLabel1.setIcon(new ImageIcon("img/home.png"));
+        jTabbedPane2.setTabComponentAt(0, tempLabel1);
+        tempLabel2.setIcon(new ImageIcon("img/addClient.png"));
+        jTabbedPane2.setTabComponentAt(1, tempLabel2);
+        tempLabel3.setIcon(new ImageIcon("img/updateClient.png"));
+        jTabbedPane2.setTabComponentAt(2, tempLabel3);
+        tempLabel4.setIcon(new ImageIcon("img/deleteClient.png"));
+        jTabbedPane2.setTabComponentAt(3, tempLabel4);
+        tempLabel5.setIcon(new ImageIcon("img/social.png"));
+        jTabbedPane2.setTabComponentAt(4, tempLabel5);
+        tempLabel6.setIcon(new ImageIcon("img/addColumn.png"));
+        jTabbedPane2.setTabComponentAt(5, tempLabel6);
+        tempLabel7.setIcon(new ImageIcon("img/addUser.png"));
+        jTabbedPane2.setTabComponentAt(6, tempLabel7);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -951,7 +974,7 @@ public class Frame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1020, Short.MAX_VALUE)
+                .addComponent(jTabbedPane2)
                 .addContainerGap())
         );
 
