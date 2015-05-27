@@ -2220,7 +2220,7 @@ public class Frame extends javax.swing.JFrame {
                             }
                             userName = compararNuevo;
                             ArrayList<Tweet> tweets = new ArrayList<Tweet>();
-                            if(userName!=null &&!userName.equals("")){
+                            if(userName!=null && !userName.equals("")&&indicesActualizar.get(0)!=null && nombreCliente!=null){
                                tweets =  Twitter.obtener15TweetDelUsuario(userName, indicesActualizar.get(0), nombreCliente);
                             }
                             if(!tweets.isEmpty()){
