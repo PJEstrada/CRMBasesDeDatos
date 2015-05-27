@@ -45,6 +45,9 @@
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTabbedPane2MouseClicked"/>
       </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_LayoutCodePost" type="java.lang.String" value="JLabel tempLabel1 = new JLabel(&quot;Home&quot;);&#xd;&#xa;JLabel tempLabel2 = new JLabel(&quot;Agregar Cliente&quot;);&#xd;&#xa;JLabel tempLabel3 = new JLabel(&quot;Actualizar Cliente&quot;);&#xd;&#xa;JLabel tempLabel4 = new JLabel(&quot;Eliminar Cliente&quot;);&#xd;&#xa;JLabel tempLabel5 = new JLabel(&quot;Social&quot;);&#xd;&#xa;JLabel tempLabel6 = new JLabel(&quot;Agregar Columna&quot;);&#xd;&#xa;JLabel tempLabel7 = new JLabel(&quot;Agregar Usuario&quot;);&#xd;&#xa;tempLabel1.setIcon(new ImageIcon(&quot;img/home.png&quot;));&#xd;&#xa;jTabbedPane2.setTabComponentAt(0, tempLabel1);&#xd;&#xa;tempLabel2.setIcon(new ImageIcon(&quot;img/addClient.png&quot;));&#xd;&#xa;jTabbedPane2.setTabComponentAt(1, tempLabel2);&#xd;&#xa;tempLabel3.setIcon(new ImageIcon(&quot;img/updateClient.png&quot;));&#xd;&#xa;jTabbedPane2.setTabComponentAt(2, tempLabel3);&#xd;&#xa;tempLabel4.setIcon(new ImageIcon(&quot;img/deleteClient.png&quot;));&#xd;&#xa;jTabbedPane2.setTabComponentAt(3, tempLabel4);&#xd;&#xa;tempLabel5.setIcon(new ImageIcon(&quot;img/social.png&quot;));&#xd;&#xa;jTabbedPane2.setTabComponentAt(4, tempLabel5);&#xd;&#xa;tempLabel6.setIcon(new ImageIcon(&quot;img/addColumn.png&quot;));&#xd;&#xa;jTabbedPane2.setTabComponentAt(5, tempLabel6);&#xd;&#xa;tempLabel7.setIcon(new ImageIcon(&quot;img/addUser.png&quot;));&#xd;&#xa;jTabbedPane2.setTabComponentAt(6, tempLabel7);"/>
+      </AuxValues>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
@@ -82,7 +85,7 @@
                           <Component id="btn_limpiarHome" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jScrollPane3" pref="655" max="32767" attributes="0"/>
+                      <Component id="jScrollPane3" pref="623" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -186,7 +189,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="subPanelNewUser_A" max="32767" attributes="0"/>
+                          <Component id="subPanelNewUser_A" pref="970" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="panelFoto" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -352,7 +355,7 @@
                           <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="144" max="32767" attributes="0"/>
+                      <EmptySpace pref="105" max="32767" attributes="0"/>
                       <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jScrollPane6" min="-2" pref="370" max="-2" attributes="0"/>
@@ -362,7 +365,7 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="subPanelNewUser_A1" alignment="0" max="32767" attributes="0"/>
+                              <Component id="subPanelNewUser_A1" alignment="0" pref="970" max="32767" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="panelFoto1" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="472" pref="472" max="-2" attributes="0"/>
@@ -553,13 +556,13 @@
                       </Group>
                       <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                       <Component id="jButton5" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="517" max="32767" attributes="0"/>
+                      <EmptySpace pref="478" max="32767" attributes="0"/>
                   </Group>
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="subPanelNewUser_A2" alignment="0" max="32767" attributes="0"/>
+                              <Component id="subPanelNewUser_A2" alignment="0" pref="970" max="32767" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="panelFoto2" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="472" pref="472" max="-2" attributes="0"/>
@@ -763,7 +766,7 @@
                       </Group>
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                          <Component id="jLabel13" pref="1056" max="32767" attributes="0"/>
+                          <Component id="jLabel13" pref="1088" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -811,7 +814,7 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jScrollPane1" min="-2" pref="555" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
-                          <Component id="jLabel13" pref="285" max="32767" attributes="0"/>
+                          <Component id="jLabel13" pref="253" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1027,7 +1030,7 @@
                                       <Component id="btnAgregarColumna" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="128" max="32767" attributes="0"/>
+                              <EmptySpace pref="160" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -1053,7 +1056,7 @@
                       <Component id="btnAgregarColumna" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
                       <Component id="jScrollPane5" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="396" max="32767" attributes="0"/>
+                      <EmptySpace pref="364" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1143,7 +1146,7 @@
                               <Component id="btnAgregarUser" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="381" max="32767" attributes="0"/>
+                      <EmptySpace pref="413" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1162,7 +1165,7 @@
                       </Group>
                       <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
                       <Component id="btnAgregarUser" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="552" max="32767" attributes="0"/>
+                      <EmptySpace pref="520" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
