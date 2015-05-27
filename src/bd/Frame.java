@@ -107,6 +107,7 @@ public class Frame extends javax.swing.JFrame {
                 }
                 else if(jTabbedPane2.getSelectedIndex() == 2){
                     resetAreasForUpdate();
+                    imagenUpdate = "";
                     DefaultTableModel model = (DefaultTableModel)tableTweets.getModel();
                     model.setRowCount(0);                    
                     jComboBox1.setModel(new DefaultComboBoxModel(getNameFromPostgre()));
@@ -2274,6 +2275,8 @@ public class Frame extends javax.swing.JFrame {
                 pathAntiguo = c.datosEnColumna;
             }
         }
+        System.out.println("heheheheeeeeeeeeeeeeeeeeeeeeee0: "+ pathAntiguo);
+        System.out.println("heheheheeeeeeeeeeeeeeeeeeeeeee0: "+ imagenUpdate);
         //ahora hay que tomar el nuevo path del cosito
         if(!pathAntiguo.equals(imagenUpdate) && !imagenUpdate.equals("")){
             String qeF = "UPDATE cliente SET foto = \'"+imagenUpdate+"\' WHERE id = "+indicesActualizar.get(0)+";";
