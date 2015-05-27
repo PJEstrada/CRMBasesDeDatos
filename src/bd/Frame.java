@@ -36,6 +36,7 @@ import javax.swing.table.TableColumnModel;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
 
 
 /**
@@ -106,6 +107,8 @@ public class Frame extends javax.swing.JFrame {
                 }
                 else if(jTabbedPane2.getSelectedIndex() == 2){
                     resetAreasForUpdate();
+                    DefaultTableModel model = (DefaultTableModel)tableTweets.getModel();
+                    model.setRowCount(0);                    
                     jComboBox1.setModel(new DefaultComboBoxModel(getNameFromPostgre()));
                     
                 }
@@ -1056,6 +1059,9 @@ public class Frame extends javax.swing.JFrame {
     }//GEN-LAST:event_fieldNumHashtagsActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        resetAreasForUpdate();
+        DefaultTableModel model = (DefaultTableModel)tableTweets.getModel();
+        model.setRowCount(0);          
         subPanelNewUser1.removeAll();
         subPanelNewUser1.revalidate();
         subPanelNewUser1.repaint();
@@ -1066,11 +1072,24 @@ public class Frame extends javax.swing.JFrame {
         //System.out.println("Selected: " + jComboBox1.getSelectedItem());
         //System.out.println(", Position: " + jComboBox1.getSelectedIndex());
         PairNameIdClient seleccionado = (PairNameIdClient) jComboBox1.getSelectedItem();
-        int id = seleccionado.id;
-        int idContacto = seleccionado.idContacto;
-        int idEmpresa = seleccionado.idEmpresa;
-        int idIndustria = seleccionado.idIndustria;
-        int idSocial = seleccionado.idSocial;
+        int id = -1;
+        int idContacto=-1;
+        int idEmpresa = -1;
+        int idIndustria = -1;
+        int idSocial=-1;
+        if(seleccionado==null){
+             id = -1;
+        }
+        else{
+             id = seleccionado.id;
+             idContacto = seleccionado.idContacto;
+             idEmpresa = seleccionado.idEmpresa;
+             idIndustria = seleccionado.idIndustria;
+             idSocial = seleccionado.idSocial;             
+             
+        }
+        
+
         indicesActualizar.add(id);
         indicesActualizar.add(idContacto);
         indicesActualizar.add(idEmpresa);
@@ -1287,6 +1306,27 @@ public class Frame extends javax.swing.JFrame {
                     mensajeNoNull += "El campo de "+nombresColumnas.get(indiceInterno)+" es obligatorio.\n";
                     indiceInterno++;
                     continue;
+                }
+                if(indiceInterno==4 && (!dato.equalsIgnoreCase("masculino")  && !dato.equalsIgnoreCase("femenino" ))){
+                    JOptionPane.showMessageDialog(null,
+                            "Ingrese \"masculino\" o \"femenino\" en el campo de genero.", "ERROR",
+                            JOptionPane.ERROR_MESSAGE);
+                    return;               
+                }
+                if(indiceInterno==2){
+                    try{
+                        Integer val = Integer.parseInt(dato);
+                        if(val<0 || val>10){
+                            JOptionPane.showMessageDialog(null,
+                                    "El valor del rating debe estar entre 0 y 10", "ERROR",
+                                    JOptionPane.ERROR_MESSAGE);
+                            return;                             
+                        }
+                    }
+                    catch(Exception e){
+                         continue; 
+                    }
+                    
                 }
                 dataProbar.add(dato);
                 indiceInterno++;
@@ -2194,6 +2234,33 @@ public class Frame extends javax.swing.JFrame {
                              JOptionPane.showMessageDialog(this, "Error de Conexión a Datos Sociales");
                         }
                     }
+                    //Si actualizaron rating
+                    if(i==0 && j==2){
+                        try{
+                        Integer val = Integer.parseInt(compararNuevo);
+                        if(val<0 || val>10){
+                            JOptionPane.showMessageDialog(null,
+                                    "El valor del rating debe estar entre 0 y 10", "ERROR",
+                                    JOptionPane.ERROR_MESSAGE);
+                            return;                             
+                        }
+                        }
+                        catch(Exception e){
+                             continue; 
+                        }
+                                           
+                    
+                    }
+                    
+                    if(i==0&&j==4){
+                        if(!compararNuevo.equalsIgnoreCase("masculino")  && !compararNuevo.equalsIgnoreCase("femenino" )){
+                            JOptionPane.showMessageDialog(null,
+                                    "Ingrese \"masculino\" o \"femenino\" en el campo de genero.", "ERROR",
+                                    JOptionPane.ERROR_MESSAGE);
+                            return;                           
+                        }
+                           
+                    }
                     
                 }
             }
@@ -2232,6 +2299,9 @@ public class Frame extends javax.swing.JFrame {
         jPanel5.repaint();
         setVisible(true);*/
         resetAreasForUpdate();
+        
+        DefaultTableModel model = (DefaultTableModel)this.tableTweets.getModel();
+        model.setRowCount(0);             
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -2263,28 +2333,35 @@ public class Frame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAgregarUserActionPerformed
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        //Se hace la query
-        //System.out.println("El indice que hay que boorar es "+indicesDelete.get(0));
-        String queryD = "DELETE FROM cliente WHERE id = "+indicesDelete.get(0)+";";
-        Statement st;
-        try{
-            st = Postgre.bdConnection.createStatement();
-            ResultSet rs = st.executeQuery(queryD);
-        }catch(Exception e){}
+        int option= JOptionPane.showConfirmDialog(null,"¿Esta seguro que desea eliminar al cliente?",
+        "Confirmar",
+        JOptionPane.YES_NO_OPTION);        
+        if(option==JOptionPane.YES_OPTION){
+            //Se hace la query
+           //System.out.println("El indice que hay que boorar es "+indicesDelete.get(0));
+           String queryD = "DELETE FROM cliente WHERE id = "+indicesDelete.get(0)+";";
+           Statement st;
+           try{
+               st = Postgre.bdConnection.createStatement();
+               ResultSet rs = st.executeQuery(queryD);
+           }catch(Exception e){}
 
-        try{
-            //Agregando tweets del cliente
-            MongoDB mongo = new MongoDB();
-            Twitter twitter = new Twitter();
-            mongo.eliminarTweetsClientes(indicesDelete.get(0));
-        }
-        catch(Exception e){
+           try{
+               //Agregando tweets del cliente
+               MongoDB mongo = new MongoDB();
+               Twitter twitter = new Twitter();
+               mongo.eliminarTweetsClientes(indicesDelete.get(0));
+           }
+           catch(Exception e){
+
+           }
+
+
+           resetAreasForDelete();
+           JOptionPane.showMessageDialog(this, "Cliente borrado exitosamente."); //este es un comentario x)
+       
         
         }
- 
-        
-        resetAreasForDelete();
-        JOptionPane.showMessageDialog(this, "Cliente borrado exitosamente."); //este es un comentario x)
 
     }//GEN-LAST:event_jButton5ActionPerformed
     
@@ -2350,15 +2427,16 @@ public class Frame extends javax.swing.JFrame {
         try {
             targetFile = reference;
             targetImg = rescale(ImageIO.read(reference));
+
+            //panelFoto.setLayout(new BorderLayout(0, 0));
+            labelImage1.setText("");
+            labelImage1.setIcon(new ImageIcon(targetImg));
+            labelImage1.setHorizontalAlignment(SwingConstants.CENTER);
+            setVisible(true);            
         } catch (IOException ex) {
-            Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
+            labelImage1.setText("Fotografía del Cliente");
         }
 
-        //panelFoto.setLayout(new BorderLayout(0, 0));
-        labelImage1.setText("");
-        labelImage1.setIcon(new ImageIcon(targetImg));
-        labelImage1.setHorizontalAlignment(SwingConstants.CENTER);
-        setVisible(true);
     }
     
     public void setTargetDelete(File reference)
