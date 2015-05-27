@@ -1165,7 +1165,7 @@ public class Frame extends javax.swing.JFrame {
                         System.out.println("Bueno aca encontre este path: "+pathFoto);
                         continue;
                     }
-                    /*else if(m2.getColumnName(i).contains("foto")){
+                    /*else if(m2.getColumnName(i).contains("foto")){h
                         continue;
                     }*/
                     String data = rsCliente.getString(i);
