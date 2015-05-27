@@ -275,7 +275,7 @@ public class Frame extends javax.swing.JFrame {
                     .addComponent(btn_buscarHome)
                     .addComponent(btn_limpiarHome))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 655, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -361,7 +361,7 @@ public class Frame extends javax.swing.JFrame {
             .addGroup(panelNewUserLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelNewUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(subPanelNewUser_A)
+                    .addComponent(subPanelNewUser_A, javax.swing.GroupLayout.DEFAULT_SIZE, 970, Short.MAX_VALUE)
                     .addGroup(panelNewUserLayout.createSequentialGroup()
                         .addComponent(panelFoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -494,7 +494,7 @@ public class Frame extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 144, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -503,7 +503,7 @@ public class Frame extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createSequentialGroup()
                     .addContainerGap()
                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(subPanelNewUser_A1)
+                        .addComponent(subPanelNewUser_A1, javax.swing.GroupLayout.DEFAULT_SIZE, 970, Short.MAX_VALUE)
                         .addGroup(jPanel5Layout.createSequentialGroup()
                             .addComponent(panelFoto1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(472, 472, 472)))
@@ -567,7 +567,7 @@ public class Frame extends javax.swing.JFrame {
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap(757, Short.MAX_VALUE)
+                .addContainerGap(789, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                         .addComponent(jLabel2)
@@ -594,12 +594,12 @@ public class Frame extends javax.swing.JFrame {
                     .addComponent(jLabel2))
                 .addGap(33, 33, 33)
                 .addComponent(jButton5)
-                .addContainerGap(510, Short.MAX_VALUE))
+                .addContainerGap(478, Short.MAX_VALUE))
             .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel6Layout.createSequentialGroup()
                     .addContainerGap()
                     .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(subPanelNewUser_A2)
+                        .addComponent(subPanelNewUser_A2, javax.swing.GroupLayout.DEFAULT_SIZE, 970, Short.MAX_VALUE)
                         .addGroup(jPanel6Layout.createSequentialGroup()
                             .addComponent(panelFoto2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(472, 472, 472)))
@@ -758,7 +758,7 @@ public class Frame extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(panelSocialLayout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 1056, Short.MAX_VALUE)
+                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 1088, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelSocialLayout.setVerticalGroup(
@@ -797,7 +797,7 @@ public class Frame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
-                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE))
+                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -861,7 +861,7 @@ public class Frame extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(365, 365, 365)
                                 .addComponent(btnAgregarColumna)))
-                        .addContainerGap(128, Short.MAX_VALUE))))
+                        .addContainerGap(160, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -880,7 +880,7 @@ public class Frame extends javax.swing.JFrame {
                 .addComponent(btnAgregarColumna)
                 .addGap(58, 58, 58)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(396, Short.MAX_VALUE))
+                .addContainerGap(364, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("Agregar Columna", jPanel1);
@@ -914,7 +914,7 @@ public class Frame extends javax.swing.JFrame {
                     .addGroup(panelAgregarUsuarioLayout.createSequentialGroup()
                         .addGap(103, 103, 103)
                         .addComponent(btnAgregarUser)))
-                .addContainerGap(381, Short.MAX_VALUE))
+                .addContainerGap(413, Short.MAX_VALUE))
         );
         panelAgregarUsuarioLayout.setVerticalGroup(
             panelAgregarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -929,7 +929,7 @@ public class Frame extends javax.swing.JFrame {
                     .addComponent(txtAgregarPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(48, 48, 48)
                 .addComponent(btnAgregarUser)
-                .addContainerGap(552, Short.MAX_VALUE))
+                .addContainerGap(520, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("Agregar Usuario", panelAgregarUsuario);
@@ -947,7 +947,7 @@ public class Frame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane2)
+                .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1020, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1921,7 +1921,7 @@ public class Frame extends javax.swing.JFrame {
             ResultSetMetaData mCliente = rsCliente.getMetaData();
             numeroEnCliente = mCliente.getColumnCount()-6;
             while(rsCliente.next()){
-                for(int i = 1; i < mCliente.getColumnCount();i++){
+                for(int i = 1; i <= mCliente.getColumnCount();i++){
                     if(mCliente.getColumnName(i).contains("id") && !mCliente.getColumnName(i).equals("apellido")){
                         continue;
                     }
@@ -1943,7 +1943,7 @@ public class Frame extends javax.swing.JFrame {
             ResultSet rsContacto = stContacto.executeQuery(queryContacto);
             ResultSetMetaData mContacto = rsContacto.getMetaData();
             while(rsContacto.next()){
-                for(int i = 1; i < mContacto.getColumnCount();i++){
+                for(int i = 1; i <=mContacto.getColumnCount();i++){
                     if(mContacto.getColumnName(i).contains("id") && !mContacto.getColumnName(i).equals("apellido")){
                         continue;
                     }
@@ -1962,7 +1962,7 @@ public class Frame extends javax.swing.JFrame {
             ResultSet rsEmpresa = stEmpresa.executeQuery(queryEmpresa);
             ResultSetMetaData mEmpresa = rsEmpresa.getMetaData();
             while(rsEmpresa.next()){
-                for(int i = 1; i < mEmpresa.getColumnCount();i++){
+                for(int i = 1; i <= mEmpresa.getColumnCount();i++){
                     if(mEmpresa.getColumnName(i).contains("id") && !mEmpresa.getColumnName(i).equals("apellido")){
                         continue;
                     }
@@ -1981,7 +1981,7 @@ public class Frame extends javax.swing.JFrame {
             ResultSet rsIndustria = stIndustria.executeQuery(queryIndustria);
             ResultSetMetaData mIndustria = rsIndustria.getMetaData();
             while(rsIndustria.next()){
-                for(int i = 1; i < mIndustria.getColumnCount();i++){
+                for(int i = 1; i <= mIndustria.getColumnCount();i++){
                     if(mIndustria.getColumnName(i).contains("id") && !mIndustria.getColumnName(i).equals("apellido")){
                         continue;
                     }
@@ -2000,7 +2000,7 @@ public class Frame extends javax.swing.JFrame {
             ResultSet rsSocial = stSocial.executeQuery(querySocial);
             ResultSetMetaData mSocial = rsSocial.getMetaData();
             while(rsSocial.next()){
-                for(int i = 1; i < mSocial.getColumnCount();i++){
+                for(int i = 1; i <= mSocial.getColumnCount();i++){
                     if(mSocial.getColumnName(i).contains("id") && !mSocial.getColumnName(i).equals("apellido")){
                         continue;
                     }
@@ -2044,10 +2044,11 @@ public class Frame extends javax.swing.JFrame {
         ArrayList<ArrayList<String>> valoresRevisar = getValueForUpdateUser();
         //ahora se cargan los valores de totalSubpaneles en un arraylist de arraylist
         ArrayList<ArrayList<String>> valoresAntiguos = new ArrayList();
-        for(ArrayList<classForUsers> coso1: totalSubpaneles){
+        for(ArrayList<classForUsers> coso1: totalSubpaneles){ // en esta parte solamente estoy jalando los datos antiguos
             ArrayList<String> valo = new ArrayList();
             for(classForUsers coso2 : coso1){
                 valo.add(coso2.datosEnColumna);
+                System.out.println(coso2.datosEnColumna);
             }
             valoresAntiguos.add(valo);
         }
@@ -2075,6 +2076,7 @@ public class Frame extends javax.swing.JFrame {
             }
             indiceDeArrayFila++;
         }
+
         //se revisa antes de hacer cualquier otra cosa
          ArrayList<PairTypeNumber> arreglar = loader.checkCamposNuevo(tiposActualizarCliente, dataProbar);
          if(!arreglar.isEmpty()){
