@@ -40,6 +40,7 @@ public class Tweet {
     
     }
     
+    //Metodo convierte un tweet a un arraylist de stringss
     public ArrayList<String> toStringArrayList(){
         ArrayList<String> result = new ArrayList<String>();
         result.add(texto);
