@@ -1128,8 +1128,6 @@ public class Frame extends javax.swing.JFrame {
         }
 
 
-
-        
         //ahora se arman las querys para poder llevar a cabo los select
         String queryCliente = "SELECT * FROM cliente WHERE id = "+id;
         String queryContacto = "SELECT * FROM contacto WHERE id = "+idContacto;
@@ -1275,6 +1273,7 @@ public class Frame extends javax.swing.JFrame {
         //System.out.println(pathFoto);
         File filePict = new File(pathFoto);
         setTargetUpdate(filePict);
+        System.out.println("el pinche path es aca hehehehehehe: "+pathFoto);
         jButton4.setEnabled(true);
         jButton3.setEnabled(true);
     }//GEN-LAST:event_jComboBox1ActionPerformed
